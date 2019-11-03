@@ -1,0 +1,2 @@
+include ':PrimePuzzlesPhone'
+rootProject.name='PrimePuzzle'
