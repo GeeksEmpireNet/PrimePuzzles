@@ -10,6 +10,5 @@ class GamePlay : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_play_view)
 
-
     }
 }
