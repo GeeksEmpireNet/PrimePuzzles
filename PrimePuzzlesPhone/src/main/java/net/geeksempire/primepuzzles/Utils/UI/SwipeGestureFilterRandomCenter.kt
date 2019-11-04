@@ -7,10 +7,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
+import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
 import kotlin.math.abs
 
-class SwipeGestureFilter(private val view: View, initContext: Context, private val gestureListener: GestureListener) : SimpleOnGestureListener() {
+class SwipeGestureFilterRandomCenter(private val view: View, initContext: Context, private val gestureListener: GestureListener) : SimpleOnGestureListener() {
 
     private val context: Context = initContext
 
@@ -75,17 +77,42 @@ class SwipeGestureFilter(private val view: View, initContext: Context, private v
             return false
         }
 
+        val springForce: SpringForce by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            SpringForce(0f).apply {
+                stiffness = SpringForce.STIFFNESS_LOW
+                dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+            }
+        }
+
+        val springAnimationTranslationX: SpringAnimation by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            SpringAnimation(view, DynamicAnimation.TRANSLATION_X).setSpring(springForce)
+        }
+        val springAnimationTranslationY: SpringAnimation by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            SpringAnimation(view, DynamicAnimation.TRANSLATION_Y).setSpring(springForce)
+        }
+
         val flingAnimationX: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
             FlingAnimation(view, DynamicAnimation.X)
                 .setFriction(1.3f)
                 .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat())
+                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat() - view.width)
         }
+
         val flingAnimationY: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
             FlingAnimation(view, DynamicAnimation.Y)
                 .setFriction(1.3f)
                 .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat())
+                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - view.height)
+        }
+
+        flingAnimationX.addEndListener { animation, canceled, value, velocity ->
+            springAnimationTranslationX.start()
+            springAnimationTranslationY.start()
+        }
+
+        flingAnimationY.addEndListener { animation, canceled, value, velocity ->
+            springAnimationTranslationX.start()
+            springAnimationTranslationY.start()
         }
 
         var result = false

@@ -5,25 +5,28 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.google.android.material.button.MaterialButton
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
-import net.geeksempire.primepuzzles.Utils.UI.SwipeGestureFilter
+import net.geeksempire.primepuzzles.Utils.UI.SwipeGestureFilterRandomCenter
 
-class GestureRandomCenter : MaterialButton,
-    SwipeGestureFilter.GestureListener {
+class GesturedRandomCenter : MaterialButton,
+    SwipeGestureFilterRandomCenter.GestureListener {
 
-    var swipeGestureFilter: SwipeGestureFilter
+    var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        swipeGestureFilter = SwipeGestureFilter(this@GestureRandomCenter, context, this@GestureRandomCenter)
+        swipeGestureFilterRandomCenter = SwipeGestureFilterRandomCenter(this@GesturedRandomCenter, context, this@GesturedRandomCenter)
 
     }
 
     constructor(context: Context) : super(context) {
-        swipeGestureFilter = SwipeGestureFilter(this@GestureRandomCenter, context, this@GestureRandomCenter)
+        swipeGestureFilterRandomCenter = SwipeGestureFilterRandomCenter(this@GesturedRandomCenter, context, this@GesturedRandomCenter)
 
     }
 
     init {
+        val listTOfRandom = ArrayList<Int>()
+        listTOfRandom.addAll(1..999)
 
+        this@GesturedRandomCenter.text = "${listTOfRandom.random()}"
     }
 
     override fun onDetachedFromWindow() {
@@ -31,29 +34,29 @@ class GestureRandomCenter : MaterialButton,
     }
 
     override fun dispatchTouchEvent(motionEvent: MotionEvent): Boolean {
-        this.swipeGestureFilter.onTouchEvent(motionEvent)
+        this.swipeGestureFilterRandomCenter.onTouchEvent(motionEvent)
 
         return super.dispatchTouchEvent(motionEvent)
     }
 
     override fun onSwipe(direction: Int) {
         when (direction) {
-            SwipeGestureFilter.SWIPE_DOWN -> {
+            SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_DOWN")
 
 
             }
-            SwipeGestureFilter.SWIPE_LEFT -> {
+            SwipeGestureFilterRandomCenter.SWIPE_LEFT -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_LEFT")
 
 
             }
-            SwipeGestureFilter.SWIPE_RIGHT -> {
+            SwipeGestureFilterRandomCenter.SWIPE_RIGHT -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_RIGHT")
 
 
             }
-            SwipeGestureFilter.SWIPE_UP -> {
+            SwipeGestureFilterRandomCenter.SWIPE_UP -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_UP")
 
 

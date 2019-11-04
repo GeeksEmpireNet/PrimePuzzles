@@ -5,14 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".GamePlay.GamePlay">
 
-    <net.geeksempire.primepuzzles.GameView.GestureRandomCenter xmlns:apps="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
+    <net.geeksempire.primepuzzles.GameView.GesturedRandomCenter xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:apps="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/gesturedRandomCenter"
+        android:layout_width="123dp"
         android:layout_height="123dp"
+        android:gravity="center"
         android:textAllCaps="false"
-        android:text="Hello World!"
+        android:textColor="@color/light"
+        android:textSize="31sp"
+
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12dp"
+        app:autoSizeMaxTextSize="31sp"
+        app:autoSizeStepGranularity="1sp"
+
         apps:layout_constraintBottom_toBottomOf="parent"
         apps:layout_constraintLeft_toLeftOf="parent"
         apps:layout_constraintRight_toRightOf="parent"
-        apps:layout_constraintTop_toTopOf="parent" />
+        apps:layout_constraintTop_toTopOf="parent"
+
+        apps:elevation="23dp"
+        apps:cornerRadius="51dp"
+        apps:rippleColor="@color/default_color_light_transparent"
+        apps:backgroundTint="@color/default_color_game_light"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
