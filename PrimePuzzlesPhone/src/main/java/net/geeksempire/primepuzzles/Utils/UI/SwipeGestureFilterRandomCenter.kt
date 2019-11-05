@@ -5,16 +5,17 @@ import android.os.Handler
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
-import android.view.View
+import android.widget.Button
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
+import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
 import kotlin.math.abs
 
-class SwipeGestureFilterRandomCenter(private val view: View, initContext: Context, private val gestureListener: GestureListener) : SimpleOnGestureListener() {
+class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Context, private val gestureListener: GestureListener) : SimpleOnGestureListener() {
 
     private val context: Context = initContext
 
@@ -103,6 +104,13 @@ class SwipeGestureFilterRandomCenter(private val view: View, initContext: Contex
                 .postDelayed({
                     springAnimationTranslationX.start()
                     springAnimationTranslationY.start()
+
+                    val listTOfRandom = ArrayList<Int>()
+                    listTOfRandom.addAll(2..9)
+
+                    val randomCenterValue: Int = listTOfRandom.random()
+                    view.text = "${randomCenterValue}"
+                    GameVariables.CENTER_VALUE.value = randomCenterValue
                 }, 333)
         }
 
@@ -123,6 +131,13 @@ class SwipeGestureFilterRandomCenter(private val view: View, initContext: Contex
                 .postDelayed({
                     springAnimationTranslationX.start()
                     springAnimationTranslationY.start()
+
+                    val listTOfRandom = ArrayList<Int>()
+                    listTOfRandom.addAll(2..9)
+
+                    val randomCenterValue: Int = listTOfRandom.random()
+                    view.text = "${randomCenterValue}"
+                    GameVariables.CENTER_VALUE.value = randomCenterValue
                 }, 333)
         }
 

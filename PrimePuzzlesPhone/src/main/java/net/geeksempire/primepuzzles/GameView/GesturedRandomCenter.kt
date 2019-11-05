@@ -25,7 +25,7 @@ class GesturedRandomCenter : Button,
 
     init {
         val listTOfRandom = ArrayList<Int>()
-        listTOfRandom.addAll(1..9)
+        listTOfRandom.addAll(2..9)
 
         val randomCenterValue: Int = listTOfRandom.random()
         this@GesturedRandomCenter.text = "${randomCenterValue}"
