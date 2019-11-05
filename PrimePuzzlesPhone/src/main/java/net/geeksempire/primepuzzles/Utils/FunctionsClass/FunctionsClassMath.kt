@@ -4,3 +4,8 @@ fun isNumbersDivisible(aA: Int, bB: Int) : Boolean {
 
     return ((aA % bB == 0) || (bB % aA == 0))
 }
+
+fun generateHint(): String {
+
+    return ""
+}
