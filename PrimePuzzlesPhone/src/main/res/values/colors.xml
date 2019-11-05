@@ -6,6 +6,7 @@
     <color name="default_color_light">#008dda</color>
     <color name="default_color_light_transparent">#80008dda</color>
     <color name="default_color_darker">#0a415e</color>
+    <color name="default_color_darker_transparent">#800a415e</color>
 
     <color name="default_color_game">#ae2357</color>
     <color name="default_color_game_light">#FF005D</color>

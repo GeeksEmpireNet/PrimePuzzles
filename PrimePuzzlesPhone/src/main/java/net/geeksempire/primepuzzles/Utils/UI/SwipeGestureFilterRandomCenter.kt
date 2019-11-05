@@ -1,6 +1,7 @@
 package net.geeksempire.primepuzzles.Utils.UI
 
 import android.content.Context
+import android.os.Handler
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
@@ -9,6 +10,7 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
+import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
 import kotlin.math.abs
 
@@ -18,22 +20,165 @@ class SwipeGestureFilterRandomCenter(private val view: View, initContext: Contex
 
     lateinit var functionsClassUI: FunctionsClassUI
 
-    var swipeMinDistance = 10
-    var swipeMaxDistance = 1000
+    private var swipeMinDistance: Int  = 10
+    private var swipeMaxDistance: Int  = 1000
 
-    var swipeMinVelocity = 10
+    private var swipeMinVelocity: Int  = 10
 
-    var mode = MODE_DYNAMIC
+    private var mode: Int = MODE_DYNAMIC
 
-    private var running = true
+    private var swipeMode: Int = 0
+
+    private var running: Boolean = true
+
 
     private var tapIndicator = false
     private val gestureDetector: GestureDetector
+
 
     init {
         this.gestureDetector = GestureDetector(initContext, this)
 
         functionsClassUI = FunctionsClassUI(initContext)
+    }
+
+    override fun onFling(
+        downMotionEvent: MotionEvent,
+        moveMotionEvent: MotionEvent,
+        initVelocityX: Float,
+        initVelocityY: Float): Boolean {
+
+        val velocityX: Float = initVelocityX
+        val velocityY: Float = initVelocityY
+
+        val xDistance = abs(downMotionEvent.x - moveMotionEvent.x)
+        val yDistance = abs(downMotionEvent.y - moveMotionEvent.y)
+
+        if (xDistance > this.swipeMaxDistance || yDistance > this.swipeMaxDistance) {
+            return false
+        }
+
+        val springForce: SpringForce by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            SpringForce(0f).apply {
+                stiffness = SpringForce.STIFFNESS_LOW
+                dampingRatio = SpringForce.DAMPING_RATIO_LOW_BOUNCY
+            }
+        }
+
+        val springAnimationTranslationX: SpringAnimation by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            SpringAnimation(view, DynamicAnimation.TRANSLATION_X).setSpring(springForce)
+        }
+        val springAnimationTranslationY: SpringAnimation by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+            SpringAnimation(view, DynamicAnimation.TRANSLATION_Y).setSpring(springForce)
+        }
+
+        val flingAnimationX: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
+            FlingAnimation(view, DynamicAnimation.X)
+                .setFriction(1.3f)
+                .setMinValue(0f)
+                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat() - view.width)
+        }
+
+        val flingAnimationY: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
+            FlingAnimation(view, DynamicAnimation.Y)
+                .setFriction(1.3f)
+                .setMinValue(0f)
+                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - view.height)
+        }
+
+        flingAnimationX.addEndListener { animation, canceled, value, velocity ->
+
+            when (swipeMode()) {
+                SwipeGestureFilterRandomCenter.SWIPE_LEFT -> {
+                    GameOperations().determineLeftValue()
+
+                }
+                SwipeGestureFilterRandomCenter.SWIPE_RIGHT -> {
+                    GameOperations().determineRightValue()
+
+                }
+            }
+
+            Handler()
+                .postDelayed({
+                    springAnimationTranslationX.start()
+                    springAnimationTranslationY.start()
+                }, 333)
+        }
+
+        flingAnimationY.addEndListener { animation, canceled, value, velocity ->
+
+            when (swipeMode()) {
+                SwipeGestureFilterRandomCenter.SWIPE_UP -> {
+                    GameOperations().determineTopValue()
+
+                }
+                SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
+
+                }
+            }
+
+
+            Handler()
+                .postDelayed({
+                    springAnimationTranslationX.start()
+                    springAnimationTranslationY.start()
+                }, 333)
+        }
+
+        var result = false
+        if (abs(velocityY) >= this.swipeMinVelocity && yDistance > this.swipeMinDistance && xDistance < yDistance) {//Vertical
+            if (downMotionEvent.y > moveMotionEvent.y) {//Bottom -> Up
+                this.gestureListener.onSwipe(SWIPE_UP)
+                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_UP
+
+
+            } else {//Up -> Bottom
+                this.gestureListener.onSwipe(SWIPE_DOWN)
+                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_DOWN
+
+
+            }
+
+            flingAnimationY.setStartValue(view.y)
+            flingAnimationY.setStartVelocity(velocityY)
+            flingAnimationY.start()
+
+            result = true
+        }
+
+        if (abs(velocityX) >= this.swipeMinVelocity && xDistance > this.swipeMinDistance && yDistance < xDistance) {//Horizontal
+            if (downMotionEvent.x > moveMotionEvent.x) {//Right -> Left
+                this.gestureListener.onSwipe(SWIPE_LEFT)
+                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_LEFT
+
+
+            } else {//Left -> Right
+                this.gestureListener.onSwipe(SWIPE_RIGHT)
+                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_RIGHT
+
+
+            }
+
+            flingAnimationX.setStartValue(view.x)
+            flingAnimationX.setStartVelocity(velocityX)
+            flingAnimationX.start()
+
+            result = true
+        }
+        return result
+    }
+
+    override fun onSingleTapConfirmed(motionEvent: MotionEvent): Boolean {
+        this.gestureListener.onSingleTapUp()
+
+        return false
+    }
+
+    interface GestureListener {
+        fun onSwipe(direction: Int)
+
+        fun onSingleTapUp()
     }
 
     fun onTouchEvent(motionEvent: MotionEvent) {
@@ -61,113 +206,9 @@ class SwipeGestureFilterRandomCenter(private val view: View, initContext: Contex
         this.running = status
     }
 
-    override fun onFling(
-        downMotionEvent: MotionEvent,
-        moveMotionEvent: MotionEvent,
-        initVelocityX: Float,
-        initVelocityY: Float): Boolean {
+    fun swipeMode(): Int {
 
-        val velocityX: Float = initVelocityX
-        val velocityY: Float = initVelocityY
-
-        val xDistance = abs(downMotionEvent.x - moveMotionEvent.x)
-        val yDistance = abs(downMotionEvent.y - moveMotionEvent.y)
-
-        if (xDistance > this.swipeMaxDistance || yDistance > this.swipeMaxDistance) {
-            return false
-        }
-
-        val springForce: SpringForce by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
-            SpringForce(0f).apply {
-                stiffness = SpringForce.STIFFNESS_LOW
-                dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
-            }
-        }
-
-        val springAnimationTranslationX: SpringAnimation by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
-            SpringAnimation(view, DynamicAnimation.TRANSLATION_X).setSpring(springForce)
-        }
-        val springAnimationTranslationY: SpringAnimation by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
-            SpringAnimation(view, DynamicAnimation.TRANSLATION_Y).setSpring(springForce)
-        }
-
-        val flingAnimationX: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
-            FlingAnimation(view, DynamicAnimation.X)
-                .setFriction(1.3f)
-                .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat() - view.width)
-        }
-
-        val flingAnimationY: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
-            FlingAnimation(view, DynamicAnimation.Y)
-                .setFriction(1.3f)
-                .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - view.height)
-        }
-
-        flingAnimationX.addEndListener { animation, canceled, value, velocity ->
-            springAnimationTranslationX.start()
-            springAnimationTranslationY.start()
-        }
-
-        flingAnimationY.addEndListener { animation, canceled, value, velocity ->
-            springAnimationTranslationX.start()
-            springAnimationTranslationY.start()
-        }
-
-        var result = false
-        if (abs(velocityY) >= this.swipeMinVelocity && yDistance > this.swipeMinDistance && xDistance < yDistance) {//Vertical
-            if (downMotionEvent.y > moveMotionEvent.y) {//Bottom -> Up
-                this.gestureListener.onSwipe(SWIPE_UP)
-
-
-
-            } else {//Up -> Bottom
-                this.gestureListener.onSwipe(SWIPE_DOWN)
-
-
-
-            }
-
-            flingAnimationY.setStartValue(view.y)
-            flingAnimationY.setStartVelocity(velocityY)
-            flingAnimationY.start()
-
-            result = true
-        }
-
-        if (abs(velocityX) >= this.swipeMinVelocity && xDistance > this.swipeMinDistance && yDistance < xDistance) {//Horizontal
-            if (downMotionEvent.x > moveMotionEvent.x) {//Right -> Left
-                this.gestureListener.onSwipe(SWIPE_LEFT)
-
-
-
-            } else {//Left -> Right
-                this.gestureListener.onSwipe(SWIPE_RIGHT)
-
-
-
-            }
-
-            flingAnimationX.setStartValue(view.x)
-            flingAnimationX.setStartVelocity(velocityX)
-            flingAnimationX.start()
-
-            result = true
-        }
-        return result
-    }
-
-    override fun onSingleTapConfirmed(motionEvent: MotionEvent): Boolean {
-        this.gestureListener.onSingleTapUp()
-
-        return false
-    }
-
-    interface GestureListener {
-        fun onSwipe(direction: Int)
-
-        fun onSingleTapUp()
+        return swipeMode
     }
 
     companion object {

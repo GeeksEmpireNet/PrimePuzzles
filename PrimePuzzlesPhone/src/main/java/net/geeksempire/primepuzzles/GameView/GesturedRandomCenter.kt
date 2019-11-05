@@ -3,11 +3,12 @@ package net.geeksempire.primepuzzles.GameView
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
-import com.google.android.material.button.MaterialButton
+import android.widget.Button
+import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.UI.SwipeGestureFilterRandomCenter
 
-class GesturedRandomCenter : MaterialButton,
+class GesturedRandomCenter : Button,
     SwipeGestureFilterRandomCenter.GestureListener {
 
     var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
@@ -24,9 +25,11 @@ class GesturedRandomCenter : MaterialButton,
 
     init {
         val listTOfRandom = ArrayList<Int>()
-        listTOfRandom.addAll(1..999)
+        listTOfRandom.addAll(1..9)
 
-        this@GesturedRandomCenter.text = "${listTOfRandom.random()}"
+        val randomCenterValue: Int = listTOfRandom.random()
+        this@GesturedRandomCenter.text = "${randomCenterValue}"
+        GameVariables.CENTER_VALUE.value = randomCenterValue
     }
 
     override fun onDetachedFromWindow() {
@@ -44,7 +47,6 @@ class GesturedRandomCenter : MaterialButton,
             SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_DOWN")
 
-
             }
             SwipeGestureFilterRandomCenter.SWIPE_LEFT -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_LEFT")
@@ -58,7 +60,6 @@ class GesturedRandomCenter : MaterialButton,
             }
             SwipeGestureFilterRandomCenter.SWIPE_UP -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_UP")
-
 
             }
         }

@@ -8,18 +8,24 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
+        android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/GeeksEmpire.Material">
-        <activity android:name=".Configuration">
+
+        <activity
+            android:name=".Configuration"
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GamePlay.GamePlay">
+        <activity
+            android:name=".GamePlay.GamePlay"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/GeeksEmpire.Material">
 
         </activity>
     </application>
