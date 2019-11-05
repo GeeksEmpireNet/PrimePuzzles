@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Prime Puzzles</string>
+
+    <string name="thinkMore">Think More… 🤔</string>
 </resources>

@@ -1,2 +1,2 @@
-include ':PrimePuzzlesPhone', ':LoadingSpin'
+include ':PrimePuzzlesPhone', ':LoadingSpin', ':PhysicsAnimation'
 rootProject.name='PrimePuzzle'
