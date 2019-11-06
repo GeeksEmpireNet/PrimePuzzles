@@ -23,6 +23,7 @@ import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.R
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.generateHint
 
@@ -30,13 +31,22 @@ import net.geeksempire.primepuzzles.Utils.FunctionsClass.generateHint
 class GamePlay : AppCompatActivity() {
 
     private lateinit var functionsClassUI: FunctionsClassUI
+    private lateinit var functionsClassGame: FunctionsClassGame
 
     private lateinit var gameVariables: GameVariables
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +62,7 @@ class GamePlay : AppCompatActivity() {
         setContentView(R.layout.game_play_view)
 
         functionsClassUI = FunctionsClassUI(applicationContext)
+        functionsClassGame = FunctionsClassGame(applicationContext)
 
         gameVariables = ViewModelProviders.of(this).get(GameVariables::class.java)
 
@@ -79,6 +90,8 @@ class GamePlay : AppCompatActivity() {
         GameVariables.PRIME_NUMBER_DETECTED.observe(this, object : Observer<Boolean> {
             override fun onChanged(primeDetected: Boolean?) {
                 if (primeDetected!!) {
+                    functionsClassGame.playLongPrimeDetectionSound()
+
                     detectedPrimeNumber.text = "${GameVariables.CENTER_VALUE.value!!}"
 
                     functionsClassUI.circularRevealAnimation(
@@ -87,6 +100,26 @@ class GamePlay : AppCompatActivity() {
                         primeNumbers.x + (primeNumbers.width/2),
                         1f
                     )
+                }
+            }
+        })
+
+        GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
+        GameVariables.SHUFFLE_PROCESS_POSITION.observe(this, object : Observer<Int> {
+            override fun onChanged(newShufflePosition: Int?) {
+
+                if (newShufflePosition!! >= 7) {
+                    shuffleProcessPosition()
+                }
+            }
+        })
+
+        GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
+        GameVariables.SHUFFLE_PROCESS_VALUE.observe(this, object : Observer<Int> {
+            override fun onChanged(newShuffleValue: Int?) {
+
+                if (newShuffleValue!! >= 21) {
+                    shuffleProcessValue()
                 }
             }
         })
@@ -132,9 +165,9 @@ class GamePlay : AppCompatActivity() {
         val gradientDrawable = GradientDrawable(
             GradientDrawable.Orientation.BOTTOM_TOP,
             intArrayOf(
-                getColor(R.color.dark_transparent),
+                getColor(R.color.dark),
                 getColor(R.color.darker),
-                getColor(R.color.dark_transparent)
+                getColor(R.color.dark)
             )
         )
 
@@ -196,6 +229,7 @@ class GamePlay : AppCompatActivity() {
     }
 
     private fun setupThreeRandomViews() {
+
         val springSystem = SpringSystem.create()
 
         val springRandomTop = springSystem.createSpring()
@@ -322,5 +356,55 @@ class GamePlay : AppCompatActivity() {
             }
             return@setOnTouchListener false
         }
+    }
+
+    private fun shuffleProcessPosition() {
+        functionsClassGame.playShuffleMagicalNumbersPosition()
+
+        val listOfDivisibleShuffle = ArrayList<Int>()
+        listOfDivisibleShuffle.add(randomTop.text.toString().toInt())
+        listOfDivisibleShuffle.add(randomLeft.text.toString().toInt())
+        listOfDivisibleShuffle.add(randomRight.text.toString().toInt())
+
+        val topValueRandom = listOfDivisibleShuffle.random()
+        listOfDivisibleShuffle.remove(topValueRandom)
+        GameVariables.TOP_VALUE.value = topValueRandom
+        randomTop.text = "${topValueRandom}"
+
+        val leftValueRandom = listOfDivisibleShuffle.random()
+        listOfDivisibleShuffle.remove(leftValueRandom)
+        GameVariables.LEFT_VALUE.value = leftValueRandom
+        randomLeft.text = "${leftValueRandom}"
+
+        val rightValueRandom = listOfDivisibleShuffle.random()
+        listOfDivisibleShuffle.remove(rightValueRandom)
+        GameVariables.RIGHT_VALUE.value = rightValueRandom
+        randomRight.text = "${rightValueRandom}"
+
+        GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
+    }
+
+    private fun shuffleProcessValue() {
+        functionsClassGame.playShuffleMagicalNumbersValues()
+
+        val listOfDivisibleShuffle = ArrayList<Int>()
+        listOfDivisibleShuffle.addAll(2..9)
+
+        val topValueRandom = listOfDivisibleShuffle.random()
+        listOfDivisibleShuffle.remove(topValueRandom)
+        GameVariables.TOP_VALUE.value = topValueRandom
+        randomTop.text = "${topValueRandom}"
+
+        val leftValueRandom = listOfDivisibleShuffle.random()
+        listOfDivisibleShuffle.remove(leftValueRandom)
+        GameVariables.LEFT_VALUE.value = leftValueRandom
+        randomLeft.text = "${leftValueRandom}"
+
+        val rightValueRandom = listOfDivisibleShuffle.random()
+        listOfDivisibleShuffle.remove(rightValueRandom)
+        GameVariables.RIGHT_VALUE.value = rightValueRandom
+        randomRight.text = "${rightValueRandom}"
+
+        GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
     }
 }

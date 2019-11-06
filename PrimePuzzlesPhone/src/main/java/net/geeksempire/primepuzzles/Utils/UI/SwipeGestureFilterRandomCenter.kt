@@ -91,6 +91,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
         }
 
         flingAnimationX.addEndListener { animation, canceled, value, velocity ->
+            GameVariables.SHUFFLE_PROCESS_POSITION.value = GameVariables.SHUFFLE_PROCESS_POSITION.value!! + 1
+            GameVariables.SHUFFLE_PROCESS_VALUE.value = GameVariables.SHUFFLE_PROCESS_VALUE.value!! + 1
 
             when (swipeMode()) {
                 SwipeGestureFilterRandomCenter.SWIPE_LEFT -> {
@@ -157,6 +159,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
         }
 
         flingAnimationY.addEndListener { animation, canceled, value, velocity ->
+            GameVariables.SHUFFLE_PROCESS_POSITION.value = GameVariables.SHUFFLE_PROCESS_POSITION.value!! + 1
+            GameVariables.SHUFFLE_PROCESS_VALUE.value = GameVariables.SHUFFLE_PROCESS_VALUE.value!! + 1
 
             when (swipeMode()) {
                 SwipeGestureFilterRandomCenter.SWIPE_UP -> {
@@ -228,7 +232,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         triggerCenterRandomChange = true
                         divisibleTriggered = false
                         primeNumberDetected = false
-                    }, 999)
+                    }, 1333)
             } else {
 
                 Handler()
@@ -335,6 +339,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
             //CORRECT ANSWER
             triggerCenterRandomChange = true
+
+            functionsClassGame.playChangedCenterRandomSound()
         } else {
             GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
             GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
@@ -342,7 +348,6 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             GameVariables.TOGGLE_SNACKBAR.value = true
 
             //WRONG ANSWER
-
             functionsClassGame.playWrongSound()
         }
 

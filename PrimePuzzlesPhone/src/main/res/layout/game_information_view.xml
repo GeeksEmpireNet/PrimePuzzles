@@ -4,7 +4,9 @@
     android:id="@+id/gameInformationView"
     android:layout_width="match_parent"
     android:layout_height="57dp"
-    android:background="@color/green"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:background="@color/default_color_darker"
     tools:context=".GamePlay.GamePlay">
 
 </RelativeLayout>
