@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.Button
+import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.UI.SwipeGestureFilterRandomCenter
@@ -25,7 +26,14 @@ class GesturedRandomCenter : Button,
 
     init {
         val listTOfRandom = ArrayList<Int>()
-        listTOfRandom.addAll(2..9)
+        when (GameLevel().getGameDifficultyLevel()) {
+            GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
+                listTOfRandom.addAll(2..9)
+            }
+            GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
+                listTOfRandom.addAll(10..99)
+            }
+        }
 
         val randomCenterValue: Int = listTOfRandom.random()
         this@GesturedRandomCenter.text = "${randomCenterValue}"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullDetectPrime"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_prime_number_detected"
+    tools:context=".GamePlay.GamePlay">
+
+    <TextView
+        android:id="@+id/detectedPrimeNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="77dp"
+        android:gravity="center"
+        android:fontFamily="@font/play"
+        android:textSize="133sp"
+        android:textColor="@color/lighter"
+        android:shadowColor="@color/light_transparent"
+        android:shadowRadius="133"
+        android:shadowDx="0"
+        android:shadowDy="0"/>
+
+</RelativeLayout>

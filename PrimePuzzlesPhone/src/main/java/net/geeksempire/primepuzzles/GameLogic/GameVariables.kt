@@ -22,7 +22,13 @@ class GameVariables : ViewModel(){
         val RIGHT_VALUE: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
+
+        val TOGGLE_SNACKBAR: MutableLiveData<Boolean> by lazy {
+            MutableLiveData<Boolean>()
+        }
+
+        val PRIME_NUMBER_DETECTED: MutableLiveData<Boolean> by lazy {
+            MutableLiveData<Boolean>()
+        }
     }
-
-
 }

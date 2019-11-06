@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullGamePlay"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".GamePlay.GamePlay">
+    tools:context=".GamePlay.GamePlay"
+    android:background="@drawable/background_prime_number">
 
     <!-- AdMob -->
 
@@ -21,5 +23,29 @@
         layout="@layout/game_play_control_view"/>
 
 
+    <TextView
+        android:id="@+id/primeNumbers"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="@string/isItPrime"
+        android:textColor="@color/lighter"
+        android:textSize="29sp"
+        android:shadowColor="@color/default_color_darker"
+        android:shadowRadius="113"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:background="@color/transparent" />
+
+    <include
+        android:id="@+id/primeNumberDetectedInclude"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        layout="@layout/prime_number_detected_view"/>
 
 </RelativeLayout>

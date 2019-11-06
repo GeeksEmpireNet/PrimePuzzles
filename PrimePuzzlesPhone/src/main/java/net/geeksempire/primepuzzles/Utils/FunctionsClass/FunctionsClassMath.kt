@@ -1,11 +1,26 @@
 package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
-fun isNumbersDivisible(aA: Int, bB: Int) : Boolean {
-
-    return ((aA % bB == 0) || (bB % aA == 0))
+fun isNumberPrime(numberToCheck: Int) : Boolean {
+    var isPrime = true
+    for (i in (2..9)) {
+        if (numberToCheck % i == 0) {
+            isPrime = false
+            break
+        }
+    }
+    return isPrime
 }
 
-fun generateHint(): String {
+fun isNumbersDivisible(aA: Int, bB: Int) : Boolean {
+
+    return ((aA % bB == 0))
+}
+
+fun primeNumberAction() {
+
+}
+
+fun generateHint() : String {
 
     return ""
 }

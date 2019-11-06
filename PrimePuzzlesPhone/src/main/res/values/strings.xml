@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Prime Puzzles</string>
 
+    <string name="isItPrime">Is It Prime?</string>
+
+    <string name="primeDetect">Prime Number!</string>
+    <string name="primeDetectAction">Done!</string>
+
     <string name="thinkMore">Think More… 🤔</string>
     <string name="showHint">📺 Hint 💡 </string>
 </resources>
