@@ -77,4 +77,9 @@ class GesturedRandomCenter : Button,
         FunctionsClassDebug.PrintDebug("SINGLE_TAP")
 
     }
+
+    override fun onLongPress() {
+        FunctionsClassDebug.PrintDebug("LONG_PRESS")
+    }
+
 }

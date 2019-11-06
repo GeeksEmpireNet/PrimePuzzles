@@ -4,8 +4,8 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.os.Handler
 import android.text.Html
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -16,6 +16,10 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.game_play_control_view.*
 import kotlinx.android.synthetic.main.game_play_view.*
 import kotlinx.android.synthetic.main.prime_number_detected_view.*
+import net.geeksempire.physics.animation.Core.SimpleSpringListener
+import net.geeksempire.physics.animation.Core.Spring
+import net.geeksempire.physics.animation.Core.SpringConfig
+import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.R
@@ -77,17 +81,17 @@ class GamePlay : AppCompatActivity() {
                 if (primeDetected!!) {
                     detectedPrimeNumber.text = "${GameVariables.CENTER_VALUE.value!!}"
 
-                    Handler().postDelayed({
-                        functionsClassUI.circularRevealAnimation(
-                            primeNumberDetectedInclude,
-                            primeNumbers.y + (primeNumbers.height/2),
-                            primeNumbers.x + (primeNumbers.width/2),
-                            1f
-                        )
-                    }, 321)
+                    functionsClassUI.circularRevealAnimation(
+                        primeNumberDetectedInclude,
+                        primeNumbers.y + (primeNumbers.height/2),
+                        primeNumbers.x + (primeNumbers.width/2),
+                        1f
+                    )
                 }
             }
         })
+
+        setupThreeRandomViews()
     }
 
     override fun onStart() {
@@ -151,15 +155,12 @@ class GamePlay : AppCompatActivity() {
 
                                 }
                                 GameInformationVariable.PRIME_NUMBER_ACTION -> {
-
-                                    Handler().postDelayed({
-                                        functionsClassUI.circularHideAnimation(
-                                            primeNumberDetectedInclude,
-                                            primeNumbers.y + (primeNumbers.height/2),
-                                            primeNumbers.x + (primeNumbers.width/2),
-                                            1f
-                                        )
-                                    }, 321)
+                                    functionsClassUI.circularHideAnimation(
+                                        primeNumberDetectedInclude,
+                                        primeNumbers.y + (primeNumbers.height/2),
+                                        primeNumbers.x + (primeNumbers.width/2),
+                                        1f
+                                    )
                                 }
                             }
                         }
@@ -174,7 +175,16 @@ class GamePlay : AppCompatActivity() {
     }
 
     override fun onResume() {
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN)
         super.onResume()
+
+
     }
 
     override fun onPause() {
@@ -183,5 +193,134 @@ class GamePlay : AppCompatActivity() {
 
     override fun onBackPressed() {
 
+    }
+
+    private fun setupThreeRandomViews() {
+        val springSystem = SpringSystem.create()
+
+        val springRandomTop = springSystem.createSpring()
+        val springRandomLeft = springSystem.createSpring()
+        val springRandomRight = springSystem.createSpring()
+
+        springRandomTop.addListener(object : SimpleSpringListener(/*spring*/) {
+            override fun onSpringUpdate(spring: Spring?) {
+                val value = spring!!.currentValue.toFloat()
+                val scale = 1f - (value * 0.5f)
+
+                randomTop.scaleX = scale
+                randomTop.scaleY = scale
+            }
+
+            override fun onSpringEndStateChange(spring: Spring?) {
+
+            }
+
+            override fun onSpringAtRest(spring: Spring?) {
+
+            }
+
+            override fun onSpringActivate(spring: Spring?) {
+
+            }
+
+        })
+
+        springRandomLeft.addListener(object : SimpleSpringListener(/*spring*/) {
+            override fun onSpringUpdate(spring: Spring?) {
+                val value = spring!!.currentValue.toFloat()
+                val scale = 1f - (value * 0.5f)
+
+                randomLeft.scaleX = scale
+                randomLeft.scaleY = scale
+            }
+
+            override fun onSpringEndStateChange(spring: Spring?) {
+
+            }
+
+            override fun onSpringAtRest(spring: Spring?) {
+
+            }
+
+            override fun onSpringActivate(spring: Spring?) {
+
+            }
+
+        })
+
+        springRandomRight.addListener(object : SimpleSpringListener(/*spring*/) {
+            override fun onSpringUpdate(spring: Spring?) {
+                val value = spring!!.currentValue.toFloat()
+                val scale = 1f - (value * 0.5f)
+
+                randomRight.scaleX = scale
+                randomRight.scaleY = scale
+            }
+
+            override fun onSpringEndStateChange(spring: Spring?) {
+
+            }
+
+            override fun onSpringAtRest(spring: Spring?) {
+
+            }
+
+            override fun onSpringActivate(spring: Spring?) {
+
+            }
+
+        })
+
+        val springConfig = SpringConfig(800.0, 20.0 /*friction*/)
+
+        springRandomTop.springConfig = springConfig
+        springRandomLeft.springConfig = springConfig
+        springRandomRight.springConfig = springConfig
+
+
+        randomTop.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    springRandomTop.endValue = (0.7)
+
+                }
+                MotionEvent.ACTION_UP -> {
+                    springRandomTop.endValue = (0.0)
+
+                }
+            }
+            return@setOnTouchListener false
+        }
+        randomTop.setOnClickListener {}
+
+        randomLeft.setOnClickListener {  }
+        randomLeft.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    springRandomLeft.endValue = (0.7)
+
+                }
+                MotionEvent.ACTION_UP -> {
+                    springRandomLeft.endValue = (0.0)
+
+                }
+            }
+            return@setOnTouchListener false
+        }
+
+        randomRight.setOnClickListener {  }
+        randomRight.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    springRandomRight.endValue = (0.7)
+
+                }
+                MotionEvent.ACTION_UP -> {
+                    springRandomRight.endValue = (0.0)
+
+                }
+            }
+            return@setOnTouchListener false
+        }
     }
 }

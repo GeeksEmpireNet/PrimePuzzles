@@ -10,27 +10,24 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
-import net.geeksempire.physics.animation.Core.SimpleSpringListener
-import net.geeksempire.physics.animation.Core.Spring
-import net.geeksempire.physics.animation.Core.SpringConfig
-import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.R
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.isNumberPrime
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.isNumbersDivisible
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.*
 import kotlin.math.abs
 
 class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Context, private val gestureListener: GestureListener) : SimpleOnGestureListener() {
 
     private val context: Context = initContext
 
-    lateinit var functionsClassUI: FunctionsClassUI
+    private val functionsClassSystem: FunctionsClassSystem = FunctionsClassSystem(initContext)
+    private val functionsClassGame: FunctionsClassGame = FunctionsClassGame(initContext)
 
+
+    private var tapIndicator = false
+    private val gestureDetector: GestureDetector = GestureDetector(initContext, this@SwipeGestureFilterRandomCenter)
 
     private var swipeMinDistance: Int  = 10
     private var swipeMaxDistance: Int  = 1000
@@ -38,30 +35,19 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
     private var swipeMinVelocity: Int  = 10
 
     private var mode: Int = MODE_DYNAMIC
-
     private var swipeMode: Int = 0
-
     private var running: Boolean = true
-
-
-    private var tapIndicator = false
-    private val gestureDetector: GestureDetector
 
 
     private var triggerCenterRandomChange: Boolean = false
     private var primeNumberDetected: Boolean = false
     private var divisibleTriggered: Boolean = false
 
-    init {
-        this.gestureDetector = GestureDetector(initContext, this)
-
-        functionsClassUI = FunctionsClassUI(initContext)
-    }
-
     interface GestureListener {
         fun onSwipe(direction: Int)
 
         fun onSingleTapUp()
+        fun onLongPress()
     }
 
     override fun onFling(downMotionEvent: MotionEvent, moveMotionEvent: MotionEvent, initVelocityX: Float, initVelocityY: Float): Boolean {
@@ -117,9 +103,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                             FunctionsClassDebug.PrintDebug("Dismissing Hint")
                         }
 
+                        //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
-                    }
+                    } else {
+                        //WRONG ANSWER
+                        FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
+                        functionsClassGame.playWrongSound()
+                    }
                 }
                 SwipeGestureFilterRandomCenter.SWIPE_RIGHT -> {
                     if (GameOperations().determineRightValue()) {
@@ -131,8 +122,13 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                             FunctionsClassDebug.PrintDebug("Dismissing Hint")
                         }
 
+                        //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
-                    }
+                    } else {
+                        //WRONG ANSWER
+                        FunctionsClassDebug.PrintDebug("WRONG ANSWER")
+
+                        functionsClassGame.playWrongSound() }
                 }
             }
 
@@ -141,10 +137,79 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                     springAnimationTranslationX.start()
                     springAnimationTranslationY.start()
 
-                    if ((!isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-                                && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-                                && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!))
-                        || divisibleTriggered) {
+                    val listTOfRandom = ArrayList<Int>()
+                    when (GameLevel().getGameDifficultyLevel()) {
+                        GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
+                            listTOfRandom.addAll(2..9)
+                        }
+                        GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
+                            listTOfRandom.addAll(10..99)
+                        }
+                    }
+
+                    val randomCenterValue: Int = listTOfRandom.random()
+                    view.text = "${randomCenterValue}"
+                    GameVariables.CENTER_VALUE.value = randomCenterValue
+
+                    triggerCenterRandomChange = true
+                    divisibleTriggered = false
+                }, 333)
+        }
+
+        flingAnimationY.addEndListener { animation, canceled, value, velocity ->
+
+            when (swipeMode()) {
+                SwipeGestureFilterRandomCenter.SWIPE_UP -> {
+                    if (GameOperations().determineTopValue()) {
+                        divisibleTriggered = true
+
+                        if (divisibleTriggered) {
+                            GameVariables.TOGGLE_SNACKBAR.value = false
+
+                            FunctionsClassDebug.PrintDebug("Dismissing Hint")
+                        }
+
+                        //CORRECT ANSWER
+                        FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
+                    } else {
+                        //WRONG ANSWER
+                        FunctionsClassDebug.PrintDebug("WRONG ANSWER")
+
+                        functionsClassGame.playWrongSound()
+                    }
+                }
+                SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
+
+                    if (isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+                        FunctionsClassDebug.PrintDebug("${GameVariables.CENTER_VALUE.value} IS A PRIME Number")
+
+                        //CORRECT ANSWER
+                        primeNumberDetected = true
+                    } else {
+                        //WRONG ANSWER
+                        FunctionsClassDebug.PrintDebug("WRONG ANSWER")
+
+                        functionsClassGame.playWrongSound()
+                    }
+                }
+            }
+
+
+            if (primeNumberDetected) {
+                GameVariables.PRIME_NUMBER_DETECTED.value = true
+
+                GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.primeDetect)
+                GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.primeDetectAction)
+
+                GameVariables.TOGGLE_SNACKBAR.value = true
+                GameInformationVariable.snackBarAction = GameInformationVariable.PRIME_NUMBER_ACTION
+
+                primeNumberDetected = false
+
+                Handler()
+                    .postDelayed({
+                        springAnimationTranslationX.start()
+                        springAnimationTranslationY.start()
 
                         val listTOfRandom = ArrayList<Int>()
                         when (GameLevel().getGameDifficultyLevel()) {
@@ -162,60 +227,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                         triggerCenterRandomChange = true
                         divisibleTriggered = false
-                    }
-                }, 333)
-        }
-
-        flingAnimationY.addEndListener { animation, canceled, value, velocity ->
-
-            when (swipeMode()) {
-                SwipeGestureFilterRandomCenter.SWIPE_UP -> {
-                    if (GameOperations().determineTopValue()) {
-                        divisibleTriggered = true
-
-                        if (divisibleTriggered) {
-                            GameVariables.TOGGLE_SNACKBAR.value = false
-
-                            FunctionsClassDebug.PrintDebug("Dismissing Hint")
-                        }
-
-                        FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
-                    }
-                }
-                SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
-
-                    if (isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
-                        FunctionsClassDebug.PrintDebug("${GameVariables.CENTER_VALUE.value} IS A PRIME Number")
-
-                        primeNumberDetected = true
-
-
-                    } else {
-                        if ((!isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-                                    && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-                                    && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!))) {
-
-                        } else {
-                            GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
-                            GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
-
-                            GameVariables.TOGGLE_SNACKBAR.value = true
-                        }
-                    }
-                }
-            }
-
-
-            if (primeNumberDetected) {
-                GameVariables.PRIME_NUMBER_DETECTED.value = true
-
-                GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.primeDetect)
-                GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.primeDetectAction)
-
-                GameVariables.TOGGLE_SNACKBAR.value = true
-                GameInformationVariable.snackBarAction = GameInformationVariable.PRIME_NUMBER_ACTION
-
-                primeNumberDetected = false
+                        primeNumberDetected = false
+                    }, 999)
             } else {
 
                 Handler()
@@ -223,30 +236,23 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         springAnimationTranslationX.start()
                         springAnimationTranslationY.start()
 
-                        if ((!isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-                                    && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-                                    && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!))
-                            || divisibleTriggered
-                            || primeNumberDetected) {
-
-                            val listTOfRandom = ArrayList<Int>()
-                            when (GameLevel().getGameDifficultyLevel()) {
-                                GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                                    listTOfRandom.addAll(2..9)
-                                }
-                                GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                                    listTOfRandom.addAll(10..99)
-                                }
+                        val listTOfRandom = ArrayList<Int>()
+                        when (GameLevel().getGameDifficultyLevel()) {
+                            GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
+                                listTOfRandom.addAll(2..9)
                             }
-
-                            val randomCenterValue: Int = listTOfRandom.random()
-                            view.text = "${randomCenterValue}"
-                            GameVariables.CENTER_VALUE.value = randomCenterValue
-
-                            triggerCenterRandomChange = true
-                            divisibleTriggered = false
-                            primeNumberDetected = false
+                            GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
+                                listTOfRandom.addAll(10..99)
+                            }
                         }
+
+                        val randomCenterValue: Int = listTOfRandom.random()
+                        view.text = "${randomCenterValue}"
+                        GameVariables.CENTER_VALUE.value = randomCenterValue
+
+                        triggerCenterRandomChange = true
+                        divisibleTriggered = false
+                        primeNumberDetected = false
                     }, 333)
             }
         }
@@ -295,76 +301,58 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
     }
 
     override fun onSingleTapConfirmed(motionEvent: MotionEvent): Boolean {
-        this.gestureListener.onSingleTapUp()
-
-        Handler().postDelayed({
-            val listTOfRandom = ArrayList<Int>()
-            when (GameLevel().getGameDifficultyLevel()) {
-                GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                    listTOfRandom.addAll(2..9)
-                }
-                GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                    listTOfRandom.addAll(10..99)
-                }
-            }
-
-            if (!isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-                && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-                && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
-                && !isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
-
-                val randomCenterValue: Int = listTOfRandom.random()
-                view.text = "${randomCenterValue}"
-                GameVariables.CENTER_VALUE.value = randomCenterValue
-
-                triggerCenterRandomChange = true
-            } else {
-                GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
-                GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
-
-                GameVariables.TOGGLE_SNACKBAR.value = true
-            }
-        }, 123)
 
         return false
     }
 
+    override fun onSingleTapUp(motionEvent: MotionEvent): Boolean {
+        this.gestureListener.onSingleTapUp()
 
+        return false
+    }
+
+    override fun onLongPress(motionEvent: MotionEvent) {
+        this.gestureListener.onLongPress()
+
+        val listTOfRandom = ArrayList<Int>()
+        when (GameLevel().getGameDifficultyLevel()) {
+            GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
+                listTOfRandom.addAll(2..9)
+            }
+            GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
+                listTOfRandom.addAll(10..99)
+            }
+        }
+
+        if (!isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
+            && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
+            && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
+            && !isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+
+            val randomCenterValue: Int = listTOfRandom.random()
+            view.text = "${randomCenterValue}"
+            GameVariables.CENTER_VALUE.value = randomCenterValue
+
+            //CORRECT ANSWER
+            triggerCenterRandomChange = true
+        } else {
+            GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
+            GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
+
+            GameVariables.TOGGLE_SNACKBAR.value = true
+
+            //WRONG ANSWER
+
+            functionsClassGame.playWrongSound()
+        }
+
+        functionsClassSystem.doVibrate()
+    }
 
     fun onTouchEvent(motionEvent: MotionEvent) {
         if (!this.running) {
             return
         }
-
-        val TENSION = 800.0
-        val DAMPER = 20.0 //friction
-
-        val springSystem = SpringSystem.create()
-        val spring = springSystem.createSpring()
-
-        spring.addListener(object : SimpleSpringListener(/*spring*/) {
-            override fun onSpringUpdate(spring: Spring?) {
-                val value = spring!!.currentValue.toFloat()
-                val scale = 1f - (value * 0.5f)
-                view.scaleX = scale
-                view.scaleY = scale
-            }
-
-            override fun onSpringEndStateChange(spring: Spring?) {
-
-            }
-
-            override fun onSpringAtRest(spring: Spring?) {
-
-            }
-
-            override fun onSpringActivate(spring: Spring?) {
-
-            }
-
-        })
-        val springConfig = SpringConfig(TENSION, DAMPER)
-        spring.springConfig = springConfig
 
         val result = this.gestureDetector.onTouchEvent(motionEvent)
         if (this.mode == MODE_SOLID) {
@@ -378,17 +366,6 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                 motionEvent.action = MotionEvent.ACTION_DOWN
 
                 this.tapIndicator = false
-            }
-        }
-
-        when (motionEvent.action) {
-            MotionEvent.ACTION_DOWN -> {
-                spring.endValue = (0.7)
-
-            }
-            MotionEvent.ACTION_UP -> {
-                spring.endValue = (0.1)
-
             }
         }
         //Else -> Just Do Nothing | MODE_TRANSPARENT

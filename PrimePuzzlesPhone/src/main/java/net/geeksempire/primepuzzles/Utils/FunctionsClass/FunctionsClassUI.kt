@@ -2,11 +2,13 @@ package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
 import android.animation.Animator
 import android.content.Context
+import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
+import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import kotlin.math.hypot
 
 
@@ -42,7 +44,7 @@ class FunctionsClassUI(initContext: Context) {
             finalRadius.toFloat()
         )
         circularReveal.duration = 1321
-        circularReveal.interpolator = AccelerateInterpolator()
+        circularReveal.interpolator = AccelerateInterpolator(3.0f)
 
         viewToReveal.visibility = View.VISIBLE
         circularReveal.start()
@@ -52,7 +54,16 @@ class FunctionsClassUI(initContext: Context) {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
+                Handler().postDelayed({
+                    GameVariables.TOGGLE_SNACKBAR.value = false
 
+                    circularHideAnimation(
+                        viewToReveal,
+                        yPosition,
+                        xPosition,
+                        1f
+                    )
+                }, 1321)
             }
 
             override fun onAnimationCancel(animation: Animator?) {
@@ -76,7 +87,7 @@ class FunctionsClassUI(initContext: Context) {
             DpToInteger(startRadius)
         )
         circularReveal.duration = 999
-        circularReveal.interpolator = AccelerateInterpolator()
+        circularReveal.interpolator = AccelerateInterpolator(3.0f)
 
         circularReveal.start()
         circularReveal.addListener(object : Animator.AnimatorListener {

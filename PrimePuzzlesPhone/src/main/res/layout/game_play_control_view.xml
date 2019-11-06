@@ -68,8 +68,8 @@
 
     <net.geeksempire.primepuzzles.GameView.GesturedRandomCenter xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:apps="http://schemas.android.com/apk/res-auto"
         android:id="@+id/gesturedRandomCenter"
-        android:layout_width="159dp"
-        android:layout_height="159dp"
+        android:layout_width="139dp"
+        android:layout_height="139dp"
         android:gravity="center"
         android:textAllCaps="false"
         android:textColor="@color/light"
