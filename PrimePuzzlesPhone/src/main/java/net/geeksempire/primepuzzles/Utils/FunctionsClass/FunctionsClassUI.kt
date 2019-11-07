@@ -63,7 +63,7 @@ class FunctionsClassUI(initContext: Context) {
                         xPosition,
                         1f
                     )
-                }, 3000)
+                }, 1753)
             }
 
             override fun onAnimationCancel(animation: Animator?) {

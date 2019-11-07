@@ -4,22 +4,61 @@
     android:id="@+id/gameInformationView"
     android:layout_width="match_parent"
     android:layout_height="77dp"
-    android:layout_marginTop="7dp"
-    android:layout_marginBottom="7dp"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
     android:background="@drawable/background_points"
     tools:context=".GamePlay.GamePlay">
 
-    <TextView
+    <TextSwitcher
         android:id="@+id/pointsTotalView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="73sp"
-        android:textColor="@color/pink"
+        android:textColor="@color/green"
         android:shadowColor="@color/lighter"
         android:shadowRadius="37"
         android:shadowDx="0"
         android:shadowDy="0"
-        android:background="@color/transparent"/>
+        android:background="@color/transparent"
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out">
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pointsTotalViewOne"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="73sp"
+            android:textColor="@color/green"
+            android:shadowColor="@color/lighter"
+            android:shadowRadius="37"
+            android:shadowDx="0"
+            android:shadowDy="0"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="73sp"
+            apps:autoSizeStepGranularity="3sp"
+
+            android:background="@color/transparent" />
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pointsTotalViewTwo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="73sp"
+            android:textColor="@color/green"
+            android:shadowColor="@color/lighter"
+            android:shadowRadius="37"
+            android:shadowDx="0"
+            android:shadowDy="0"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="73sp"
+            apps:autoSizeStepGranularity="3sp"
+
+            android:background="@color/transparent" />
+    </TextSwitcher>
 
 </RelativeLayout>

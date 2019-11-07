@@ -3,6 +3,7 @@
     <color name="default_color">#237DAE</color>
     <color name="default_color_transparent_50">#80237dae</color>
     <color name="default_color_transparent">#33237dae</color>
+    <color name="default_color_transparent_high">#12237dae</color>
     <color name="default_color_light">#008dda</color>
     <color name="default_color_light_transparent">#80008dda</color>
     <color name="default_color_darker">#0a415e</color>
@@ -18,11 +19,11 @@
 
     <color name="android_default">#009688</color>
 
-    <color name="red">#9b000e</color>
-    <color name="red_transparent">#4d9b000e</color>
+    <color name="red">#ae234f</color>
+    <color name="red_transparent">#4dae234f</color>
     <color name="yellow">#FFEA00</color>
     <color name="pink">#FE5475</color>
-    <color name="green">#1FD4AF</color>
+    <color name="green">#00ff6e</color>
 
     <color name="online_color">#1c7ee7</color><!-- #4286F5 -->
     <color name="offline_color">#333333</color>

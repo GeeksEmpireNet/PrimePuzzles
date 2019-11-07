@@ -11,8 +11,8 @@
     <View
         android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:background="@color/green"/>
+        android:layout_height="79dp"
+        android:background="@color/red_transparent"/>
 
     <include
         android:id="@+id/gameInformationView"
@@ -54,4 +54,22 @@
         android:visibility="invisible"
         layout="@layout/game_play_prime_number_detected_view"/>
 
+    <TextView
+        android:id="@+id/pointsEarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/gameControlInclude"
+        android:padding="23dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/play"
+        android:gravity="center"
+        android:text="@string/isItPrime"
+        android:textColor="@color/green"
+        android:textSize="37sp"
+        android:shadowColor="@color/light"
+        android:shadowRadius="19"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:visibility="invisible"/>
 </RelativeLayout>

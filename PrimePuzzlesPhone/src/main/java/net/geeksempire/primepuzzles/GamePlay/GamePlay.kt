@@ -9,6 +9,8 @@ import android.text.Html
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -434,13 +436,53 @@ class GamePlay : AppCompatActivity() {
         GameVariables.DIVISIBLE_POSITIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newPositivePoint: Int?) {
 
+                if (newPositivePoint != 0) {
+                    val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_animation_earning_points)
+                    fadeAnimationEarningPoints.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationRepeat(animation: Animation?) {
+
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+
+                            val animationFadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+                            animationFadeOut.duration = 1000
+                            pointsEarning.startAnimation(animationFadeOut)
+                            animationFadeOut.setAnimationListener(object : Animation.AnimationListener {
+                                override fun onAnimationRepeat(animation: Animation?) {
+
+                                }
+
+                                override fun onAnimationEnd(animation: Animation?) {
+                                    pointsEarning.visibility = View.INVISIBLE
+                                }
+
+                                override fun onAnimationStart(animation: Animation?) {
+
+                                }
+                            })
+                        }
+
+                        override fun onAnimationStart(animation: Animation?) {
+
+                        }
+                    })
+
+                    pointsTotalViewOne.setTextColor(getColor(R.color.green))
+                    pointsTotalViewTwo.setTextColor(getColor(R.color.green))
+
+                    pointsEarning.setTextColor(getColor(R.color.green))
+                    pointsEarning.text = "${newPositivePoint}"
+
+                    pointsEarning.visibility = View.VISIBLE
+                    pointsEarning.startAnimation(fadeAnimationEarningPoints)
+                }
+
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                println("*********** 1 $totalSavePoint")
                 val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
-                println("*********** 2 $totalNewPoint")
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.text = "${totalNewPoint}"
+                pointsTotalView.setText("${totalNewPoint}")
 
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT | ${totalNewPoint} ::: ${newPositivePoint}")
             }
@@ -454,7 +496,7 @@ class GamePlay : AppCompatActivity() {
                 val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.text = "${totalNewPoint}"
+                pointsTotalView.setText("${totalNewPoint}")
             }
         })
 
@@ -466,7 +508,7 @@ class GamePlay : AppCompatActivity() {
                 val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.text = "${totalNewPoint}"
+                pointsTotalView.setText("${totalNewPoint}")
             }
         })
         /*
@@ -475,11 +517,53 @@ class GamePlay : AppCompatActivity() {
         GameVariables.DIVISIBLE_NEGATIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newNegativePoint: Int?) {
 
+                if (newNegativePoint != 0) {
+                    val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_animation_earning_points)
+                    fadeAnimationEarningPoints.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationRepeat(animation: Animation?) {
+
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+
+                            val animationFadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+                            animationFadeOut.duration = 1000
+                            pointsEarning.startAnimation(animationFadeOut)
+                            animationFadeOut.setAnimationListener(object : Animation.AnimationListener {
+                                override fun onAnimationRepeat(animation: Animation?) {
+
+                                }
+
+                                override fun onAnimationEnd(animation: Animation?) {
+                                    pointsEarning.visibility = View.INVISIBLE
+                                }
+
+                                override fun onAnimationStart(animation: Animation?) {
+
+                                }
+                            })
+                        }
+
+                        override fun onAnimationStart(animation: Animation?) {
+
+                        }
+                    })
+
+                    pointsTotalViewOne.setTextColor(getColor(R.color.red))
+                    pointsTotalViewTwo.setTextColor(getColor(R.color.red))
+
+                    pointsEarning.setTextColor(getColor(R.color.red))
+                    pointsEarning.text = "-${newNegativePoint}"
+
+                    pointsEarning.visibility = View.VISIBLE
+                    pointsEarning.startAnimation(fadeAnimationEarningPoints)
+                }
+
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
                 val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.text = "${totalNewPoint}"
+                pointsTotalView.setText("${totalNewPoint}")
 
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT | ${totalNewPoint} ::: ${newNegativePoint}")
             }
@@ -493,7 +577,7 @@ class GamePlay : AppCompatActivity() {
                 val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.text = "${totalNewPoint}"
+                pointsTotalView.setText("${totalNewPoint}")
             }
         })
 
@@ -505,10 +589,10 @@ class GamePlay : AppCompatActivity() {
                 val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.text = "${totalNewPoint}"
+                pointsTotalView.setText("${totalNewPoint}")
             }
         })
 
-        pointsTotalView.text = "${functionsClassGameIO.readTotalPoints()}"
+        pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
     }
 }
