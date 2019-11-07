@@ -8,17 +8,26 @@
     android:background="@drawable/background_prime_puzzle">
 
     <!-- AdMob -->
-    <View
-        android:id="@+id/adView"
+    <RelativeLayout
+        android:id="@+id/adViews"
         android:layout_width="match_parent"
-        android:layout_height="79dp"
-        android:background="@color/red_transparent"/>
+        android:layout_height="90dp"
+        android:gravity="center"
+        android:background="@drawable/background_ads_view">
+        <!-- AdView -->
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adViewBannerGamePlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/bannerAdUnitGamePlay"/>
+    </RelativeLayout>
 
     <include
         android:id="@+id/gameInformationView"
         android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:layout_below="@id/adView"
+        android:layout_height="79dp"
+        android:layout_below="@id/adViews"
         layout="@layout/game_play_information_view" />
 
     <include
@@ -64,11 +73,10 @@
         android:layout_marginBottom="3dp"
         android:fontFamily="@font/play"
         android:gravity="center"
-        android:text="@string/isItPrime"
         android:textColor="@color/green"
         android:textSize="37sp"
-        android:shadowColor="@color/light"
-        android:shadowRadius="19"
+        android:shadowColor="@color/light_transparent"
+        android:shadowRadius="13"
         android:shadowDx="0"
         android:shadowDy="0"
         android:visibility="invisible"/>

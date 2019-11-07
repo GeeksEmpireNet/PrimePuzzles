@@ -9,6 +9,8 @@ class GameInformationVariable {
         const val HINT_ACTION: String = "HINT_ACTION"
         const val PRIME_NUMBER_ACTION: String = "PRIME_NUMBER_ACTION"
 
+        const val LEVELS_PREFERENCE: String = "Levels"
+        const val SOUNDS_PREFERENCE: String = "Sounds"
         const val POINTS_PREFERENCE: String = "Points"
 
         const val POINTS_TOTAL_PREFERENCE: String = "TotalPoints"

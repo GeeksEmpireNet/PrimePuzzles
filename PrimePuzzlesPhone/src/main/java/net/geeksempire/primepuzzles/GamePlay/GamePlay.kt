@@ -15,6 +15,9 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.game_play_control_view.*
 import kotlinx.android.synthetic.main.game_play_information_view.*
@@ -63,6 +66,10 @@ class GamePlay : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
         setContentView(R.layout.game_play_view)
+        MobileAds.initialize(this) { initializationStatus ->
+
+            setUpAds()
+        }
 
         functionsClassUI = FunctionsClassUI(applicationContext)
         functionsClassGame = FunctionsClassGame(applicationContext)
@@ -235,6 +242,53 @@ class GamePlay : AppCompatActivity() {
 
     override fun onBackPressed() {
 
+    }
+    /*
+     *
+     *
+     *
+     */
+    private fun setUpAds() {
+        val adRequest = AdRequest.Builder()
+            .addTestDevice("F54D998BCE077711A17272B899B44798")
+            .addKeyword("Game")
+            .build()
+
+        /*Banner Ads*/
+        adViewBannerGamePlay.loadAd(adRequest)
+        adViewBannerGamePlay.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                FunctionsClassDebug.PrintDebug("Banner Ads Loaded")
+
+            }
+
+            override fun onAdFailedToLoad(errorCode : Int) {
+                FunctionsClassDebug.PrintDebug("Banner Ads Failed")
+
+            }
+
+            override fun onAdOpened() {
+                FunctionsClassDebug.PrintDebug("Banner Ads Opened")
+
+            }
+
+            override fun onAdClicked() {
+                FunctionsClassDebug.PrintDebug("Banner Ads Clicked")
+
+            }
+
+            override fun onAdLeftApplication() {
+
+            }
+
+            override fun onAdClosed() {
+
+            }
+        }
+        /*Interstitial Ads*/
+
+
+        /*Rewarded Ads*/
     }
 
     private fun setupThreeRandomViews() {
@@ -472,7 +526,7 @@ class GamePlay : AppCompatActivity() {
                     pointsTotalViewTwo.setTextColor(getColor(R.color.green))
 
                     pointsEarning.setTextColor(getColor(R.color.green))
-                    pointsEarning.text = "${newPositivePoint}"
+                    pointsEarning.text = "+${newPositivePoint}"
 
                     pointsEarning.visibility = View.VISIBLE
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)

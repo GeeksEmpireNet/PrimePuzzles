@@ -88,7 +88,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             FlingAnimation(view, DynamicAnimation.Y)
                 .setFriction(1.3f)
                 .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - (functionsClassUI.displayY() / 2) - (view.height / 2))
+                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - (functionsClassUI.displayY() / 2)
+                        - /*(view.height / 2)*/functionsClassUI.DpToInteger(139f) + functionsClassUI.DpToInteger(23f))
         }
 
         flingAnimationX.addEndListener { animation, canceled, value, velocity ->
@@ -250,7 +251,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         triggerCenterRandomChange = true
                         divisibleTriggered = false
                         primeNumberDetected = false
-                    }, 1333)
+                    }, 777)
             } else {
 
                 Handler()

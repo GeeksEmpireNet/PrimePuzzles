@@ -43,7 +43,7 @@ class FunctionsClassUI(initContext: Context) {
             DpToInteger(startRadius),
             finalRadius.toFloat()
         )
-        circularReveal.duration = 2777
+        circularReveal.duration = 1531
         circularReveal.interpolator = AccelerateInterpolator(1.0f)
 
         viewToReveal.visibility = View.VISIBLE
@@ -63,7 +63,7 @@ class FunctionsClassUI(initContext: Context) {
                         xPosition,
                         1f
                     )
-                }, 1753)
+                }, 1111)
             }
 
             override fun onAnimationCancel(animation: Animator?) {

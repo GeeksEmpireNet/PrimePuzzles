@@ -18,7 +18,7 @@
         android:textSize="133sp"
         android:textColor="@color/lighter"
         android:shadowColor="@color/light_transparent"
-        android:shadowRadius="133"
+        android:shadowRadius="33"
         android:shadowDx="0"
         android:shadowDy="0"/>
 
