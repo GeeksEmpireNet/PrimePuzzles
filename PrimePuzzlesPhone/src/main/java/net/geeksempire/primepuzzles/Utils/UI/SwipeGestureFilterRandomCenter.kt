@@ -108,13 +108,15 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
+
+                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
-
-
                         functionsClassGame.playWrongSound()
+
+                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
                 SwipeGestureFilterRandomCenter.SWIPE_RIGHT -> {
@@ -129,13 +131,15 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
+
+                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
-
-
                         functionsClassGame.playWrongSound()
+
+                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
             }
@@ -181,11 +185,15 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
+
+                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
+
+                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
                 SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
@@ -195,11 +203,15 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                         //CORRECT ANSWER
                         primeNumberDetected = true
+
+                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 13
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
+
+                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 13
                     }
                 }
             }
@@ -347,6 +359,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             triggerCenterRandomChange = true
 
             functionsClassGame.playChangedCenterRandomSound()
+
+            GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
         } else {
             GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
             GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
@@ -355,6 +369,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
             //WRONG ANSWER
             functionsClassGame.playWrongSound()
+
+            GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
         }
 
         functionsClassSystem.doVibrate()

@@ -3,10 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gameInformationView"
     android:layout_width="match_parent"
-    android:layout_height="57dp"
+    android:layout_height="77dp"
     android:layout_marginTop="7dp"
     android:layout_marginBottom="7dp"
-    android:background="@color/default_color_transparent_50"
+    android:background="@drawable/background_points"
     tools:context=".GamePlay.GamePlay">
+
+    <TextView
+        android:id="@+id/pointsTotalView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="73sp"
+        android:textColor="@color/pink"
+        android:shadowColor="@color/lighter"
+        android:shadowRadius="37"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:background="@color/transparent"/>
 
 </RelativeLayout>

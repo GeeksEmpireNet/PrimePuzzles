@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.game_play_control_view.*
+import kotlinx.android.synthetic.main.game_play_information_view.*
 import kotlinx.android.synthetic.main.game_play_prime_number_detected_view.*
 import kotlinx.android.synthetic.main.game_play_view.*
 import net.geeksempire.physics.animation.Core.SimpleSpringListener
@@ -22,16 +23,16 @@ import net.geeksempire.physics.animation.Core.Spring
 import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
+import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.R
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.generateHint
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.*
 
 class GamePlay : AppCompatActivity() {
 
     private lateinit var functionsClassUI: FunctionsClassUI
     private lateinit var functionsClassGame: FunctionsClassGame
+    private lateinit var functionsClassGameIO: FunctionsClassGameIO
 
     private lateinit var gameVariables: GameVariables
 
@@ -63,6 +64,7 @@ class GamePlay : AppCompatActivity() {
 
         functionsClassUI = FunctionsClassUI(applicationContext)
         functionsClassGame = FunctionsClassGame(applicationContext)
+        functionsClassGameIO = FunctionsClassGameIO(applicationContext)
 
         val layoutParams = gameControlInclude.layoutParams
         layoutParams.height = functionsClassUI.displayX()
@@ -131,6 +133,7 @@ class GamePlay : AppCompatActivity() {
         })
 
         setupThreeRandomViews()
+        scanPointsChange()
     }
 
     override fun onStart() {
@@ -222,8 +225,6 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
         super.onResume()
-
-
     }
 
     override fun onPause() {
@@ -412,5 +413,102 @@ class GamePlay : AppCompatActivity() {
         randomRight.text = "${rightValueRandom}"
 
         GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
+    }
+
+    private fun scanPointsChange() {
+        /***
+         *
+         *
+         * Restore & Resume Game Points By Seeing Ads
+         *
+         *
+         ***/
+
+        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 0
+        GameVariables.PRIME_POSITIVE_POINT.value = 0
+        GameVariables.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
+        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 0
+        GameVariables.PRIME_NEGATIVE_POINT.value = 0
+        GameVariables.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
+
+        GameVariables.DIVISIBLE_POSITIVE_POINT.observe(this, object : Observer<Int> {
+            override fun onChanged(newPositivePoint: Int?) {
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                println("*********** 1 $totalSavePoint")
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
+                println("*********** 2 $totalNewPoint")
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                pointsTotalView.text = "${totalNewPoint}"
+
+                FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT | ${totalNewPoint} ::: ${newPositivePoint}")
+            }
+        })
+
+        GameVariables.PRIME_POSITIVE_POINT.observe(this, object : Observer<Int> {
+            override fun onChanged(newPositivePoint: Int?) {
+                FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT ::: ${newPositivePoint}")
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                pointsTotalView.text = "${totalNewPoint}"
+            }
+        })
+
+        GameVariables.CHANGE_CENTER_RANDOM_POSITIVE_POINT.observe(this, object : Observer<Int> {
+            override fun onChanged(newPositivePoint: Int?) {
+                FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT ::: ${newPositivePoint}")
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                pointsTotalView.text = "${totalNewPoint}"
+            }
+        })
+        /*
+         *
+         */
+        GameVariables.DIVISIBLE_NEGATIVE_POINT.observe(this, object : Observer<Int> {
+            override fun onChanged(newNegativePoint: Int?) {
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                pointsTotalView.text = "${totalNewPoint}"
+
+                FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT | ${totalNewPoint} ::: ${newNegativePoint}")
+            }
+        })
+
+        GameVariables.PRIME_NEGATIVE_POINT.observe(this, object : Observer<Int> {
+            override fun onChanged(newNegativePoint: Int?) {
+                FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT ::: ${newNegativePoint}")
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                pointsTotalView.text = "${totalNewPoint}"
+            }
+        })
+
+        GameVariables.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.observe(this, object : Observer<Int> {
+            override fun onChanged(newNegativePoint: Int?) {
+                FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT ::: ${newNegativePoint}")
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                pointsTotalView.text = "${totalNewPoint}"
+            }
+        })
+
+        pointsTotalView.text = "${functionsClassGameIO.readTotalPoints()}"
     }
 }

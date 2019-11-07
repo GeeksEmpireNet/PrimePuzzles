@@ -38,5 +38,29 @@ class GameVariables : ViewModel(){
         val SHUFFLE_PROCESS_VALUE: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
+
+        val DIVISIBLE_POSITIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+        val PRIME_POSITIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+        val CHANGE_CENTER_RANDOM_POSITIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+        val DIVISIBLE_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+        val PRIME_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+        val CHANGE_CENTER_RANDOM_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
     }
 }

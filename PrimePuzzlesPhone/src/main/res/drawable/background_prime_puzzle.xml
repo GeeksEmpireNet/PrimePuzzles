@@ -11,8 +11,4 @@
         android:startColor="@color/default_color"
         android:centerColor="@color/default_color_transparent"
         android:endColor="@color/transparent" />
-
-    <corners
-        android:topLeftRadius="157dp"
-        android:topRightRadius="157dp"/>
 </shape>
