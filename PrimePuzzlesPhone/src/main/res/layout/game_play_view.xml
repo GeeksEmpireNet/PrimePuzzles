@@ -76,7 +76,7 @@
         android:textColor="@color/green"
         android:textSize="37sp"
         android:shadowColor="@color/light_transparent"
-        android:shadowRadius="13"
+        android:shadowRadius="11"
         android:shadowDx="0"
         android:shadowDy="0"
         android:visibility="invisible"/>

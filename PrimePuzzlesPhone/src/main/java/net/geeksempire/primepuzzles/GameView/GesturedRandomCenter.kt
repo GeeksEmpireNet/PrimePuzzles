@@ -38,6 +38,12 @@ class GesturedRandomCenter : Button,
             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
                 listTOfRandom.addAll(10..99)
             }
+            GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
+                listTOfRandom.addAll(100..999)
+            }
+            GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
+                listTOfRandom.addAll(1000..9999)
+            }
         }
 
         val randomCenterValue: Int = listTOfRandom.random()

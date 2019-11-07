@@ -158,6 +158,12 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
                             listTOfRandom.addAll(10..99)
                         }
+                        GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
+                            listTOfRandom.addAll(100..999)
+                        }
+                        GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
+                            listTOfRandom.addAll(1000..9999)
+                        }
                     }
 
                     val randomCenterValue: Int = listTOfRandom.random()
@@ -199,7 +205,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                 }
                 SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
 
-                    if (isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+                    if (GameOperations().determinePrimeValue()) {
                         FunctionsClassDebug.PrintDebug("${GameVariables.CENTER_VALUE.value} IS A PRIME Number")
 
                         //CORRECT ANSWER
@@ -242,6 +248,12 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
                                 listTOfRandom.addAll(10..99)
                             }
+                            GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
+                                listTOfRandom.addAll(100..999)
+                            }
+                            GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
+                                listTOfRandom.addAll(1000..9999)
+                            }
                         }
 
                         val randomCenterValue: Int = listTOfRandom.random()
@@ -266,6 +278,12 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
                                 listTOfRandom.addAll(10..99)
+                            }
+                            GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
+                                listTOfRandom.addAll(100..999)
+                            }
+                            GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
+                                listTOfRandom.addAll(1000..9999)
                             }
                         }
 
@@ -344,6 +362,12 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
                 listTOfRandom.addAll(10..99)
+            }
+            GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
+                listTOfRandom.addAll(100..999)
+            }
+            GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
+                listTOfRandom.addAll(1000..9999)
             }
         }
 

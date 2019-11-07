@@ -29,9 +29,13 @@ import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
+import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.R
-import net.geeksempire.primepuzzles.Utils.FunctionsClass.*
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGameIO
+import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
 
 class GamePlay : AppCompatActivity() {
 
@@ -56,6 +60,8 @@ class GamePlay : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window.decorView.systemUiVisibility = (
@@ -65,6 +71,7 @@ class GamePlay : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
+
         setContentView(R.layout.game_play_view)
         MobileAds.initialize(this) { initializationStatus ->
 
@@ -101,6 +108,51 @@ class GamePlay : AppCompatActivity() {
         listOfDivisible.remove(rightValueRandom)
         GameVariables.RIGHT_VALUE.value = rightValueRandom
         randomRight.text = "${rightValueRandom}"
+
+        GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this, object : Observer<Int> {
+            override fun onChanged(newDifficultyLevel: Int?) {
+                when (GameLevel().getGameDifficultyLevel()) {
+                    GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {//2..9
+                        if (newDifficultyLevel!! >= 5) {
+                            GameLevel.GAME_DIFFICULTY_LEVEL++
+                            if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                            }
+                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                        }
+                    }
+                    GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
+                        if (newDifficultyLevel!! >= 67) {//10..99
+                            GameLevel.GAME_DIFFICULTY_LEVEL++
+                            if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                            }
+                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                        }
+                    }
+                    GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {//100..999
+                        if (newDifficultyLevel!! >= 773) {
+                            GameLevel.GAME_DIFFICULTY_LEVEL++
+                            if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                            }
+                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                        }
+                    }
+                    GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {//1000..9999
+                        if (newDifficultyLevel!! >= 7717) {
+                            GameLevel.GAME_DIFFICULTY_LEVEL++
+                            if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                            }
+                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                        }
+                    }
+                }
+
+            }
+        })
+
 
         GameVariables.PRIME_NUMBER_DETECTED.observe(this, object : Observer<Boolean> {
             override fun onChanged(primeDetected: Boolean?) {
@@ -202,7 +254,7 @@ class GamePlay : AppCompatActivity() {
                         override fun onClick(view: View?) {
                             when (GameInformationVariable.snackBarAction) {
                                 GameInformationVariable.HINT_ACTION -> {
-                                    val hintData: String = generateHint()
+                                    val hintData: String = GameOperations().generateHint()
 
                                 }
                                 GameInformationVariable.PRIME_NUMBER_ACTION -> {
@@ -245,7 +297,7 @@ class GamePlay : AppCompatActivity() {
     }
     /*
      *
-     *
+     * Ads Functions
      *
      */
     private fun setUpAds() {
@@ -290,7 +342,11 @@ class GamePlay : AppCompatActivity() {
 
         /*Rewarded Ads*/
     }
-
+    /*
+     *
+     * Sides Random Values Functions
+     *
+     */
     private fun setupThreeRandomViews() {
 
         val springSystem = SpringSystem.create()
@@ -420,7 +476,11 @@ class GamePlay : AppCompatActivity() {
             return@setOnTouchListener false
         }
     }
-
+    /*
+     *
+     * Shuffle Functions
+     *
+     */
     private fun shuffleProcessPosition() {
         functionsClassGame.playShuffleMagicalNumbersPosition()
 
@@ -470,12 +530,17 @@ class GamePlay : AppCompatActivity() {
 
         GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
     }
-
+    /*
+     *
+     * Points Functions
+     *
+     */
     private fun scanPointsChange() {
         /***
          *
          *
-         * Restore & Resume Game Points By Seeing Ads
+         * Restore & Resume Game Points & Difficulty Level By Seeing Ads
+         * GameVariables.GAME_LEVEL_DIFFICULTY.value = functionsClassGameIO.read
          *
          *
          ***/
@@ -533,7 +598,7 @@ class GamePlay : AppCompatActivity() {
                 }
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -547,7 +612,7 @@ class GamePlay : AppCompatActivity() {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT ::: ${newPositivePoint}")
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -559,7 +624,7 @@ class GamePlay : AppCompatActivity() {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT ::: ${newPositivePoint}")
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getGameDifficultyLevel())
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -614,7 +679,7 @@ class GamePlay : AppCompatActivity() {
                 }
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -628,7 +693,7 @@ class GamePlay : AppCompatActivity() {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT ::: ${newNegativePoint}")
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -640,7 +705,7 @@ class GamePlay : AppCompatActivity() {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT ::: ${newNegativePoint}")
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getGameDifficultyLevel())
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")

@@ -8,7 +8,7 @@
         android:centerX="50%"
         android:centerY="0%"
         android:gradientRadius="100%"
-        android:startColor="@color/default_color_transparent"
+        android:startColor="@color/default_color"
         android:centerColor="@color/default_color_transparent_high"
         android:endColor="@color/transparent" />
 

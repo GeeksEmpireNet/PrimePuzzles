@@ -7,6 +7,15 @@ import androidx.lifecycle.ViewModel
 class GameVariables : ViewModel(){
 
     companion object {
+        val GAME_LEVEL_DIFFICULTY: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+        val GAME_LEVEL_DIFFICULTY_COUNTER: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
+
         val CENTER_VALUE: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
@@ -23,13 +32,16 @@ class GameVariables : ViewModel(){
             MutableLiveData<Int>()
         }
 
+
         val PRIME_NUMBER_DETECTED: MutableLiveData<Boolean> by lazy {
             MutableLiveData<Boolean>()
         }
 
+
         val TOGGLE_SNACKBAR: MutableLiveData<Boolean> by lazy {
             MutableLiveData<Boolean>()
         }
+
 
         val SHUFFLE_PROCESS_POSITION: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
@@ -38,6 +50,7 @@ class GameVariables : ViewModel(){
         val SHUFFLE_PROCESS_VALUE: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
+
 
         val DIVISIBLE_POSITIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
@@ -50,6 +63,7 @@ class GameVariables : ViewModel(){
         val CHANGE_CENTER_RANDOM_POSITIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
+
 
         val DIVISIBLE_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()

@@ -15,12 +15,3 @@ fun isNumbersDivisible(aA: Int, bB: Int) : Boolean {
 
     return ((aA % bB == 0))
 }
-
-fun primeNumberAction() {
-
-}
-
-fun generateHint() : String {
-
-    return ""
-}
