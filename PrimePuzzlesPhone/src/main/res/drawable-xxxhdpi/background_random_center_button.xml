@@ -18,8 +18,8 @@
                 android:centerY="50%"
                 android:gradientRadius="100%"
                 android:startColor="@color/default_color_game_light"
-                android:centerColor="@color/default_color_darker"
-                android:endColor="@color/default_color_darker" />
+                android:centerColor="@color/default_color_darker_transparent"
+                android:endColor="@color/default_color_darker_transparent_high" />
         </shape>
     </item>
 </ripple>

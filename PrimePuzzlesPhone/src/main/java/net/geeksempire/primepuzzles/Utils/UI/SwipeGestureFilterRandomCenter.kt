@@ -23,6 +23,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
     private val context: Context = initContext
 
     private val functionsClassSystem: FunctionsClassSystem = FunctionsClassSystem(initContext)
+    private val functionsClassUI: FunctionsClassUI = FunctionsClassUI(initContext)
     private val functionsClassGame: FunctionsClassGame = FunctionsClassGame(initContext)
 
 
@@ -87,7 +88,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             FlingAnimation(view, DynamicAnimation.Y)
                 .setFriction(1.3f)
                 .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - view.height)
+                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - (functionsClassUI.displayY() / 2) - (view.height / 2))
         }
 
         flingAnimationX.addEndListener { animation, canceled, value, velocity ->
@@ -111,6 +112,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
+
+
                         functionsClassGame.playWrongSound()
                     }
                 }
@@ -130,7 +133,10 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
-                        functionsClassGame.playWrongSound() }
+
+
+                        functionsClassGame.playWrongSound()
+                    }
                 }
             }
 

@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.text.Html
 import android.view.MotionEvent
 import android.view.View
@@ -14,8 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.game_play_control_view.*
+import kotlinx.android.synthetic.main.game_play_prime_number_detected_view.*
 import kotlinx.android.synthetic.main.game_play_view.*
-import kotlinx.android.synthetic.main.prime_number_detected_view.*
 import net.geeksempire.physics.animation.Core.SimpleSpringListener
 import net.geeksempire.physics.animation.Core.Spring
 import net.geeksempire.physics.animation.Core.SpringConfig
@@ -26,7 +27,6 @@ import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.generateHint
-
 
 class GamePlay : AppCompatActivity() {
 
@@ -64,6 +64,10 @@ class GamePlay : AppCompatActivity() {
         functionsClassUI = FunctionsClassUI(applicationContext)
         functionsClassGame = FunctionsClassGame(applicationContext)
 
+        val layoutParams = gameControlInclude.layoutParams
+        layoutParams.height = functionsClassUI.displayX()
+        gameControlInclude.layoutParams = layoutParams
+
         gameVariables = ViewModelProviders.of(this).get(GameVariables::class.java)
 
         gesturedRandomCenter.bringToFront()
@@ -94,12 +98,14 @@ class GamePlay : AppCompatActivity() {
 
                     detectedPrimeNumber.text = "${GameVariables.CENTER_VALUE.value!!}"
 
-                    functionsClassUI.circularRevealAnimation(
-                        primeNumberDetectedInclude,
-                        primeNumbers.y + (primeNumbers.height/2),
-                        primeNumbers.x + (primeNumbers.width/2),
-                        1f
-                    )
+                    Handler().postDelayed({
+                        functionsClassUI.circularRevealAnimation(
+                            primeNumberDetectedInclude,
+                            primeNumbers.y + (primeNumbers.height/2),
+                            primeNumbers.x + (primeNumbers.width/2),
+                            1f
+                        )
+                    }, 99)
                 }
             }
         })

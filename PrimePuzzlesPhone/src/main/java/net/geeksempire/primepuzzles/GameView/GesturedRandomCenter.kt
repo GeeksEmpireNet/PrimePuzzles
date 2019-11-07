@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.Button
+import androidx.core.content.res.ResourcesCompat
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
+import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.UI.SwipeGestureFilterRandomCenter
 
@@ -25,6 +27,9 @@ class GesturedRandomCenter : Button,
     }
 
     init {
+        val typeface = ResourcesCompat.getFont(context, R.font.play)
+        this@GesturedRandomCenter.typeface = typeface
+
         val listTOfRandom = ArrayList<Int>()
         when (GameLevel().getGameDifficultyLevel()) {
             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {

@@ -10,6 +10,8 @@
 
         <item name="android:colorEdgeEffect">@color/light</item>
         <item name="android:windowBackground">@color/default_color_darker</item>
+
+        <item name="android:fontFamily">@font/play</item>
     </style>
 
     <style name="GeeksEmpire.Material.GamePlay" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -22,6 +24,8 @@
 
         <item name="android:colorEdgeEffect">@color/light</item>
         <item name="android:windowBackground">@color/default_color_darker</item>
+
+        <item name="android:fontFamily">@font/play</item>
     </style>
 
 </resources>

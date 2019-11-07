@@ -5,23 +5,28 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:context=".GamePlay.GamePlay"
-    android:background="@drawable/background_prime_number">
+    android:background="@drawable/background_prime_puzzle">
 
     <!-- AdMob -->
+    <View
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:background="@color/green"/>
 
     <include
         android:id="@+id/gameInformationView"
-        android:layout_height="57dp"
         android:layout_width="match_parent"
-        layout="@layout/game_information_view" />
+        android:layout_height="77dp"
+        android:layout_below="@id/adView"
+        layout="@layout/game_play_information_view" />
 
     <include
         android:id="@+id/gameControlInclude"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@id/gameInformationView"
+        android:layout_alignParentBottom="true"
         layout="@layout/game_play_control_view"/>
-
 
     <TextView
         android:id="@+id/primeNumbers"
@@ -34,8 +39,9 @@
         android:text="@string/isItPrime"
         android:textColor="@color/lighter"
         android:textSize="29sp"
-        android:shadowColor="@color/default_color_darker"
-        android:shadowRadius="113"
+        android:fontFamily="@font/play"
+        android:shadowColor="@color/light"
+        android:shadowRadius="19"
         android:shadowDx="0"
         android:shadowDy="0"
         android:background="@color/transparent" />
@@ -46,6 +52,6 @@
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
         android:visibility="invisible"
-        layout="@layout/prime_number_detected_view"/>
+        layout="@layout/game_play_prime_number_detected_view"/>
 
 </RelativeLayout>
