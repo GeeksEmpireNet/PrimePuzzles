@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -30,6 +31,7 @@ import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
+import net.geeksempire.primepuzzles.GameLogic.GameSettings
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
@@ -44,6 +46,11 @@ class GamePlay : AppCompatActivity() {
     private lateinit var functionsClassGameIO: FunctionsClassGameIO
 
     private lateinit var gameVariables: GameVariables
+
+
+    companion object {
+        var RestoreGameState = false
+    }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -78,18 +85,47 @@ class GamePlay : AppCompatActivity() {
             setUpAds()
         }
 
+        gesturedRandomCenter.bringToFront()
+        primeNumberDetectedInclude.bringToFront()
+
         functionsClassUI = FunctionsClassUI(applicationContext)
         functionsClassGame = FunctionsClassGame(applicationContext)
         functionsClassGameIO = FunctionsClassGameIO(applicationContext)
+
+        /*
+         * Restore Game State
+         */
+        RestoreGameState = intent.getBooleanExtra(GameSettings.RESTORE_GAME_STATE, false)
+        FunctionsClassDebug.PrintDebug("Restore Game State ::: ${RestoreGameState}")
+
+        /*
+         *
+         * Sides Random Values Functions
+         *
+         */
+        setupThreeRandomViews()
+        /*
+         *
+         * Points Functions
+         *
+         */
+        scanPointsChange()
+
+        val adViewLayoutParams = adViews.layoutParams as RelativeLayout.LayoutParams
+        val statusBarHeight = if (intent.getIntExtra("StatusBarHeight", functionsClassUI.DpToInteger(24f).toInt()) == 0) {
+            intent.getIntExtra("StatusBarHeight", functionsClassUI.DpToInteger(24f).toInt())
+        } else {
+            functionsClassUI.DpToInteger(24f).toInt()
+        }
+        adViewLayoutParams.height = adViewLayoutParams.height + statusBarHeight
+        adViews.setPadding(0, statusBarHeight, 0, 0)
+        adViews.layoutParams = adViewLayoutParams
 
         val layoutParams = gameControlInclude.layoutParams
         layoutParams.height = functionsClassUI.displayX()
         gameControlInclude.layoutParams = layoutParams
 
         gameVariables = ViewModelProviders.of(this).get(GameVariables::class.java)
-
-        gesturedRandomCenter.bringToFront()
-        primeNumberDetectedInclude.bringToFront()
 
         val listOfDivisible = ArrayList<Int>()
         listOfDivisible.addAll(2..9)
@@ -116,7 +152,7 @@ class GamePlay : AppCompatActivity() {
                         if (newDifficultyLevel!! >= 5) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
-
+                                //The End
                             }
                             GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
@@ -125,7 +161,7 @@ class GamePlay : AppCompatActivity() {
                         if (newDifficultyLevel!! >= 67) {//10..99
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
-
+                                //The End
                             }
                             GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
@@ -134,7 +170,7 @@ class GamePlay : AppCompatActivity() {
                         if (newDifficultyLevel!! >= 773) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
-
+                                //The End
                             }
                             GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
@@ -143,13 +179,13 @@ class GamePlay : AppCompatActivity() {
                         if (newDifficultyLevel!! >= 7717) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
-
+                                //The End
                             }
                             GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
                 }
-
+                functionsClassGameIO.saveLevelProcess(GameLevel().getGameDifficultyLevel())
             }
         })
 
@@ -192,9 +228,6 @@ class GamePlay : AppCompatActivity() {
                 }
             }
         })
-
-        setupThreeRandomViews()
-        scanPointsChange()
     }
 
     override fun onStart() {
@@ -545,6 +578,16 @@ class GamePlay : AppCompatActivity() {
          *
          ***/
 
+        if (RestoreGameState) {
+
+            pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
+            GameLevel.GAME_DIFFICULTY_LEVEL = functionsClassGameIO.readLevelProcess()
+        } else {
+
+            functionsClassGameIO.saveTotalPoints(0)
+            functionsClassGameIO.saveLevelProcess(1)
+        }
+
         GameVariables.DIVISIBLE_POSITIVE_POINT.value = 0
         GameVariables.PRIME_POSITIVE_POINT.value = 0
         GameVariables.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
@@ -592,6 +635,11 @@ class GamePlay : AppCompatActivity() {
 
                     pointsEarning.setTextColor(getColor(R.color.green))
                     pointsEarning.text = "+${newPositivePoint}"
+                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){
+                        ""
+                    } else {
+                        " x ${GameLevel().getGameDifficultyLevel()}"
+                    })
 
                     pointsEarning.visibility = View.VISIBLE
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)
@@ -673,6 +721,11 @@ class GamePlay : AppCompatActivity() {
 
                     pointsEarning.setTextColor(getColor(R.color.red))
                     pointsEarning.text = "-${newNegativePoint}"
+                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){
+                        ""
+                    } else {
+                        " x ${GameLevel().getGameDifficultyLevel()}"
+                    })
 
                     pointsEarning.visibility = View.VISIBLE
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)
@@ -711,7 +764,5 @@ class GamePlay : AppCompatActivity() {
                 pointsTotalView.setText("${totalNewPoint}")
             }
         })
-
-        pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
     }
 }

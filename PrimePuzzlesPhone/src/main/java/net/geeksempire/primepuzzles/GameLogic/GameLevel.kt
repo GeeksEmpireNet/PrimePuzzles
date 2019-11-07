@@ -12,10 +12,8 @@ class GameLevel {
     }
 
     fun getGameDifficultyLevel() : Int {
-        var gameDifficultyLevel: Int = GAME_DIFFICULTY_LEVEL
 
-
-        return gameDifficultyLevel
+        return GAME_DIFFICULTY_LEVEL
     }
 
     fun getPointMultiplier() : Int{
@@ -25,13 +23,13 @@ class GameLevel {
                 pointMultiplier = 1
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                pointMultiplier = 1
-            }
-            GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
                 pointMultiplier = 2
             }
-            GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT -> {
+            GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
                 pointMultiplier = 3
+            }
+            GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT -> {
+                pointMultiplier = 4
             }
             else -> {
                 pointMultiplier = 1
