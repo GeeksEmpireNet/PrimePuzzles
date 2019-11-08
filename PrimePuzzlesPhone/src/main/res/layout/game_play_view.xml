@@ -4,8 +4,8 @@
     android:id="@+id/fullGamePlay"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".GamePlay.GamePlay"
-    android:background="@drawable/background_prime_puzzle">
+    android:background="@drawable/background_prime_puzzle"
+    tools:context=".GamePlay.GamePlay">
 
     <!-- AdMob -->
     <RelativeLayout

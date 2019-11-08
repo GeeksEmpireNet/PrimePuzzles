@@ -1,14 +1,14 @@
 package net.geeksempire.primepuzzles.GamePlay
 
+import android.animation.Animator
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -28,6 +28,7 @@ import net.geeksempire.physics.animation.Core.SimpleSpringListener
 import net.geeksempire.physics.animation.Core.Spring
 import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
+import net.geeksempire.primepuzzles.BuildConfig
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
@@ -38,6 +39,7 @@ import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGameIO
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
+import kotlin.math.hypot
 
 class GamePlay : AppCompatActivity() {
 
@@ -82,7 +84,9 @@ class GamePlay : AppCompatActivity() {
         setContentView(R.layout.game_play_view)
         MobileAds.initialize(this) { initializationStatus ->
 
-            setUpAds()
+            if (!BuildConfig.DEBUG) {
+                setUpAds()
+            }
         }
 
         gesturedRandomCenter.bringToFront()
@@ -91,6 +95,50 @@ class GamePlay : AppCompatActivity() {
         functionsClassUI = FunctionsClassUI(applicationContext)
         functionsClassGame = FunctionsClassGame(applicationContext)
         functionsClassGameIO = FunctionsClassGameIO(applicationContext)
+
+        val rootLayout = this.window.decorView
+        rootLayout.visibility = View.INVISIBLE
+        val viewTreeObserver = rootLayout.viewTreeObserver
+        if (viewTreeObserver.isAlive) {
+            viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    val finalRadius = hypot(functionsClassUI.displayX().toDouble(), functionsClassUI.displayY().toDouble()).toInt()
+                    val circularReveal = ViewAnimationUtils.createCircularReveal(
+                        rootLayout,
+                        functionsClassUI.displayX() / 2,
+                        functionsClassUI.displayY() / 2,
+                        functionsClassUI.DpToInteger(50f),
+                        finalRadius.toFloat()
+                    )
+                    circularReveal.duration = 1300
+                    circularReveal.interpolator = AccelerateInterpolator()
+
+                    rootLayout.visibility = View.VISIBLE
+                    circularReveal.start()
+                    rootLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    circularReveal.addListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {
+
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            rootLayout.visibility = View.VISIBLE
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {
+
+                        }
+
+                        override fun onAnimationRepeat(animation: Animator) {
+
+                        }
+                    })
+                }
+            })
+        } else {
+            rootLayout.visibility = View.VISIBLE
+        }
 
         /*
          * Restore Game State

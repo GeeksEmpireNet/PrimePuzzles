@@ -16,9 +16,9 @@
                 android:type="radial"
                 android:centerX="50%"
                 android:centerY="50%"
-                android:gradientRadius="100%"
+                android:gradientRadius="79%"
                 android:startColor="@color/default_color_game_transparent"
-                android:centerColor="@color/default_color_darker_transparent"
+                android:centerColor="@color/default_color_darker_transparent_high"
                 android:endColor="@color/transparent" />
         </shape>
     </item>

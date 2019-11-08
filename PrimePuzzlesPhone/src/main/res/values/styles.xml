@@ -5,11 +5,25 @@
         <item name="android:colorPrimaryDark">@color/default_color_darker</item>
         <item name="android:colorAccent">@color/default_color_game</item>
 
-        <item name="android:statusBarColor">@color/default_color_darker</item>
-        <item name="android:navigationBarColor">@color/default_color_darker</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
 
         <item name="android:colorEdgeEffect">@color/light</item>
-        <item name="android:windowBackground">@color/default_color_darker</item>
+        <item name="android:windowBackground">@drawable/background_game_configuration</item>
+
+        <item name="android:fontFamily">@font/play</item>
+    </style>
+
+    <style name="GeeksEmpire.Material.GameConfiguration" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/default_color</item>
+        <item name="android:colorPrimaryDark">@color/default_color_darker</item>
+        <item name="android:colorAccent">@color/default_color_game</item>
+
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+
+        <item name="android:colorEdgeEffect">@color/light</item>
+        <item name="android:windowBackground">@drawable/background_game_configuration</item>
 
         <item name="android:fontFamily">@font/play</item>
     </style>

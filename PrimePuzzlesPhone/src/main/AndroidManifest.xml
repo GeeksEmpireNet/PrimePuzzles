@@ -45,10 +45,11 @@
             tools:replace="android:theme" />
 
         <activity
-            android:name=".Configuration"
+            android:name=".GameConfigurations"
             android:screenOrientation="sensorPortrait"
             android:resizeableActivity="false"
-            android:supportsPictureInPicture="false">
+            android:supportsPictureInPicture="false"
+            android:theme="@style/GeeksEmpire.Material.GameConfiguration">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
