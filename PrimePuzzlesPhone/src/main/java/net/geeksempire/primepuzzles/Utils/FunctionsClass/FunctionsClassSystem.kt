@@ -19,4 +19,24 @@ class FunctionsClassSystem(initContext: Context) {
             vibrator.vibrate(159)
         }
     }
+
+    fun getStatusBarHeight(context: Context) : Int {
+        val resources = context.resources
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        return if (resourceId > 0) {
+            resources.getDimensionPixelSize(resourceId)
+        } else {
+            0
+        }
+    }
+
+    fun getNavigationBarHeight(context: Context) : Int {
+        val resources = context.resources
+        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (resourceId > 0) {
+            resources.getDimensionPixelSize(resourceId)
+        } else {
+            0
+        }
+    }
 }

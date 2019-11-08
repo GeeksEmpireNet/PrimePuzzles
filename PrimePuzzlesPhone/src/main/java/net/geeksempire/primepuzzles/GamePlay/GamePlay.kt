@@ -336,6 +336,7 @@ class GamePlay : AppCompatActivity() {
     private fun setUpAds() {
         val adRequest = AdRequest.Builder()
             .addTestDevice("F54D998BCE077711A17272B899B44798")
+            .addTestDevice("DD428143B4772EC7AA87D1E2F9DA787C")
             .addKeyword("Game")
             .build()
 

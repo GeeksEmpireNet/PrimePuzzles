@@ -44,6 +44,10 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
     private var primeNumberDetected: Boolean = false
     private var divisibleTriggered: Boolean = false
 
+    init {
+
+    }
+
     interface GestureListener {
         fun onSwipe(direction: Int)
 
@@ -81,15 +85,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             FlingAnimation(view, DynamicAnimation.X)
                 .setFriction(1.3f)
                 .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat() - view.width)
+                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat() - (view.width))
         }
 
         val flingAnimationY: FlingAnimation by lazy(LazyThreadSafetyMode.NONE) {
             FlingAnimation(view, DynamicAnimation.Y)
                 .setFriction(1.3f)
                 .setMinValue(0f)
-                .setMaxValue(context.resources.displayMetrics.heightPixels.toFloat() - (functionsClassUI.displayY() / 2)
-                        - /*(view.height / 2)*/functionsClassUI.DpToInteger(139f) + functionsClassUI.DpToInteger(23f))
+                .setMaxValue(context.resources.displayMetrics.widthPixels.toFloat() - (view.width))
         }
 
         flingAnimationX.addEndListener { animation, canceled, value, velocity ->
