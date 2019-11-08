@@ -151,7 +151,7 @@ class GamePlay : AppCompatActivity() {
          * Sides Random Values Functions
          *
          */
-        setupThreeRandomViews()
+        setupViews()
         /*
          *
          * Points Functions
@@ -376,6 +376,7 @@ class GamePlay : AppCompatActivity() {
     override fun onBackPressed() {
 
     }
+
     /*
      *
      * Ads Functions
@@ -424,12 +425,18 @@ class GamePlay : AppCompatActivity() {
 
         /*Rewarded Ads*/
     }
+
     /*
      *
      * Sides Random Values Functions
      *
      */
-    private fun setupThreeRandomViews() {
+    private fun setupViews() {
+
+        functionsClassUI.shadowValueAnimatorLoop(primeNumbers,
+            19, 3,
+            999, 777,
+            getColor(R.color.lighter), 0f, 0f)
 
         val springSystem = SpringSystem.create()
 
@@ -558,6 +565,7 @@ class GamePlay : AppCompatActivity() {
             return@setOnTouchListener false
         }
     }
+
     /*
      *
      * Shuffle Functions
@@ -612,6 +620,7 @@ class GamePlay : AppCompatActivity() {
 
         GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
     }
+
     /*
      *
      * Points Functions

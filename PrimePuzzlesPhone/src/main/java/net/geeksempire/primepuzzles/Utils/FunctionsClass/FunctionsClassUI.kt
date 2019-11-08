@@ -1,6 +1,7 @@
 package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
 import android.animation.Animator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Handler
 import android.util.DisplayMetrics
@@ -8,9 +9,9 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
+import android.widget.TextView
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import kotlin.math.hypot
-
 
 class FunctionsClassUI(initContext: Context) {
 
@@ -97,6 +98,70 @@ class FunctionsClassUI(initContext: Context) {
 
             override fun onAnimationEnd(animation: Animator?) {
                 viewToReveal.visibility = View.INVISIBLE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+
+            }
+        })
+    }
+
+    fun shadowValueAnimatorLoop(view: TextView,
+                                startValue: Int, endValue: Int,
+                                startDuration: Int, endDuration: Int,
+                                shadowColor: Int, shadowX: Float, shadowY: Float) {
+        val primeNumbersGlowDown =
+            ValueAnimator.ofInt(
+                startValue,
+                endValue
+            )
+        primeNumbersGlowDown.startDelay = startDuration.toLong()
+        primeNumbersGlowDown.duration = startDuration.toLong()
+        primeNumbersGlowDown.addUpdateListener { animator ->
+            //(animator.animatedValue as Int)
+
+            view.setShadowLayer((animator.animatedValue as Int).toFloat(), shadowX, shadowY, shadowColor)
+        }
+        primeNumbersGlowDown.start()
+        primeNumbersGlowDown.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                val primeNumbersGlowUp =
+                    ValueAnimator.ofInt(
+                        endValue,
+                        startValue
+                    )
+                primeNumbersGlowUp.duration = endDuration.toLong()
+                primeNumbersGlowUp.addUpdateListener { animator ->
+                    //(animator.animatedValue as Int)
+
+                    view.setShadowLayer((animator.animatedValue as Int).toFloat(), shadowX, shadowY,  shadowColor)
+                }
+                primeNumbersGlowUp.start()
+                primeNumbersGlowUp.addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(animation: Animator?) {
+
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        shadowValueAnimatorLoop(view, startValue, endValue, startDuration, endDuration, shadowColor, shadowX, shadowY)
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+
+                    }
+
+                    override fun onAnimationStart(animation: Animator?) {
+
+                    }
+                })
             }
 
             override fun onAnimationCancel(animation: Animator?) {
