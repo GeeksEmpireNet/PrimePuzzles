@@ -13,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -181,17 +182,17 @@ class GamePlay : AppCompatActivity() {
         val topValueRandom = listOfDivisible.random()
         listOfDivisible.remove(topValueRandom)
         GameVariables.TOP_VALUE.value = topValueRandom
-        randomTop.text = "${topValueRandom}"
+        randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisible.random()
         listOfDivisible.remove(leftValueRandom)
         GameVariables.LEFT_VALUE.value = leftValueRandom
-        randomLeft.text = "${leftValueRandom}"
+        randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisible.random()
         listOfDivisible.remove(rightValueRandom)
         GameVariables.RIGHT_VALUE.value = rightValueRandom
-        randomRight.text = "${rightValueRandom}"
+        randomRight.setText("${rightValueRandom}")
 
         GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this, object : Observer<Int> {
             override fun onChanged(newDifficultyLevel: Int?) {
@@ -283,25 +284,25 @@ class GamePlay : AppCompatActivity() {
 
         GameVariables.CENTER_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newCenterValue: Int?) {
-                gesturedRandomCenter.text = "${newCenterValue}"
+                gesturedRandomCenter.setText("${newCenterValue}")
             }
         })
 
         GameVariables.TOP_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newTopValue: Int?) {
-                randomTop.text = "${newTopValue}"
+                randomTop.setText("${newTopValue}")
             }
         })
 
         GameVariables.LEFT_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newLeftValue: Int?) {
-                randomLeft.text = "${newLeftValue}"
+                randomLeft.setText("${newLeftValue}")
             }
         })
 
         GameVariables.RIGHT_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newRightValue: Int?) {
-                randomRight.text = "${newRightValue}"
+                randomRight.setText("${newRightValue}")
             }
         })
 
@@ -435,7 +436,7 @@ class GamePlay : AppCompatActivity() {
 
         functionsClassUI.shadowValueAnimatorLoop(primeNumbers,
             19, 3,
-            999, 777,
+            1333, 777,
             getColor(R.color.lighter), 0f, 0f)
 
         val springSystem = SpringSystem.create()
@@ -575,24 +576,24 @@ class GamePlay : AppCompatActivity() {
         functionsClassGame.playShuffleMagicalNumbersPosition()
 
         val listOfDivisibleShuffle = ArrayList<Int>()
-        listOfDivisibleShuffle.add(randomTop.text.toString().toInt())
-        listOfDivisibleShuffle.add(randomLeft.text.toString().toInt())
-        listOfDivisibleShuffle.add(randomRight.text.toString().toInt())
+        listOfDivisibleShuffle.add((randomTop.currentView as TextView).text.toString().toInt())
+        listOfDivisibleShuffle.add((randomLeft.currentView as TextView).text.toString().toInt())
+        listOfDivisibleShuffle.add((randomRight.currentView as TextView).text.toString().toInt())
 
         val topValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(topValueRandom)
         GameVariables.TOP_VALUE.value = topValueRandom
-        randomTop.text = "${topValueRandom}"
+        randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(leftValueRandom)
         GameVariables.LEFT_VALUE.value = leftValueRandom
-        randomLeft.text = "${leftValueRandom}"
+        randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(rightValueRandom)
         GameVariables.RIGHT_VALUE.value = rightValueRandom
-        randomRight.text = "${rightValueRandom}"
+        randomRight.setText("${rightValueRandom}")
 
         GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
     }
@@ -606,17 +607,17 @@ class GamePlay : AppCompatActivity() {
         val topValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(topValueRandom)
         GameVariables.TOP_VALUE.value = topValueRandom
-        randomTop.text = "${topValueRandom}"
+        randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(leftValueRandom)
         GameVariables.LEFT_VALUE.value = leftValueRandom
-        randomLeft.text = "${leftValueRandom}"
+        randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(rightValueRandom)
         GameVariables.RIGHT_VALUE.value = rightValueRandom
-        randomRight.text = "${rightValueRandom}"
+        randomRight.setText("${rightValueRandom}")
 
         GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
     }

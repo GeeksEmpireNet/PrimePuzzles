@@ -7,8 +7,8 @@
         android:type="radial"
         android:centerX="50%"
         android:centerY="0%"
-        android:gradientRadius="100%"
-        android:startColor="@color/default_color"
+        android:gradientRadius="150%"
+        android:startColor="@color/default_color_transparent_50"
         android:centerColor="@color/default_color_transparent_high"
         android:endColor="@color/transparent" />
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".GamePlay.GamePlay">
 
-    <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+    <TextSwitcher xmlns:apps="http://schemas.android.com/apk/res-auto"
         android:id="@+id/randomTop"
         android:layout_width="139dp"
         android:layout_height="139dp"
@@ -22,6 +22,9 @@
         android:elevation="23dp"
         android:background="@drawable/background_random_top_button"
 
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out"
+
         apps:autoSizeTextType="uniform"
         apps:autoSizeMinTextSize="12dp"
         apps:autoSizeMaxTextSize="31sp"
@@ -29,9 +32,56 @@
 
         apps:layout_constraintTop_toTopOf="parent"
         apps:layout_constraintRight_toRightOf="parent"
-        apps:layout_constraintLeft_toLeftOf="parent" />
+        apps:layout_constraintLeft_toLeftOf="parent">
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:layout_width="139dp"
+            android:layout_height="139dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/light"
+            android:textSize="31sp"
+            android:fontFamily="@font/play"
+            android:shadowColor="@color/light_transparent"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:elevation="23dp"
+            android:background="@drawable/background_random_top_button"
 
-    <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="31sp"
+            apps:autoSizeStepGranularity="1sp"
+
+            apps:layout_constraintTop_toTopOf="parent"
+            apps:layout_constraintRight_toRightOf="parent"
+            apps:layout_constraintLeft_toLeftOf="parent" />
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:layout_width="139dp"
+            android:layout_height="139dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/light"
+            android:textSize="31sp"
+            android:fontFamily="@font/play"
+            android:shadowColor="@color/light_transparent"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:elevation="23dp"
+            android:background="@drawable/background_random_top_button"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="31sp"
+            apps:autoSizeStepGranularity="1sp"
+
+            apps:layout_constraintTop_toTopOf="parent"
+            apps:layout_constraintRight_toRightOf="parent"
+            apps:layout_constraintLeft_toLeftOf="parent" />
+    </TextSwitcher>
+
+    <TextSwitcher xmlns:apps="http://schemas.android.com/apk/res-auto"
         android:id="@+id/randomLeft"
         android:layout_width="139dp"
         android:layout_height="139dp"
@@ -47,6 +97,9 @@
         android:elevation="23dp"
         android:background="@drawable/background_random_left_button"
 
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out"
+
         apps:autoSizeTextType="uniform"
         apps:autoSizeMinTextSize="12dp"
         apps:autoSizeMaxTextSize="31sp"
@@ -54,9 +107,56 @@
 
         apps:layout_constraintTop_toTopOf="parent"
         apps:layout_constraintBottom_toBottomOf="parent"
-        apps:layout_constraintLeft_toLeftOf="parent" />
+        apps:layout_constraintLeft_toLeftOf="parent">
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:layout_width="139dp"
+            android:layout_height="139dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/light"
+            android:textSize="31sp"
+            android:fontFamily="@font/play"
+            android:shadowColor="@color/light_transparent"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:elevation="23dp"
+            android:background="@drawable/background_random_left_button"
 
-    <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="31sp"
+            apps:autoSizeStepGranularity="1sp"
+
+            apps:layout_constraintTop_toTopOf="parent"
+            apps:layout_constraintBottom_toBottomOf="parent"
+            apps:layout_constraintLeft_toLeftOf="parent" />
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:layout_width="139dp"
+            android:layout_height="139dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/light"
+            android:textSize="31sp"
+            android:fontFamily="@font/play"
+            android:shadowColor="@color/light_transparent"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:elevation="23dp"
+            android:background="@drawable/background_random_left_button"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="31sp"
+            apps:autoSizeStepGranularity="1sp"
+
+            apps:layout_constraintTop_toTopOf="parent"
+            apps:layout_constraintBottom_toBottomOf="parent"
+            apps:layout_constraintLeft_toLeftOf="parent" />
+    </TextSwitcher>
+
+    <TextSwitcher xmlns:apps="http://schemas.android.com/apk/res-auto"
         android:id="@+id/randomRight"
         android:layout_width="139dp"
         android:layout_height="139dp"
@@ -72,6 +172,9 @@
         android:elevation="23dp"
         android:background="@drawable/background_random_right_button"
 
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out"
+
         apps:autoSizeTextType="uniform"
         apps:autoSizeMinTextSize="12dp"
         apps:autoSizeMaxTextSize="31sp"
@@ -79,12 +182,60 @@
 
         apps:layout_constraintTop_toTopOf="parent"
         apps:layout_constraintBottom_toBottomOf="parent"
-        apps:layout_constraintRight_toRightOf="parent" />
+        apps:layout_constraintRight_toRightOf="parent">
+        <TextView
+            android:layout_width="139dp"
+            android:layout_height="139dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/light"
+            android:textSize="31sp"
+            android:fontFamily="@font/play"
+            android:shadowColor="@color/light_transparent"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:elevation="23dp"
+            android:background="@drawable/background_random_right_button"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="31sp"
+            apps:autoSizeStepGranularity="1sp"
+
+            apps:layout_constraintTop_toTopOf="parent"
+            apps:layout_constraintBottom_toBottomOf="parent"
+            apps:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:layout_width="139dp"
+            android:layout_height="139dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/light"
+            android:textSize="31sp"
+            android:fontFamily="@font/play"
+            android:shadowColor="@color/light_transparent"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:elevation="23dp"
+            android:background="@drawable/background_random_right_button"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="31sp"
+            apps:autoSizeStepGranularity="1sp"
+
+            apps:layout_constraintTop_toTopOf="parent"
+            apps:layout_constraintBottom_toBottomOf="parent"
+            apps:layout_constraintRight_toRightOf="parent" />
+    </TextSwitcher>
 
     <net.geeksempire.primepuzzles.GameView.GesturedRandomCenter xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:apps="http://schemas.android.com/apk/res-auto"
         android:id="@+id/gesturedRandomCenter"
         android:layout_width="139dp"
         android:layout_height="139dp"
+
         android:gravity="center"
         android:textAllCaps="false"
         android:textColor="@color/light"
