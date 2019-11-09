@@ -1,8 +1,11 @@
 package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
+import kotlin.math.sqrt
+
 fun isNumberPrime(numberToCheck: Int) : Boolean {
     var isPrime = true
-    for (i in (2..9)) {
+    val sqrtNumber: Int = sqrt(numberToCheck.toFloat()).toInt()
+    for (i in 2..sqrtNumber) {
         if (numberToCheck % i == 0) {
             isPrime = false
             break
