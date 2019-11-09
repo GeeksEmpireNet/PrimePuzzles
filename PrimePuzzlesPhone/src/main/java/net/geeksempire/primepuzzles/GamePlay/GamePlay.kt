@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Html
 import android.view.*
@@ -197,6 +198,7 @@ class GamePlay : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        countDownTimer().start()
 
         GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this, object : Observer<Int> {
             override fun onChanged(newDifficultyLevel: Int?) {
@@ -824,5 +826,25 @@ class GamePlay : AppCompatActivity() {
                 pointsTotalView.setText("${totalNewPoint}")
             }
         })
+    }
+
+    /*
+     *
+     * Timer Functions
+     *
+     */
+    private fun countDownTimer() : CountDownTimer {
+        val initCountDownTimer = object : CountDownTimer(7000, 0) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                val newSecond: Long = (millisUntilFinished / 1000)
+            }
+
+            override fun onFinish() {
+
+            }
+        }
+
+        return initCountDownTimer
     }
 }
