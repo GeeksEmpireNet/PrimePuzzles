@@ -193,12 +193,16 @@ class GamePlay : AppCompatActivity() {
         listOfDivisible.remove(rightValueRandom)
         GameVariables.RIGHT_VALUE.value = rightValueRandom
         randomRight.setText("${rightValueRandom}")
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this, object : Observer<Int> {
             override fun onChanged(newDifficultyLevel: Int?) {
                 when (GameLevel().getGameDifficultyLevel()) {
                     GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {//2..9
-                        if (newDifficultyLevel!! >= 5) {
+                        if (newDifficultyLevel!! >= 7) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
@@ -206,8 +210,8 @@ class GamePlay : AppCompatActivity() {
                             GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
-                    GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                        if (newDifficultyLevel!! >= 67) {//10..99
+                    GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {//10..99
+                        if (newDifficultyLevel!! >= 77) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
@@ -216,7 +220,7 @@ class GamePlay : AppCompatActivity() {
                         }
                     }
                     GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {//100..999
-                        if (newDifficultyLevel!! >= 773) {
+                        if (newDifficultyLevel!! >= 777) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
@@ -225,7 +229,7 @@ class GamePlay : AppCompatActivity() {
                         }
                     }
                     GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {//1000..9999
-                        if (newDifficultyLevel!! >= 7717) {
+                        if (newDifficultyLevel!! >= 7777) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
@@ -258,6 +262,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
+
         GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
         GameVariables.SHUFFLE_PROCESS_POSITION.observe(this, object : Observer<Int> {
             override fun onChanged(newShufflePosition: Int?) {
@@ -277,10 +282,7 @@ class GamePlay : AppCompatActivity() {
                 }
             }
         })
-    }
 
-    override fun onStart() {
-        super.onStart()
 
         GameVariables.CENTER_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newCenterValue: Int?) {
@@ -293,18 +295,17 @@ class GamePlay : AppCompatActivity() {
                 randomTop.setText("${newTopValue}")
             }
         })
-
         GameVariables.LEFT_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newLeftValue: Int?) {
                 randomLeft.setText("${newLeftValue}")
             }
         })
-
         GameVariables.RIGHT_VALUE.observe(this, object : Observer<Int> {
             override fun onChanged(newRightValue: Int?) {
                 randomRight.setText("${newRightValue}")
             }
         })
+
 
         val snackbarHint = Snackbar.make(
             fullGamePlay,
