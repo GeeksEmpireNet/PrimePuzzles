@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Html
 import android.view.*
@@ -36,6 +35,7 @@ import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
+import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
@@ -380,10 +380,13 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
+        GamePlay.countDownTimer.resume()
     }
 
     override fun onPause() {
         super.onPause()
+
+        GamePlay.countDownTimer.pause()
     }
 
     override fun onBackPressed() {
