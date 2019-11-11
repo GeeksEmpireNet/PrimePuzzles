@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/bounce_interpolator"
-    android:duration="1777">
+    android:startOffset="111"
+    android:duration="1333">
 
     <alpha
         android:interpolator="@android:interpolator/accelerate_quad"
         android:fromAlpha="0.0"
         android:toAlpha="1.0"
+        android:duration="1333" />
+
+    <alpha
+        android:interpolator="@android:interpolator/accelerate_quad"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
         android:duration="999" />
 </set>

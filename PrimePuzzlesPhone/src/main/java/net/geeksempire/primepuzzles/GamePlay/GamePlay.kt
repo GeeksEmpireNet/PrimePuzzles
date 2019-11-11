@@ -198,7 +198,6 @@ class GamePlay : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        countDownTimer().start()
 
         GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this, object : Observer<Int> {
             override fun onChanged(newDifficultyLevel: Int?) {
@@ -669,22 +668,6 @@ class GamePlay : AppCompatActivity() {
 
                         override fun onAnimationEnd(animation: Animation?) {
 
-                            val animationFadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-                            animationFadeOut.duration = 1000
-                            pointsEarning.startAnimation(animationFadeOut)
-                            animationFadeOut.setAnimationListener(object : Animation.AnimationListener {
-                                override fun onAnimationRepeat(animation: Animation?) {
-
-                                }
-
-                                override fun onAnimationEnd(animation: Animation?) {
-                                    pointsEarning.visibility = View.INVISIBLE
-                                }
-
-                                override fun onAnimationStart(animation: Animation?) {
-
-                                }
-                            })
                         }
 
                         override fun onAnimationStart(animation: Animation?) {
@@ -697,13 +680,8 @@ class GamePlay : AppCompatActivity() {
 
                     pointsEarning.setTextColor(getColor(R.color.green))
                     pointsEarning.text = "+${newPositivePoint}"
-                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){
-                        ""
-                    } else {
-                        " x ${GameLevel().getGameDifficultyLevel()}"
-                    })
+                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){ "" } else { " x ${GameLevel().getGameDifficultyLevel()}" })
 
-                    pointsEarning.visibility = View.VISIBLE
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)
                 }
 
@@ -755,22 +733,6 @@ class GamePlay : AppCompatActivity() {
 
                         override fun onAnimationEnd(animation: Animation?) {
 
-                            val animationFadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-                            animationFadeOut.duration = 1000
-                            pointsEarning.startAnimation(animationFadeOut)
-                            animationFadeOut.setAnimationListener(object : Animation.AnimationListener {
-                                override fun onAnimationRepeat(animation: Animation?) {
-
-                                }
-
-                                override fun onAnimationEnd(animation: Animation?) {
-                                    pointsEarning.visibility = View.INVISIBLE
-                                }
-
-                                override fun onAnimationStart(animation: Animation?) {
-
-                                }
-                            })
                         }
 
                         override fun onAnimationStart(animation: Animation?) {
@@ -783,13 +745,8 @@ class GamePlay : AppCompatActivity() {
 
                     pointsEarning.setTextColor(getColor(R.color.red))
                     pointsEarning.text = "-${newNegativePoint}"
-                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){
-                        ""
-                    } else {
-                        " x ${GameLevel().getGameDifficultyLevel()}"
-                    })
+                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){ "" } else { " x ${GameLevel().getGameDifficultyLevel()}" })
 
-                    pointsEarning.visibility = View.VISIBLE
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)
                 }
 
