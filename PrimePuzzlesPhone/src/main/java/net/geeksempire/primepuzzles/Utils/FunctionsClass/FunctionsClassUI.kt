@@ -36,7 +36,7 @@ class FunctionsClassUI(initContext: Context) {
     }
 
     fun circularRevealAnimationPrimeNumber(viewToReveal: View, yPosition: Float, xPosition: Float, startRadius: Float) {
-        GamePlay.countDownTimer.cancel()
+        GamePlay.countDownTimer.pause()
 
         val finalRadius = hypot(displayX().toDouble(), displayY().toDouble()).toInt()
         val circularReveal = ViewAnimationUtils.createCircularReveal(
@@ -101,7 +101,7 @@ class FunctionsClassUI(initContext: Context) {
             override fun onAnimationEnd(animation: Animator?) {
                 viewToReveal.visibility = View.INVISIBLE
 
-                GamePlay.countDownTimer.start()
+                GamePlay.countDownTimer.resume()
             }
 
             override fun onAnimationCancel(animation: Animator?) {
