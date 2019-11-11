@@ -1,5 +1,6 @@
 package net.geeksempire.primepuzzles.GameLogic
 
+import net.geeksempire.primepuzzles.GameInformation.GameVariables
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassMath
 
 class GameOperations {

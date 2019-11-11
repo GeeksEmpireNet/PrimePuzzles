@@ -31,10 +31,10 @@ import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.BuildConfig
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
+import net.geeksempire.primepuzzles.GameInformation.GameVariables
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
-import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
@@ -207,8 +207,8 @@ class GamePlay : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this, object : Observer<Int> {
-            override fun onChanged(newDifficultyLevel: Int?) {
+        GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this,
+            Observer<Int> { newDifficultyLevel ->
                 when (GameLevel().getGameDifficultyLevel()) {
                     GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {//2..9
                         if (newDifficultyLevel!! >= 7) {
@@ -248,12 +248,11 @@ class GamePlay : AppCompatActivity() {
                     }
                 }
                 functionsClassGameIO.saveLevelProcess(GameLevel().getGameDifficultyLevel())
-            }
-        })
+            })
 
 
-        GameVariables.PRIME_NUMBER_DETECTED.observe(this, object : Observer<Boolean> {
-            override fun onChanged(primeDetected: Boolean?) {
+        GameVariables.PRIME_NUMBER_DETECTED.observe(this,
+            Observer<Boolean> { primeDetected ->
                 if (primeDetected!!) {
                     functionsClassGame.playLongPrimeDetectionSound()
 
@@ -268,52 +267,43 @@ class GamePlay : AppCompatActivity() {
                         )
                     }, 99)
                 }
-            }
-        })
+            })
 
 
         GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
-        GameVariables.SHUFFLE_PROCESS_POSITION.observe(this, object : Observer<Int> {
-            override fun onChanged(newShufflePosition: Int?) {
-
+        GameVariables.SHUFFLE_PROCESS_POSITION.observe(this,
+            Observer<Int> { newShufflePosition ->
                 if (newShufflePosition!! >= 7) {
                     shuffleProcessPosition()
                 }
-            }
-        })
+            })
 
         GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
-        GameVariables.SHUFFLE_PROCESS_VALUE.observe(this, object : Observer<Int> {
-            override fun onChanged(newShuffleValue: Int?) {
-
+        GameVariables.SHUFFLE_PROCESS_VALUE.observe(this,
+            Observer<Int> { newShuffleValue ->
                 if (newShuffleValue!! >= 21) {
                     shuffleProcessValue()
                 }
-            }
-        })
+            })
 
 
-        GameVariables.CENTER_VALUE.observe(this, object : Observer<Int> {
-            override fun onChanged(newCenterValue: Int?) {
+        GameVariables.CENTER_VALUE.observe(this,
+            Observer<Int> { newCenterValue ->
                 gesturedRandomCenter.setText("${newCenterValue}")
-            }
-        })
+            })
 
-        GameVariables.TOP_VALUE.observe(this, object : Observer<Int> {
-            override fun onChanged(newTopValue: Int?) {
-                randomTop.setText("${newTopValue}")
-            }
-        })
-        GameVariables.LEFT_VALUE.observe(this, object : Observer<Int> {
-            override fun onChanged(newLeftValue: Int?) {
+        GameVariables.TOP_VALUE.observe(this,
+            Observer<Int> {
+                    newTopValue -> randomTop.setText("${newTopValue}")
+            })
+        GameVariables.LEFT_VALUE.observe(this,
+            Observer<Int> { newLeftValue ->
                 randomLeft.setText("${newLeftValue}")
-            }
-        })
-        GameVariables.RIGHT_VALUE.observe(this, object : Observer<Int> {
-            override fun onChanged(newRightValue: Int?) {
+            })
+        GameVariables.RIGHT_VALUE.observe(this,
+            Observer<Int> { newRightValue ->
                 randomRight.setText("${newRightValue}")
-            }
-        })
+            })
 
 
         val snackbarHint = Snackbar.make(

@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
+import net.geeksempire.primepuzzles.GameInformation.GameVariables
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
-import net.geeksempire.primepuzzles.GameLogic.GameVariables
 import net.geeksempire.primepuzzles.GameView.UI.SwipeGestureFilterRandomCenter
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug

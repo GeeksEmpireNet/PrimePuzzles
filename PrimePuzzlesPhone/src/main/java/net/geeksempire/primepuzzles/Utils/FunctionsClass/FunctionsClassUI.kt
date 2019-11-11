@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
-import net.geeksempire.primepuzzles.GameLogic.GameVariables
+import net.geeksempire.primepuzzles.GameInformation.GameVariables
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
 import kotlin.math.hypot
 

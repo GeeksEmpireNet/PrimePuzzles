@@ -1,4 +1,4 @@
-package net.geeksempire.primepuzzles.GameLogic
+package net.geeksempire.primepuzzles.GameInformation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

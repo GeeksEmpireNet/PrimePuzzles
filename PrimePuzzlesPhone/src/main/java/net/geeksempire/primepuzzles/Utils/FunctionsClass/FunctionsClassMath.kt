@@ -10,6 +10,7 @@ class FunctionsClassMath() {
         for (i in 2..sqrtNumber) {
             if (numberToCheck % i == 0) {
                 isPrime = false
+                
                 break
             }
         }
