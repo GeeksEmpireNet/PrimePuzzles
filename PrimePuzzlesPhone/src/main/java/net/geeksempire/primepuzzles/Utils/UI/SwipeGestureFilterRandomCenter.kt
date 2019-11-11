@@ -374,10 +374,10 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             }
         }
 
-        if (!isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-            && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-            && !isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
-            && !isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+        if (!FunctionsClassMath().isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
+            && !FunctionsClassMath().isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
+            && !FunctionsClassMath().isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
+            && !FunctionsClassMath().isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
 
             val randomCenterValue: Int = listTOfRandom.random()
             view.text = "${randomCenterValue}"
