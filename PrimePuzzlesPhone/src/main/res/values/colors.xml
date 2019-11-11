@@ -25,8 +25,8 @@
     <color name="pink">#FE5475</color>
     <color name="green">#24E486</color>
 
-    <color name="online_color">#1c7ee7</color><!-- #4286F5 -->
-    <color name="offline_color">#333333</color>
+    <color name="onlineColor">#1c7ee7</color><!-- #4286F5 -->
+    <color name="offlineColor">#333333</color>
 
     <color name="light">#f2f7ff</color>
     <color name="lighter">#fafbff</color>

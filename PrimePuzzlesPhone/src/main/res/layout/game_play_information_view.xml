@@ -11,6 +11,7 @@
         android:id="@+id/pointsTotalView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:textSize="73sp"
         android:textColor="@color/green"
@@ -59,4 +60,63 @@
             android:background="@color/transparent" />
     </TextSwitcher>
 
+    <TextSwitcher
+        android:id="@+id/timerTotalView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:paddingStart="13dp"
+        android:paddingEnd="13dp"
+        android:gravity="center"
+        android:textSize="41sp"
+        android:textColor="@color/light"
+        android:shadowColor="@color/light_transparent_high"
+        android:shadowRadius="19"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:background="@color/transparent"
+
+        android:inAnimation="@android:anim/fade_in"
+        android:outAnimation="@android:anim/fade_out">
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/timerTotalViewOne"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:gravity="center"
+            android:textSize="41sp"
+            android:textColor="@color/light"
+            android:shadowColor="@color/light_transparent_high"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="41sp"
+            apps:autoSizeStepGranularity="3sp"
+
+            android:background="@color/transparent" />
+        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/timerTotalViewTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:gravity="center"
+            android:textSize="41sp"
+            android:textColor="@color/light"
+            android:shadowColor="@color/light_transparent_high"
+            android:shadowRadius="19"
+            android:shadowDx="0"
+            android:shadowDy="0"
+
+            apps:autoSizeTextType="uniform"
+            apps:autoSizeMinTextSize="12dp"
+            apps:autoSizeMaxTextSize="41sp"
+            apps:autoSizeStepGranularity="3sp"
+
+            android:background="@color/transparent" />
+    </TextSwitcher>
 </RelativeLayout>

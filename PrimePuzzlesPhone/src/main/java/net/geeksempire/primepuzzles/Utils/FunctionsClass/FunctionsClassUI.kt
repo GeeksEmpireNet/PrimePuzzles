@@ -11,6 +11,7 @@ import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
+import net.geeksempire.primepuzzles.GamePlay.GamePlay
 import kotlin.math.hypot
 
 class FunctionsClassUI(initContext: Context) {
@@ -34,7 +35,8 @@ class FunctionsClassUI(initContext: Context) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
     }
 
-    fun circularRevealAnimation(viewToReveal: View, yPosition: Float, xPosition: Float, startRadius: Float) {
+    fun circularRevealAnimationPrimeNumber(viewToReveal: View, yPosition: Float, xPosition: Float, startRadius: Float) {
+        GamePlay.countDownTimer.cancel()
 
         val finalRadius = hypot(displayX().toDouble(), displayY().toDouble()).toInt()
         val circularReveal = ViewAnimationUtils.createCircularReveal(
@@ -58,7 +60,7 @@ class FunctionsClassUI(initContext: Context) {
                 Handler().postDelayed({
                     GameVariables.TOGGLE_SNACKBAR.value = false
 
-                    circularHideAnimation(
+                    circularHideAnimationPrimeNumber(
                         viewToReveal,
                         yPosition,
                         xPosition,
@@ -77,7 +79,7 @@ class FunctionsClassUI(initContext: Context) {
         })
     }
 
-    fun circularHideAnimation(viewToReveal: View, yPosition: Float, xPosition: Float, startRadius: Float) {
+    fun circularHideAnimationPrimeNumber(viewToReveal: View, yPosition: Float, xPosition: Float, startRadius: Float) {
 
         val finalRadius = hypot(displayX().toDouble(), displayY().toDouble()).toInt()
         val circularReveal = ViewAnimationUtils.createCircularReveal(
@@ -98,6 +100,8 @@ class FunctionsClassUI(initContext: Context) {
 
             override fun onAnimationEnd(animation: Animator?) {
                 viewToReveal.visibility = View.INVISIBLE
+
+                GamePlay.countDownTimer.start()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

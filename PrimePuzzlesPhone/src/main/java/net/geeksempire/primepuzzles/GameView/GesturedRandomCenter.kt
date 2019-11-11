@@ -7,9 +7,9 @@ import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameVariables
+import net.geeksempire.primepuzzles.GameView.UI.SwipeGestureFilterRandomCenter
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
-import net.geeksempire.primepuzzles.Utils.UI.SwipeGestureFilterRandomCenter
 
 class GesturedRandomCenter : Button,
     SwipeGestureFilterRandomCenter.GestureListener {
@@ -17,12 +17,22 @@ class GesturedRandomCenter : Button,
     var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        swipeGestureFilterRandomCenter = SwipeGestureFilterRandomCenter(this@GesturedRandomCenter, context, this@GesturedRandomCenter)
+        swipeGestureFilterRandomCenter =
+            SwipeGestureFilterRandomCenter(
+                this@GesturedRandomCenter,
+                context,
+                this@GesturedRandomCenter
+            )
 
     }
 
     constructor(context: Context) : super(context) {
-        swipeGestureFilterRandomCenter = SwipeGestureFilterRandomCenter(this@GesturedRandomCenter, context, this@GesturedRandomCenter)
+        swipeGestureFilterRandomCenter =
+            SwipeGestureFilterRandomCenter(
+                this@GesturedRandomCenter,
+                context,
+                this@GesturedRandomCenter
+            )
 
     }
 
@@ -92,5 +102,4 @@ class GesturedRandomCenter : Button,
     override fun onLongPress() {
         FunctionsClassDebug.PrintDebug("LONG_PRESS")
     }
-
 }

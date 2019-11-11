@@ -76,7 +76,7 @@
         android:textColor="@color/green"
         android:textSize="37sp"
         android:shadowColor="@color/light_transparent"
-        android:shadowRadius="11"
+        android:shadowRadius="7"
         android:shadowDx="0"
         android:shadowDy="0"/>
 </RelativeLayout>

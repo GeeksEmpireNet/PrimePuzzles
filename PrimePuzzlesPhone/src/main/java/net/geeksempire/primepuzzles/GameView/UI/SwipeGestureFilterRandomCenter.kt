@@ -1,4 +1,4 @@
-package net.geeksempire.primepuzzles.Utils.UI
+package net.geeksempire.primepuzzles.GameView.UI
 
 import android.content.Context
 import android.os.Handler
@@ -35,7 +35,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
     private var swipeMinVelocity: Int  = 10
 
-    private var mode: Int = MODE_DYNAMIC
+    private var mode: Int =
+        MODE_DYNAMIC
     private var swipeMode: Int = 0
     private var running: Boolean = true
 
@@ -100,7 +101,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             GameVariables.SHUFFLE_PROCESS_VALUE.value = GameVariables.SHUFFLE_PROCESS_VALUE.value!! + 1
 
             when (swipeMode()) {
-                SwipeGestureFilterRandomCenter.SWIPE_LEFT -> {
+                SWIPE_LEFT -> {
+
                     if (GameOperations().determineLeftValue()) {
                         divisibleTriggered = true
 
@@ -123,7 +125,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
-                SwipeGestureFilterRandomCenter.SWIPE_RIGHT -> {
+                SWIPE_RIGHT -> {
+
                     if (GameOperations().determineRightValue()) {
                         divisibleTriggered = true
 
@@ -148,8 +151,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                 }
             }
 
-            Handler()
-                .postDelayed({
+            Handler().postDelayed({
                     springAnimationTranslationX.start()
                     springAnimationTranslationY.start()
 
@@ -183,7 +185,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             GameVariables.SHUFFLE_PROCESS_VALUE.value = GameVariables.SHUFFLE_PROCESS_VALUE.value!! + 1
 
             when (swipeMode()) {
-                SwipeGestureFilterRandomCenter.SWIPE_UP -> {
+                SWIPE_UP -> {
+
                     if (GameOperations().determineTopValue()) {
                         divisibleTriggered = true
 
@@ -206,7 +209,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
-                SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
+                SWIPE_DOWN -> {
 
                     if (GameOperations().determinePrimeValue()) {
                         FunctionsClassDebug.PrintDebug("${GameVariables.CENTER_VALUE.value} IS A PRIME Number")
@@ -225,7 +228,6 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                     }
                 }
             }
-
 
             if (primeNumberDetected) {
                 GameVariables.PRIME_NUMBER_DETECTED.value = true
@@ -305,12 +307,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
         if (abs(velocityY) >= this.swipeMinVelocity && yDistance > this.swipeMinDistance && xDistance < yDistance) {//Vertical
             if (downMotionEvent.y > moveMotionEvent.y) {//Bottom -> Up
                 this.gestureListener.onSwipe(SWIPE_UP)
-                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_UP
+                swipeMode =
+                    SWIPE_UP
 
 
             } else {//Up -> Bottom
                 this.gestureListener.onSwipe(SWIPE_DOWN)
-                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_DOWN
+                swipeMode =
+                    SWIPE_DOWN
 
 
             }
@@ -325,12 +329,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
         if (abs(velocityX) >= this.swipeMinVelocity && xDistance > this.swipeMinDistance && yDistance < xDistance) {//Horizontal
             if (downMotionEvent.x > moveMotionEvent.x) {//Right -> Left
                 this.gestureListener.onSwipe(SWIPE_LEFT)
-                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_LEFT
+                swipeMode =
+                    SWIPE_LEFT
 
 
             } else {//Left -> Right
                 this.gestureListener.onSwipe(SWIPE_RIGHT)
-                swipeMode = SwipeGestureFilterRandomCenter.SWIPE_RIGHT
+                swipeMode =
+                    SWIPE_RIGHT
 
 
             }

@@ -51,9 +51,11 @@ class GamePlay : AppCompatActivity() {
 
     private lateinit var gameVariables: GameVariables
 
-
     companion object {
         var RestoreGameState = false
+
+        lateinit var countDownTimer: CountDownTimer
+        var lastThickTimer: Long = 14000
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -90,6 +92,7 @@ class GamePlay : AppCompatActivity() {
                 setUpAds()
             }
         }
+        countDownTimer()
 
         gesturedRandomCenter.bringToFront()
         primeNumberDetectedInclude.bringToFront()
@@ -145,8 +148,8 @@ class GamePlay : AppCompatActivity() {
         /*
          * Restore Game State
          */
-        RestoreGameState = intent.getBooleanExtra(GameSettings.RESTORE_GAME_STATE, false)
-        FunctionsClassDebug.PrintDebug("Restore Game State ::: ${RestoreGameState}")
+        GamePlay.RestoreGameState = intent.getBooleanExtra(GameSettings.RESTORE_GAME_STATE, false)
+        FunctionsClassDebug.PrintDebug("Restore Game State ::: ${GamePlay.RestoreGameState}")
 
         /*
          *
@@ -194,6 +197,11 @@ class GamePlay : AppCompatActivity() {
         listOfDivisible.remove(rightValueRandom)
         GameVariables.RIGHT_VALUE.value = rightValueRandom
         randomRight.setText("${rightValueRandom}")
+
+        Handler().postDelayed({
+
+            GamePlay.countDownTimer.start()
+        }, 1999)
     }
 
     override fun onStart() {
@@ -252,7 +260,7 @@ class GamePlay : AppCompatActivity() {
                     detectedPrimeNumber.text = "${GameVariables.CENTER_VALUE.value!!}"
 
                     Handler().postDelayed({
-                        functionsClassUI.circularRevealAnimation(
+                        functionsClassUI.circularRevealAnimationPrimeNumber(
                             primeNumberDetectedInclude,
                             primeNumbers.y + (primeNumbers.height/2),
                             primeNumbers.x + (primeNumbers.width/2),
@@ -342,7 +350,7 @@ class GamePlay : AppCompatActivity() {
 
                                 }
                                 GameInformationVariable.PRIME_NUMBER_ACTION -> {
-                                    functionsClassUI.circularHideAnimation(
+                                    functionsClassUI.circularHideAnimationPrimeNumber(
                                         primeNumberDetectedInclude,
                                         primeNumbers.y + (primeNumbers.height/2),
                                         primeNumbers.x + (primeNumbers.width/2),
@@ -362,6 +370,8 @@ class GamePlay : AppCompatActivity() {
     }
 
     override fun onResume() {
+        super.onResume()
+
         window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -369,7 +379,7 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
-        super.onResume()
+
     }
 
     override fun onPause() {
@@ -630,16 +640,8 @@ class GamePlay : AppCompatActivity() {
      *
      */
     private fun scanPointsChange() {
-        /***
-         *
-         *
-         * Restore & Resume Game Points & Difficulty Level By Seeing Ads
-         * GameVariables.GAME_LEVEL_DIFFICULTY.value = functionsClassGameIO.read
-         *
-         *
-         ***/
 
-        if (RestoreGameState) {
+        if (GamePlay.RestoreGameState) {
 
             pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
             GameLevel.GAME_DIFFICULTY_LEVEL = functionsClassGameIO.readLevelProcess()
@@ -656,6 +658,9 @@ class GamePlay : AppCompatActivity() {
         GameVariables.PRIME_NEGATIVE_POINT.value = 0
         GameVariables.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
 
+        /*
+         * Positive Points
+         */
         GameVariables.DIVISIBLE_POSITIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newPositivePoint: Int?) {
 
@@ -667,7 +672,14 @@ class GamePlay : AppCompatActivity() {
                         }
 
                         override fun onAnimationEnd(animation: Animation?) {
+                            Handler().postDelayed({
 
+                                timerTotalViewOne.setTextColor(getColor(R.color.light))
+                                timerTotalViewTwo.setTextColor(getColor(R.color.light))
+
+                                GamePlay.countDownTimer.cancel()
+                                GamePlay.countDownTimer.start()
+                            }, 777)
                         }
 
                         override fun onAnimationStart(animation: Animation?) {
@@ -719,7 +731,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
         /*
-         *
+         * Negative Points
          */
         GameVariables.DIVISIBLE_NEGATIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newNegativePoint: Int?) {
@@ -732,7 +744,14 @@ class GamePlay : AppCompatActivity() {
                         }
 
                         override fun onAnimationEnd(animation: Animation?) {
+                            Handler().postDelayed({
 
+                                timerTotalViewOne.setTextColor(getColor(R.color.light))
+                                timerTotalViewTwo.setTextColor(getColor(R.color.light))
+
+                                GamePlay.countDownTimer.cancel()
+                                GamePlay.countDownTimer.start()
+                            }, 777)
                         }
 
                         override fun onAnimationStart(animation: Animation?) {
@@ -791,17 +810,32 @@ class GamePlay : AppCompatActivity() {
      *
      */
     private fun countDownTimer() : CountDownTimer {
-        val initCountDownTimer = object : CountDownTimer(7000, 0) {
+
+        GamePlay.countDownTimer = object : CountDownTimer(GamePlay.lastThickTimer, 1) {
 
             override fun onTick(millisUntilFinished: Long) {
+                GamePlay.lastThickTimer = millisUntilFinished
+
                 val newSecond: Long = (millisUntilFinished / 1000)
+                if (newSecond <= 5) {
+                    timerTotalViewOne.setTextColor(getColor(R.color.default_color_game_light))
+                    timerTotalViewTwo.setTextColor(getColor(R.color.default_color_game_light))
+                }
+                timerTotalView.setText("${newSecond}")
             }
 
             override fun onFinish() {
+                //GamePlay.lastThickTimer = 14000
 
+                //WRONG ANSWER
+                FunctionsClassDebug.PrintDebug("WRONG ANSWER")
+
+                functionsClassGame.playWrongSound()
+
+                GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
             }
         }
 
-        return initCountDownTimer
+        return GamePlay.countDownTimer
     }
 }
