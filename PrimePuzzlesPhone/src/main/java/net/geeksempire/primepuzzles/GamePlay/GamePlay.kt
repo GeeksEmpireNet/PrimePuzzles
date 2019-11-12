@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 11/11/19 7:04 PM
+ * Last modified 11/11/19 6:57 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -728,7 +728,9 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newPositivePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT ::: ${newPositivePoint}")
 
-
+                val point = functionsClassGameIO.readDivisiblePositivePoints()
+                val newPoint = point + newPositivePoint!!
+                functionsClassGameIO.saveDivisiblePositivePoints(newPoint)
             }
         })
 
@@ -736,7 +738,9 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newPositivePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("PRIME_POSITIVE_POINT ::: ${newPositivePoint}")
 
-
+                val point = functionsClassGameIO.readPrimePositivePoints()
+                val newPoint = point + newPositivePoint!!
+                functionsClassGameIO.savePrimePositivePoints(newPoint)
             }
         })
 
@@ -744,7 +748,9 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newPositivePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_POSITIVE_POINT ::: ${newPositivePoint}")
 
-
+                val point = functionsClassGameIO.readCenterChangePositivePoints()
+                val newPoint = point + newPositivePoint!!
+                functionsClassGameIO.saveCenterChangePositivePoints(newPoint)
             }
         })
 
@@ -801,7 +807,9 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newNegativePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT ::: ${newNegativePoint}")
 
-
+                val point = functionsClassGameIO.readDivisibleNegativePoints()
+                val newPoint = point - newNegativePoint!!
+                functionsClassGameIO.saveDivisibleNegativePoints(newPoint)
             }
         })
 
@@ -809,6 +817,9 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newNegativePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("PRIME_NEGATIVE_POINT ::: ${newNegativePoint}")
 
+                val point = functionsClassGameIO.readPrimeNegativePoints()
+                val newPoint = point - newNegativePoint!!
+                functionsClassGameIO.savePrimeNegativePoints(newPoint)
             }
         })
 
@@ -816,6 +827,9 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newNegativePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_NEGATIVE_POINT ::: ${newNegativePoint}")
 
+                val point = functionsClassGameIO.readCenterChangeNegativePoints()
+                val newPoint = point - newNegativePoint!!
+                functionsClassGameIO.saveCenterChangeNegativePoints(newPoint)
             }
         })
     }
