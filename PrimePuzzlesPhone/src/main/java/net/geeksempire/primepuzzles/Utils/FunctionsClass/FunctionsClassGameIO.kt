@@ -7,6 +7,13 @@ class FunctionsClassGameIO(initContext: Context) {
 
     val context: Context = initContext
 
+
+    fun primeNumbersJsonExists() : Boolean {
+
+        return context.getFileStreamPath("PrimeNumbers.json").exists()
+    }
+
+
     fun saveTotalPoints(PointValue: Int) {
         val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
         val editorSharedPreferences = sharedPreferences.edit()

@@ -2,6 +2,9 @@ package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
 import android.content.Context
 import android.content.Context.VIBRATOR_SERVICE
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -38,5 +41,24 @@ class FunctionsClassSystem(initContext: Context) {
         } else {
             0
         }
+    }
+
+    @Throws(Exception::class)
+    fun networkConnection(): Boolean {
+        var networkAvailable = false
+
+        val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network: Network = connectivityManager.activeNetwork!!
+        val networkCapabilities: NetworkCapabilities = connectivityManager.getNetworkCapabilities(network)!!
+
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+            networkAvailable = true
+        } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+            networkAvailable = true
+        } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+            networkAvailable = true
+        }
+
+        return networkAvailable
     }
 }

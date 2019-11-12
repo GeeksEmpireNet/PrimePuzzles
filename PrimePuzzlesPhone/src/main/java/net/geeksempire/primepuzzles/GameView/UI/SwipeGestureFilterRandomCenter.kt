@@ -25,7 +25,9 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
     private val functionsClassSystem: FunctionsClassSystem = FunctionsClassSystem(initContext)
     private val functionsClassUI: FunctionsClassUI = FunctionsClassUI(initContext)
     private val functionsClassGame: FunctionsClassGame = FunctionsClassGame(initContext)
+    private val functionsClassMath: FunctionsClassMath = FunctionsClassMath(initContext)
 
+    private val gameOperations: GameOperations = GameOperations(initContext)
 
     private var tapIndicator = false
     private val gestureDetector: GestureDetector = GestureDetector(initContext, this@SwipeGestureFilterRandomCenter)
@@ -101,7 +103,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             when (swipeMode()) {
                 SWIPE_LEFT -> {
 
-                    if (GameOperations().determineLeftValue()) {
+                    if (gameOperations.determineLeftValue()) {
                         divisibleTriggered = true
 
                         if (divisibleTriggered) {
@@ -125,7 +127,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                 }
                 SWIPE_RIGHT -> {
 
-                    if (GameOperations().determineRightValue()) {
+                    if (gameOperations.determineRightValue()) {
                         divisibleTriggered = true
 
                         if (divisibleTriggered) {
@@ -186,7 +188,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             when (swipeMode()) {
                 SWIPE_UP -> {
 
-                    if (GameOperations().determineTopValue()) {
+                    if (GameOperations(context).determineTopValue()) {
                         divisibleTriggered = true
 
                         if (divisibleTriggered) {
@@ -210,7 +212,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                 }
                 SWIPE_DOWN -> {
 
-                    if (GameOperations().determinePrimeValue()) {
+                    if (gameOperations.determinePrimeValue()) {
                         FunctionsClassDebug.PrintDebug("${GameVariables.CENTER_VALUE.value} IS A PRIME Number")
 
                         //CORRECT ANSWER
@@ -382,10 +384,10 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             }
         }
 
-        if (!FunctionsClassMath().isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-            && !FunctionsClassMath().isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-            && !FunctionsClassMath().isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
-            && !FunctionsClassMath().isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+        if (!functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
+            && !functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
+            && !functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
+            && !functionsClassMath.isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
 
             val randomCenterValue: Int = listTOfRandom.random()
             view.text = "${randomCenterValue}"

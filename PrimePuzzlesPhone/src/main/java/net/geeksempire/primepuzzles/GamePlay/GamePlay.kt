@@ -336,7 +336,7 @@ class GamePlay : AppCompatActivity() {
                         override fun onClick(view: View?) {
                             when (GameInformationVariable.snackBarAction) {
                                 GameInformationVariable.HINT_ACTION -> {
-                                    val hintData: String = GameOperations().generateHint()
+                                    val hintData: String = GameOperations(applicationContext).generateHint()
 
                                 }
                                 GameInformationVariable.PRIME_NUMBER_ACTION -> {
