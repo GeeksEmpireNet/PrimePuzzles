@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019.  All Rights Reserved for Geeks Empire.
- * Created by Elias Fazel on 11/11/19 6:09 PM
- * Last modified 11/11/19 6:08 PM
+ * Created by Elias Fazel on 11/11/19 6:43 PM
+ * Last modified 11/11/19 6:22 PM
  */
 
 package net.geeksempire.primepuzzles.GameInformation
@@ -58,6 +58,10 @@ class GameVariables : ViewModel(){
         }
 
 
+        val POSITIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
+
         val DIVISIBLE_POSITIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
@@ -70,6 +74,10 @@ class GameVariables : ViewModel(){
             MutableLiveData<Int>()
         }
 
+
+        val NEGATIVE_POINT: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>()
+        }
 
         val DIVISIBLE_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()

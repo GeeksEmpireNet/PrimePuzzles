@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019.  All Rights Reserved for Geeks Empire.
- * Created by Elias Fazel on 11/11/19 6:09 PM
- * Last modified 11/11/19 6:08 PM
+ * Created by Elias Fazel on 11/11/19 6:43 PM
+ * Last modified 11/11/19 6:22 PM
  */
 
 package net.geeksempire.primepuzzles.GameView.UI
@@ -121,14 +121,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
 
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+                        GameVariables.POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+                        GameVariables.NEGATIVE_POINT.value = 3
                     }
                 }
                 SWIPE_RIGHT -> {
@@ -145,14 +145,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
 
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+                        GameVariables.POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+                        GameVariables.NEGATIVE_POINT.value = 3
                     }
                 }
             }
@@ -206,14 +206,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
 
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+                        GameVariables.POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+                        GameVariables.NEGATIVE_POINT.value = 3
                     }
                 }
                 SWIPE_DOWN -> {
@@ -224,14 +224,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //CORRECT ANSWER
                         primeNumberDetected = true
 
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 13
+                        GameVariables.POSITIVE_POINT.value = 13
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 13
+                        GameVariables.NEGATIVE_POINT.value = 13
                     }
                 }
             }
@@ -404,7 +404,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
             functionsClassGame.playChangedCenterRandomSound()
 
-            GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+            GameVariables.POSITIVE_POINT.value = 3
         } else {
             GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
             GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
@@ -414,7 +414,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             //WRONG ANSWER
             functionsClassGame.playWrongSound()
 
-            GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+            GameVariables.NEGATIVE_POINT.value = 3
         }
 
         functionsClassSystem.doVibrate()

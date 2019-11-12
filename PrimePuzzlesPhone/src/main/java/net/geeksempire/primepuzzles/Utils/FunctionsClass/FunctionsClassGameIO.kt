@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019.  All Rights Reserved for Geeks Empire.
- * Created by Elias Fazel on 11/11/19 6:09 PM
- * Last modified 11/11/19 6:08 PM
+ * Created by Elias Fazel on 11/11/19 6:43 PM
+ * Last modified 11/11/19 6:38 PM
  */
 
 package net.geeksempire.primepuzzles.Utils.FunctionsClass
@@ -26,10 +26,81 @@ class FunctionsClassGameIO(initContext: Context) {
         editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_PREFERENCE, PointValue)
         editorSharedPreferences.apply()
     }
-
     fun readTotalPoints() : Int {
         return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
             .getInt(GameInformationVariable.POINTS_TOTAL_PREFERENCE, 0)
+    }
+
+
+    fun saveDivisiblePositivePoints(PointValue: Int) {
+        val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_DIVISIBLE_PREFERENCE, PointValue)
+        editorSharedPreferences.apply()
+    }
+    fun readDivisiblePositivePoints() : Int {
+        return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_DIVISIBLE_PREFERENCE, 0)
+    }
+
+
+    fun savePrimePositivePoints(PointValue: Int) {
+        val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_PRIME_PREFERENCE, PointValue)
+        editorSharedPreferences.apply()
+    }
+    fun readPrimePositivePoints() : Int {
+        return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_PRIME_PREFERENCE, 0)
+    }
+
+
+    fun saveCenterChangePositivePoints(PointValue: Int) {
+        val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_CHANGE_CENTER_PREFERENCE, PointValue)
+        editorSharedPreferences.apply()
+    }
+    fun readCenterChangePositivePoints() : Int {
+        return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_CHANGE_CENTER_PREFERENCE, 0)
+    }
+
+
+    fun saveDivisibleNegativePoints(PointValue: Int) {
+        val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_DIVISIBLE_PREFERENCE, PointValue)
+        editorSharedPreferences.apply()
+    }
+    fun readDivisibleNegativePoints() : Int {
+        return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_DIVISIBLE_PREFERENCE, 0)
+    }
+
+
+    fun savePrimeNegativePoints(PointValue: Int) {
+        val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_PRIME_PREFERENCE, PointValue)
+        editorSharedPreferences.apply()
+    }
+    fun readPrimeNegativePoints() : Int {
+        return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_PRIME_PREFERENCE, 0)
+    }
+
+
+    fun saveCenterChangeNegativePoints(PointValue: Int) {
+        val sharedPreferences = context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_CHANGE_CENTER_PREFERENCE, PointValue)
+        editorSharedPreferences.apply()
+    }
+    fun readCenterChangeNegativePoints() : Int {
+        return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
+            .getInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_CHANGE_CENTER_PREFERENCE, 0)
     }
 
 
@@ -39,7 +110,6 @@ class FunctionsClassGameIO(initContext: Context) {
         editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_PREFERENCE, PointValue)
         editorSharedPreferences.apply()
     }
-
     fun readTotalPositivePoints() : Int {
         return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
             .getInt(GameInformationVariable.POINTS_TOTAL_POSITIVE_PREFERENCE, 0)
@@ -52,7 +122,6 @@ class FunctionsClassGameIO(initContext: Context) {
         editorSharedPreferences.putInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_PREFERENCE, PointValue)
         editorSharedPreferences.apply()
     }
-
     fun readTotalNegativePoints() : Int {
         return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
             .getInt(GameInformationVariable.POINTS_TOTAL_NEGATIVE_PREFERENCE, 0)
@@ -65,7 +134,6 @@ class FunctionsClassGameIO(initContext: Context) {
         editorSharedPreferences.putInt(GameInformationVariable.LEVELS_PREFERENCE, PointValue)
         editorSharedPreferences.apply()
     }
-
     fun readLevelProcess() : Int {
         return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
             .getInt(GameInformationVariable.LEVELS_PREFERENCE, 1)
@@ -78,7 +146,6 @@ class FunctionsClassGameIO(initContext: Context) {
         editorSharedPreferences.putBoolean(GameInformationVariable.SOUNDS_PREFERENCE, PointValue)
         editorSharedPreferences.apply()
     }
-
     fun readPlaySounds() : Boolean {
         return context.getSharedPreferences(GameInformationVariable.POINTS_PREFERENCE, Context.MODE_PRIVATE)
             .getBoolean(GameInformationVariable.SOUNDS_PREFERENCE, false)
