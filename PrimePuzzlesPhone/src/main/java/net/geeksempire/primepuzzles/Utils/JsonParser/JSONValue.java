@@ -1,4 +1,10 @@
 /*
+ * Copyright (c) 2019.  All Rights Reserved for Geeks Empire.
+ * Created by Elias Fazel on 11/11/19 6:09 PM
+ * Last modified 11/11/19 6:08 PM
+ */
+
+/*
  * $Id: JSONValue.java,v 1.1 2006/04/15 14:37:04 platform Exp $
  * Created on 2006-4-15
  */

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019.  All Rights Reserved for Geeks Empire.
+  ~ Created by Elias Fazel on 11/11/19 6:09 PM
+  ~ Last modified 11/11/19 6:08 PM
+  -->
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"

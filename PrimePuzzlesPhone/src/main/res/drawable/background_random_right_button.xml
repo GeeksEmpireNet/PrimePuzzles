@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019.  All Rights Reserved for Geeks Empire.
+  ~ Created by Elias Fazel on 11/11/19 6:09 PM
+  ~ Last modified 11/11/19 6:08 PM
+  -->
+
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/default_color_game_light">
     <item
