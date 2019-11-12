@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 7:04 PM
- * Last modified 11/11/19 6:57 PM
+ * Created by Elias Fazel on 11/11/19 8:42 PM
+ * Last modified 11/11/19 8:42 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -61,11 +61,13 @@ class GamePlay : AppCompatActivity() {
 
     private lateinit var gameVariables: GameVariables
 
+
     companion object {
-        var RestoreGameState = false
+        var RestoreGameState: Boolean = false
 
         lateinit var countDownTimer: CountDownTimer
         var lastThickTimer: Long = 14000
+        var countDownTimePaused: Boolean = false
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -277,6 +279,8 @@ class GamePlay : AppCompatActivity() {
                             1f
                         )
                     }, 99)
+
+                    GameVariables.PRIME_NUMBER_DETECTED.value = false
                 }
             })
 
@@ -381,13 +385,17 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
-        GamePlay.countDownTimer.resume()
+        if (GamePlay.countDownTimePaused) {
+            GamePlay.countDownTimer.resume()
+            GamePlay.countDownTimePaused = false
+        }
     }
 
     override fun onPause() {
         super.onPause()
 
         GamePlay.countDownTimer.pause()
+        GamePlay.countDownTimePaused = true
     }
 
     override fun onBackPressed() {
@@ -644,7 +652,6 @@ class GamePlay : AppCompatActivity() {
      *
      */
     private fun scanPointsChange() {
-
         if (GamePlay.RestoreGameState) {
 
             pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
@@ -855,8 +862,6 @@ class GamePlay : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                //GamePlay.lastThickTimer = 14000
-
                 //WRONG ANSWER
                 FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 

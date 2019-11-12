@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 11/11/19 8:42 PM
+ * Last modified 11/11/19 8:37 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -47,6 +47,7 @@ class FunctionsClassUI(initContext: Context) {
 
     fun circularRevealAnimationPrimeNumber(viewToReveal: View, yPosition: Float, xPosition: Float, startRadius: Float) {
         GamePlay.countDownTimer.pause()
+        GamePlay.countDownTimePaused = true
 
         val finalRadius = hypot(displayX().toDouble(), displayY().toDouble()).toInt()
         val circularReveal = ViewAnimationUtils.createCircularReveal(
