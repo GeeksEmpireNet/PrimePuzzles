@@ -127,17 +127,18 @@ class GameConfigurations : Activity() {
                                         .child("Assets")
                                         .child("PrimeNumbersResources")
                                         .child("PrimeNumbers.json").getFile(File("/data/data/" + packageName + "/files/" + "PrimeNumbers.json"))
-                                        .addOnProgressListener { fileDownloadTaskTaskSnapshot ->
-                                            FunctionsClassDebug.PrintDebug("Total Bytes ::: ${fileDownloadTaskTaskSnapshot.totalByteCount} | Transferred Bytes ::: ${fileDownloadTaskTaskSnapshot.bytesTransferred}")
-
-                                        }.addOnFailureListener {
+                                        .addOnFailureListener {
 
                                         }.addOnCompleteListener {
 
+                                        }.addOnSuccessListener {
                                             startActivity(Intent(applicationContext, GamePlay::class.java).apply {
                                                 putExtra(GameSettings.RESTORE_GAME_STATE, GamePlay.RestoreGameState)
                                                 putExtra("StatusBarHeight", functionsClassSystem.getStatusBarHeight(applicationContext))
                                             }, ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.fade_in, android.R.anim.fade_out).toBundle())
+                                        }.addOnProgressListener { fileDownloadTaskTaskSnapshot ->
+                                            FunctionsClassDebug.PrintDebug("Total Bytes ::: ${fileDownloadTaskTaskSnapshot.totalByteCount} | Transferred Bytes ::: ${fileDownloadTaskTaskSnapshot.bytesTransferred}")
+
                                         }
                                 }
                             }
