@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 8:42 PM
- * Last modified 11/11/19 8:42 PM
+ * Created by Elias Fazel on 11/11/19 8:57 PM
+ * Last modified 11/11/19 8:55 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -698,8 +698,7 @@ class GamePlay : AppCompatActivity() {
                         override fun onAnimationEnd(animation: Animation?) {
                             Handler().postDelayed({
 
-                                timerTotalViewOne.setTextColor(getColor(R.color.light))
-                                timerTotalViewTwo.setTextColor(getColor(R.color.light))
+                                timerTotalView.setTextColor(getColor(R.color.light))
 
                                 GamePlay.countDownTimer.cancel()
                                 GamePlay.countDownTimer.start()
@@ -777,8 +776,7 @@ class GamePlay : AppCompatActivity() {
                         override fun onAnimationEnd(animation: Animation?) {
                             Handler().postDelayed({
 
-                                timerTotalViewOne.setTextColor(getColor(R.color.light))
-                                timerTotalViewTwo.setTextColor(getColor(R.color.light))
+                                timerTotalView.setTextColor(getColor(R.color.light))
 
                                 GamePlay.countDownTimer.cancel()
                                 GamePlay.countDownTimer.start()
@@ -855,8 +853,7 @@ class GamePlay : AppCompatActivity() {
 
                 val newSecond: Long = (millisUntilFinished / 1000)
                 if (newSecond <= 5) {
-                    timerTotalViewOne.setTextColor(getColor(R.color.default_color_game_light))
-                    timerTotalViewTwo.setTextColor(getColor(R.color.default_color_game_light))
+                    timerTotalView.setTextColor(getColor(R.color.default_color_game_light))
                 }
                 timerTotalView.setText("${newSecond}")
             }

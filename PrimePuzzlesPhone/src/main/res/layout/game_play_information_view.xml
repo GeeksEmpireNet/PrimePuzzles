@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2019 By Geeks Empire.
   ~
-  ~ Created by Elias Fazel on 11/11/19 8:42 PM
-  ~ Last modified 11/11/19 8:32 PM
+  ~ Created by Elias Fazel on 11/11/19 8:57 PM
+  ~ Last modified 11/11/19 8:56 PM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -70,7 +70,7 @@
             android:background="@color/transparent" />
     </TextSwitcher>
 
-    <TextSwitcher
+    <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
         android:id="@+id/timerTotalView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -84,49 +84,11 @@
         android:shadowRadius="19"
         android:shadowDx="0"
         android:shadowDy="0"
-        android:background="@color/transparent"
 
-        android:inAnimation="@android:anim/fade_in"
-        android:outAnimation="@android:anim/fade_out">
-        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/timerTotalViewOne"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:gravity="center"
-            android:textSize="41sp"
-            android:textColor="@color/light"
-            android:shadowColor="@color/light_transparent_high"
-            android:shadowRadius="19"
-            android:shadowDx="0"
-            android:shadowDy="0"
+        apps:autoSizeTextType="uniform"
+        apps:autoSizeMinTextSize="12dp"
+        apps:autoSizeMaxTextSize="41sp"
+        apps:autoSizeStepGranularity="3sp"
 
-            apps:autoSizeTextType="uniform"
-            apps:autoSizeMinTextSize="12dp"
-            apps:autoSizeMaxTextSize="41sp"
-            apps:autoSizeStepGranularity="3sp"
-
-            android:background="@color/transparent" />
-        <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/timerTotalViewTwo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:gravity="center"
-            android:textSize="41sp"
-            android:textColor="@color/light"
-            android:shadowColor="@color/light_transparent_high"
-            android:shadowRadius="19"
-            android:shadowDx="0"
-            android:shadowDy="0"
-
-            apps:autoSizeTextType="uniform"
-            apps:autoSizeMinTextSize="12dp"
-            apps:autoSizeMaxTextSize="41sp"
-            apps:autoSizeStepGranularity="3sp"
-
-            android:background="@color/transparent" />
-    </TextSwitcher>
+        android:background="@color/transparent" />
 </RelativeLayout>
