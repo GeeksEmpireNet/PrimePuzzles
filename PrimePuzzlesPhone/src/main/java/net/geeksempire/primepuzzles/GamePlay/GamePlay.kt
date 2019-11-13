@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 8:57 PM
- * Last modified 11/11/19 8:55 PM
+ * Created by Elias Fazel on 11/12/19 5:40 PM
+ * Last modified 11/12/19 5:14 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -191,7 +191,7 @@ class GamePlay : AppCompatActivity() {
         layoutParams.height = functionsClassUI.displayX()
         gameControlInclude.layoutParams = layoutParams
 
-        gameVariables = ViewModelProviders.of(this).get(GameVariables::class.java)
+        gameVariables = ViewModelProviders.of(this@GamePlay).get(GameVariables::class.java)
 
         val listOfDivisible = ArrayList<Int>()
         listOfDivisible.addAll(2..9)
