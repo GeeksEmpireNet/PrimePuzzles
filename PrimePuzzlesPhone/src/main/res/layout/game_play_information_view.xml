@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2019 By Geeks Empire.
   ~
-  ~ Created by Elias Fazel on 11/12/19 5:40 PM
-  ~ Last modified 11/12/19 5:37 PM
+  ~ Created by Elias Fazel on 11/13/19 2:52 PM
+  ~ Last modified 11/13/19 2:50 PM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -70,25 +70,18 @@
             android:background="@color/transparent" />
     </TextSwitcher>
 
-    <TextView xmlns:apps="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/timerTotalView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="19sp"
-        android:gravity="center"
-        android:text="@string/countDownTimerDuration"
-        android:textSize="41sp"
-        android:textColor="@color/light"
-        android:shadowColor="@color/light_transparent_high"
-        android:shadowRadius="19"
-        android:shadowDx="0"
-        android:shadowDy="0"
+    <net.geeksempire.ProgressBar.HorizontalProgressView xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:apps="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/timerProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-7dp"
 
-        apps:autoSizeTextType="uniform"
-        apps:autoSizeMinTextSize="12dp"
-        apps:autoSizeMaxTextSize="41sp"
-        apps:autoSizeStepGranularity="3sp"
-
-        android:background="@color/transparent" />
+        app:animateType="AccelerateDecelerateInterpolator"
+        app:corner_radius="0dp"
+        app:start_color="@color/light"
+        app:end_color="@color/default_color_game_dark"
+        app:progressTextVisibility="false"
+        app:isTracked="false"
+        app:trackColor="@color/transparent"/>
 </RelativeLayout>

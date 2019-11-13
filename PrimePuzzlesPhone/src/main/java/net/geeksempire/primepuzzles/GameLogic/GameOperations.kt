@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/12/19 6:21 PM
- * Last modified 11/12/19 6:20 PM
+ * Created by Elias Fazel on 11/13/19 2:52 PM
+ * Last modified 11/13/19 1:29 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -91,7 +91,6 @@ class GameOperations(initContext: Context) {
 
             hintInformation = context.getString(R.string.primeHint)
         }
-
 
         return hintInformation
     }

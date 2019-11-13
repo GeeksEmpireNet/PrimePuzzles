@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright © 2019 By Geeks Empire.
+  ~
+  ~ Created by Elias Fazel on 11/13/19 2:52 PM
+  ~ Last modified 9/9/18 11:30 PM
+  ~
+  ~ Licensed Under MIT License.
+  ~ https://opensource.org/licenses/MIT
+  -->
+
+<resources>
+    <string name="app_name">Material-ProgressView</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_name_circle_progress">CircleProgressView</string>
+    <string name="fragment_name_horizontal_progress">HorizontalProgressView</string>
+</resources>

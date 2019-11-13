@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 11/13/19 2:52 PM
+ * Last modified 11/13/19 1:35 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -77,6 +77,7 @@ static def getDateDay() {
 
 dependencies {
     implementation project(path: ':LoadingSpin')
+    implementation project(path: ':ProgressBar')
     implementation project(path: ':PhysicsAnimation')
 
 
