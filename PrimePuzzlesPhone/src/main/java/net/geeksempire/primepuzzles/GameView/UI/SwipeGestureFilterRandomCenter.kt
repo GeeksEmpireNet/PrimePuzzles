@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/12/19 5:40 PM
- * Last modified 11/12/19 5:33 PM
+ * Created by Elias Fazel on 11/12/19 6:21 PM
+ * Last modified 11/12/19 6:20 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -47,14 +47,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
     private var swipeMinVelocity: Int  = 10
 
-    private var mode: Int =
-        MODE_DYNAMIC
+    private var mode: Int = MODE_DYNAMIC
     private var swipeMode: Int = 0
     private var running: Boolean = true
 
 
     private var triggerCenterRandomChange: Boolean = false
     private var divisibleTriggered: Boolean = false
+
 
     init {
 

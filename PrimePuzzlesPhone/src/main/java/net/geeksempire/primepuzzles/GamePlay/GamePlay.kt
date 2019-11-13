@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/12/19 5:40 PM
- * Last modified 11/12/19 5:14 PM
+ * Created by Elias Fazel on 11/12/19 6:21 PM
+ * Last modified 11/12/19 6:21 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -24,6 +24,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -353,6 +354,7 @@ class GamePlay : AppCompatActivity() {
                                 GameInformationVariable.HINT_ACTION -> {
                                     val hintData: String = GameOperations(applicationContext).generateHint()
 
+                                    Toast.makeText(applicationContext, hintData, Toast.LENGTH_LONG).show()
                                 }
                                 GameInformationVariable.PRIME_NUMBER_ACTION -> {
                                     functionsClassUI.circularHideAnimationPrimeNumber(
