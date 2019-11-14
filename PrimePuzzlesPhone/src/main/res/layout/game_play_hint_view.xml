@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2019 By Geeks Empire.
   ~
-  ~ Created by Elias Fazel on 11/13/19 3:21 PM
-  ~ Last modified 11/13/19 3:11 PM
+  ~ Created by Elias Fazel on 11/13/19 5:50 PM
+  ~ Last modified 11/13/19 5:14 PM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -21,13 +21,14 @@
         android:layout_width="333dp"
         android:layout_height="333dp"
         android:layout_centerInParent="true"
-        android:padding="7dp"
+        android:padding="17dp"
         android:background="@drawable/background_hint_view">
 
         <TextView
             android:id="@+id/hintViewTitle"
             android:layout_width="333dp"
             android:layout_height="51dp"
+            android:fontFamily="@font/play"
             android:text="@string/showHint"
             android:textColor="@color/light"/>
         <TextView
@@ -35,6 +36,18 @@
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/hintViewTitle"
+            android:fontFamily="@font/play"
             android:textColor="@color/light"/>
+
+        <TextView
+            android:id="@+id/hintGotIt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/play"
+            android:text="@string/hintGotIt"
+            android:textColor="@color/light"
+            android:textSize="13sp"/>
     </RelativeLayout>
 </RelativeLayout>

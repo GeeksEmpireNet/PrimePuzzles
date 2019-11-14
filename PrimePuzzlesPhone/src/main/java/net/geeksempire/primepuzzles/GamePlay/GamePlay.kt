@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/13/19 3:21 PM
- * Last modified 11/13/19 3:21 PM
+ * Created by Elias Fazel on 11/13/19 5:50 PM
+ * Last modified 11/13/19 5:50 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -66,7 +66,6 @@ class GamePlay : AppCompatActivity() {
     private lateinit var gameVariables: GameVariables
 
 
-    lateinit var valueAnimatorProgressBar: ValueAnimator
 
 
     companion object {
@@ -75,6 +74,8 @@ class GamePlay : AppCompatActivity() {
         lateinit var countDownTimer: CountDownTimer
         var lastThickTimer: Long = 14000
         var countDownTimePaused: Boolean = false
+
+        lateinit var valueAnimatorProgressBar: ValueAnimator
     }
 
 
@@ -221,8 +222,8 @@ class GamePlay : AppCompatActivity() {
 
         Handler().postDelayed({
 
+            GamePlay.valueAnimatorProgressBar.start()
             GamePlay.countDownTimer.start()
-            valueAnimatorProgressBar.start()
         }, 1999)
     }
 
@@ -360,7 +361,7 @@ class GamePlay : AppCompatActivity() {
                         override fun onClick(view: View?) {
                             when (GameInformationVariable.snackBarAction) {
                                 GameInformationVariable.HINT_ACTION -> {
-                                    valueAnimatorProgressBar.pause()
+                                    GamePlay.valueAnimatorProgressBar.pause()
                                     GamePlay.countDownTimer.pause()
 
                                     val hintData: String = GameOperations(applicationContext).generateHint()
@@ -372,7 +373,16 @@ class GamePlay : AppCompatActivity() {
                                         if (hintViewInclude.isShown) {
                                             hintViewInclude.visibility = View.INVISIBLE
 
-                                            valueAnimatorProgressBar.resume()
+                                            GamePlay.valueAnimatorProgressBar.resume()
+                                            GamePlay.countDownTimer.resume()
+                                        }
+                                    }
+
+                                    hintGotIt.setOnClickListener {
+                                        if (hintViewInclude.isShown) {
+                                            hintViewInclude.visibility = View.INVISIBLE
+
+                                            GamePlay.valueAnimatorProgressBar.resume()
                                             GamePlay.countDownTimer.resume()
                                         }
                                     }
@@ -409,9 +419,7 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         if (GamePlay.countDownTimePaused) {
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2 ")
-
-            valueAnimatorProgressBar.resume()
+            GamePlay.valueAnimatorProgressBar.resume()
             GamePlay.countDownTimer.resume()
 
             GamePlay.countDownTimePaused = false
@@ -421,7 +429,7 @@ class GamePlay : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        valueAnimatorProgressBar.pause()
+        GamePlay.valueAnimatorProgressBar.pause()
         GamePlay.countDownTimer.pause()
 
         GamePlay.countDownTimePaused = true
@@ -429,12 +437,9 @@ class GamePlay : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (hintViewInclude.isShown) {
-
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1 ")
-
             hintViewInclude.visibility = View.INVISIBLE
 
-            valueAnimatorProgressBar.resume()
+            GamePlay.valueAnimatorProgressBar.resume()
             GamePlay.countDownTimer.resume()
         }
     }
@@ -736,7 +741,10 @@ class GamePlay : AppCompatActivity() {
                             Handler().postDelayed({
                                 GamePlay.countDownTimer.cancel()
 
-                                valueAnimatorProgressBar.start()
+                                timerProgressBar.setTrackEnabled(true)
+                                timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
+
+                                GamePlay.valueAnimatorProgressBar.start()
                                 GamePlay.countDownTimer.start()
                             }, 777)
                         }
@@ -810,12 +818,13 @@ class GamePlay : AppCompatActivity() {
                         }
 
                         override fun onAnimationEnd(animation: Animation?) {
-                            Handler().postDelayed({
-                                GamePlay.countDownTimer.cancel()
+                            GamePlay.countDownTimer.cancel()
 
-                                valueAnimatorProgressBar.start()
-                                GamePlay.countDownTimer.start()
-                            }, 777)
+                            timerProgressBar.setTrackEnabled(true)
+                            timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
+
+                            GamePlay.valueAnimatorProgressBar.start()
+                            GamePlay.countDownTimer.start()
                         }
 
                         override fun onAnimationStart(animation: Animation?) {
@@ -880,12 +889,12 @@ class GamePlay : AppCompatActivity() {
      *
      */
     private fun countDownTimer() : CountDownTimer {
-        valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
-        valueAnimatorProgressBar.duration = 14000
-        valueAnimatorProgressBar.addUpdateListener { animator ->
+        GamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
+        GamePlay.valueAnimatorProgressBar.duration = 14000
+        GamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->
             timerProgressBar.progress = (animator.animatedValue as Float)
         }
-        valueAnimatorProgressBar.addPauseListener {
+        GamePlay.valueAnimatorProgressBar.addPauseListener {
 
         }
 
@@ -901,7 +910,7 @@ class GamePlay : AppCompatActivity() {
                     if ((newSecond.toInt() % 2) == 0) {
                         timerProgressBar.setTrackColor(getColor(R.color.red))
                     } else {
-                        timerProgressBar.setTrackColor(getColor(R.color.default_color_game_light))
+                        timerProgressBar.setTrackColor(getColor(R.color.default_color_game_dark))
                     }
                 }
             }
