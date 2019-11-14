@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright © 2019 By Geeks Empire.
+  ~
+  ~ Created by Elias Fazel on 11/13/19 3:21 PM
+  ~ Last modified 11/13/19 3:11 PM
+  ~
+  ~ Licensed Under MIT License.
+  ~ https://opensource.org/licenses/MIT
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gameHintView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_transparent_high"
+    tools:context=".GamePlay.GamePlay">
+
+    <RelativeLayout
+        android:layout_width="333dp"
+        android:layout_height="333dp"
+        android:layout_centerInParent="true"
+        android:padding="7dp"
+        android:background="@drawable/background_hint_view">
+
+        <TextView
+            android:id="@+id/hintViewTitle"
+            android:layout_width="333dp"
+            android:layout_height="51dp"
+            android:text="@string/showHint"
+            android:textColor="@color/light"/>
+        <TextView
+            android:id="@+id/hintEquation"
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hintViewTitle"
+            android:textColor="@color/light"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/13/19 2:52 PM
- * Last modified 11/13/19 2:51 PM
+ * Created by Elias Fazel on 11/13/19 3:21 PM
+ * Last modified 11/13/19 3:21 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -25,7 +25,6 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.addPauseListener
 import androidx.lifecycle.Observer
@@ -35,6 +34,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.game_play_control_view.*
+import kotlinx.android.synthetic.main.game_play_hint_view.*
 import kotlinx.android.synthetic.main.game_play_information_view.*
 import kotlinx.android.synthetic.main.game_play_prime_number_detected_view.*
 import kotlinx.android.synthetic.main.game_play_view.*
@@ -360,9 +360,22 @@ class GamePlay : AppCompatActivity() {
                         override fun onClick(view: View?) {
                             when (GameInformationVariable.snackBarAction) {
                                 GameInformationVariable.HINT_ACTION -> {
+                                    valueAnimatorProgressBar.pause()
+                                    GamePlay.countDownTimer.pause()
+
                                     val hintData: String = GameOperations(applicationContext).generateHint()
 
-                                    Toast.makeText(applicationContext, hintData, Toast.LENGTH_LONG).show()
+                                    hintViewInclude.visibility = View.VISIBLE
+                                    hintEquation.text = hintData
+
+                                    hintViewInclude.setOnClickListener {
+                                        if (hintViewInclude.isShown) {
+                                            hintViewInclude.visibility = View.INVISIBLE
+
+                                            valueAnimatorProgressBar.resume()
+                                            GamePlay.countDownTimer.resume()
+                                        }
+                                    }
                                 }
                                 GameInformationVariable.PRIME_NUMBER_ACTION -> {
                                     functionsClassUI.circularHideAnimationPrimeNumber(
@@ -396,6 +409,8 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         if (GamePlay.countDownTimePaused) {
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2 ")
+
             valueAnimatorProgressBar.resume()
             GamePlay.countDownTimer.resume()
 
@@ -413,7 +428,15 @@ class GamePlay : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (hintViewInclude.isShown) {
 
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1 ")
+
+            hintViewInclude.visibility = View.INVISIBLE
+
+            valueAnimatorProgressBar.resume()
+            GamePlay.countDownTimer.resume()
+        }
     }
 
     /*
@@ -891,8 +914,8 @@ class GamePlay : AppCompatActivity() {
 
                 GameVariables.NEGATIVE_POINT.value = 3
 
-                timerProgressBar.setTrackEnabled(false)
-                timerProgressBar.setTrackColor(getColor(R.color.transparent))
+                timerProgressBar.setTrackEnabled(true)
+                timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
 
                 val valueAnimatorProgressBarBack = ValueAnimator.ofFloat(100F, 0F)
                 valueAnimatorProgressBarBack.duration = 531

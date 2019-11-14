@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2019 By Geeks Empire.
   ~
-  ~ Created by Elias Fazel on 11/11/19 6:49 PM
-  ~ Last modified 11/11/19 6:48 PM
+  ~ Created by Elias Fazel on 11/13/19 3:21 PM
+  ~ Last modified 11/13/19 3:03 PM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -89,4 +89,12 @@
         android:shadowRadius="7"
         android:shadowDx="0"
         android:shadowDy="0"/>
+
+    <include
+        android:id="@+id/hintViewInclude"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        layout="@layout/game_play_hint_view"/>
 </RelativeLayout>
