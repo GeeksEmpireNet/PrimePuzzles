@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/14/19 8:45 PM
- * Last modified 11/14/19 8:06 PM
+ * Created by Elias Fazel on 11/14/19 9:08 PM
+ * Last modified 11/14/19 8:54 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -64,8 +64,6 @@ class GamePlay : AppCompatActivity() {
 
 
     private lateinit var gameVariables: GameVariables
-
-
 
 
     companion object {

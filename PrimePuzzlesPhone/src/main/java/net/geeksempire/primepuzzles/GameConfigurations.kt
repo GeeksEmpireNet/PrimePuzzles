@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/14/19 8:45 PM
- * Last modified 11/14/19 8:45 PM
+ * Created by Elias Fazel on 11/14/19 9:08 PM
+ * Last modified 11/14/19 8:54 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -14,6 +14,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.view.WindowManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PlayGamesAuthProvider
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.configuration_view.*
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
@@ -59,6 +61,8 @@ class GameConfigurations : Activity() {
 
         if (functionsClassSystem.networkConnection()) {
             if (firebaseAuth.currentUser == null) {
+                signInWaiting.visibility = View.VISIBLE
+
                 firebaseAuth.addAuthStateListener { firebaseAuth ->
                     if (firebaseAuth.currentUser == null) {
                         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
@@ -83,6 +87,8 @@ class GameConfigurations : Activity() {
                     }
                 }
             } else {
+                signInWaiting.visibility = View.INVISIBLE
+
                 Handler().postDelayed({
                     startActivity(Intent(applicationContext, GamePlay::class.java).apply {
                         putExtra(GameSettings.RESTORE_GAME_STATE, GamePlay.RestoreGameState)
@@ -91,6 +97,7 @@ class GameConfigurations : Activity() {
                 }, 321)
             }
         } else {
+            signInWaiting.visibility = View.INVISIBLE
 
             Handler().postDelayed({
                 startActivity(Intent(applicationContext, GamePlay::class.java).apply {
