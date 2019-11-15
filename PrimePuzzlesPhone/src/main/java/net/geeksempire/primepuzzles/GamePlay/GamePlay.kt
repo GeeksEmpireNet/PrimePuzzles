@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/14/19 4:07 PM
- * Last modified 11/14/19 3:27 PM
+ * Created by Elias Fazel on 11/14/19 8:45 PM
+ * Last modified 11/14/19 8:06 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -980,9 +980,9 @@ class GamePlay : AppCompatActivity() {
                     timerProgressBar.setTrackEnabled(true)
                     timerProgressBar.setTrackColor(getColor(R.color.red))
                     if ((newSecond.toInt() % 2) == 0) {
-                        timerProgressBar.setTrackColor(getColor(R.color.red))
-                    } else {
                         timerProgressBar.setTrackColor(getColor(R.color.default_color_game_dark))
+                    } else {
+                        timerProgressBar.setTrackColor(getColor(R.color.red))
                     }
                 }
             }

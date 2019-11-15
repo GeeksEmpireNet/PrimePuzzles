@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 11/14/19 8:45 PM
+ * Last modified 11/14/19 8:45 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PlayGamesAuthProvider
 import com.google.firebase.storage.FirebaseStorage
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
@@ -60,8 +61,10 @@ class GameConfigurations : Activity() {
             if (firebaseAuth.currentUser == null) {
                 firebaseAuth.addAuthStateListener { firebaseAuth ->
                     if (firebaseAuth.currentUser == null) {
-                        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                            .requestServerAuthCode(getString(R.string.default_web_client_id))
                             .requestIdToken(getString(R.string.webClientId))
+                            .requestProfile()
                             .requestEmail()
                             .build()
 
@@ -122,12 +125,19 @@ class GameConfigurations : Activity() {
                 val taskGoogleSignInAccount = GoogleSignIn.getSignedInAccountFromIntent(data)
                 try {
                     val googleSignInAccount = taskGoogleSignInAccount.getResult(ApiException::class.java)
-                    val authCredential = GoogleAuthProvider.getCredential(googleSignInAccount!!.idToken, null)
+                    val authCredential = PlayGamesAuthProvider.getCredential(googleSignInAccount!!.serverAuthCode!!)
                     firebaseAuth.signInWithCredential(authCredential).addOnSuccessListener {
-                        FunctionsClassDebug.PrintDebug("Sign In Completed ::: ${firebaseAuth.currentUser!!.displayName}")
+                        FunctionsClassDebug.PrintDebug("Play Game Sign In Completed ::: ${firebaseAuth.currentUser!!.displayName}")
 
                         if (firebaseAuth.currentUser != null) {
                             if (functionsClassSystem.networkConnection()) {
+                                val authCredentialGoogle = GoogleAuthProvider.getCredential(googleSignInAccount!!.idToken!!, null)
+                                firebaseAuth.currentUser!!.linkWithCredential(authCredentialGoogle).addOnSuccessListener {
+
+                                }.addOnFailureListener {
+
+                                }
+
                                 if (!functionsClassGameIO.primeNumbersJsonExists()) {
                                     val firebaseStorage = FirebaseStorage.getInstance()
                                     val firebaseStorageReference = firebaseStorage.reference
@@ -147,7 +157,6 @@ class GameConfigurations : Activity() {
                                             }, ActivityOptions.makeCustomAnimation(applicationContext, android.R.anim.fade_in, android.R.anim.fade_out).toBundle())
                                         }.addOnProgressListener { fileDownloadTaskTaskSnapshot ->
                                             FunctionsClassDebug.PrintDebug("Total Bytes ::: ${fileDownloadTaskTaskSnapshot.totalByteCount} | Transferred Bytes ::: ${fileDownloadTaskTaskSnapshot.bytesTransferred}")
-
                                         }
                                 }
                             }

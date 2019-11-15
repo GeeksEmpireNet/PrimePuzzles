@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2019 By Geeks Empire.
   ~
-  ~ Created by Elias Fazel on 11/11/19 6:49 PM
-  ~ Last modified 11/11/19 6:48 PM
+  ~ Created by Elias Fazel on 11/14/19 8:45 PM
+  ~ Last modified 11/14/19 7:56 PM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -17,5 +17,17 @@
     android:background="@drawable/background_game_configuration"
     tools:context=".GameConfigurations">
 
+    <net.geeksempire.loadingspin.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:apps="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/signInWaiting"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:padding="13sp"
 
+        app:SpinKit_Style="FoldingCube"
+        app:SpinKit_Color="@color/light"
+
+        apps:layout_constraintTop_toTopOf="parent"
+        apps:layout_constraintBottom_toBottomOf="parent"
+        apps:layout_constraintLeft_toLeftOf="parent"
+        apps:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

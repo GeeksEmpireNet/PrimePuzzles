@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "797744393504-336i9d3m4uibdr960luqaalr85usau8a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.geeksempire.primepuzzles",
+            "certificate_hash": "d5ee0b351745fb81dea48184dbef81456b8b782a"
+          }
+        },
+        {
+          "client_id": "797744393504-0hat37pvnh7eest05vc3pq2g72cd7fo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.geeksempire.primepuzzles",
+            "certificate_hash": "799ba321bbf980718f576a47b4e8917a9b9ee09d"
+          }
+        },
+        {
           "client_id": "797744393504-osaq61pe590ef3prfmlc6qdigq54sk4v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -41,7 +57,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-2920235108594210~3857189039"
     }
   ],
   "configuration_version": "1"
