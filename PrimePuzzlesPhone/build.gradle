@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/14/19 4:07 PM
- * Last modified 11/14/19 2:30 PM
+ * Created by Elias Fazel on 11/14/19 6:53 PM
+ * Last modified 11/14/19 6:44 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -20,6 +20,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
+        //Application Id Number 797744393504
         applicationId "net.geeksempire.primepuzzles"
 
         minSdkVersion 25
