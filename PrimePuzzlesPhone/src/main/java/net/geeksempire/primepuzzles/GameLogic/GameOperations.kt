@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/13/19 2:52 PM
- * Last modified 11/13/19 1:29 PM
+ * Created by Elias Fazel on 11/14/19 4:07 PM
+ * Last modified 11/14/19 4:05 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -80,11 +80,20 @@ class GameOperations(initContext: Context) {
         if (functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_DIVISIBLE_TOP
 
+            hintInformation = " 🔳 ✖ 🔳 = ${GameVariables.TOP_VALUE.value!! * GameVariables.TOP_VALUE.value!!}\n\n" +
+                    " 🔳 is the Answer ✔ "
+
         } else if (functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_DIVISIBLE_LEFT
 
+            hintInformation = " 🔳 ✖ 🔳 = ${GameVariables.LEFT_VALUE.value!! * GameVariables.LEFT_VALUE.value!!}\n\n" +
+                    " 🔳 is the Answer ✔ "
+
         } else if (functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_DIVISIBLE_RIGHT
+
+            hintInformation = " 🔳 ✖ 🔳 = ${GameVariables.RIGHT_VALUE.value!! * GameVariables.RIGHT_VALUE.value!!}\n\n" +
+                    " 🔳 is the Answer ✔ "
 
         } else if (functionsClassMath.isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_PRIME

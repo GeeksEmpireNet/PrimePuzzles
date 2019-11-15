@@ -1,8 +1,8 @@
 /*
  * Copyright © 2019 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/13/19 5:50 PM
- * Last modified 11/13/19 5:50 PM
+ * Created by Elias Fazel on 11/14/19 4:07 PM
+ * Last modified 11/14/19 3:27 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -357,6 +357,7 @@ class GamePlay : AppCompatActivity() {
         GameVariables.TOGGLE_SNACKBAR.observe(this, object : Observer<Boolean> {
             override fun onChanged(newToggleSnackBar: Boolean?) {
                 if (newToggleSnackBar!!) {
+                    snackbarHint.setText(Html.fromHtml(GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT, Html.FROM_HTML_MODE_LEGACY))
                     snackbarHint.setAction(GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT, object : View.OnClickListener {
                         override fun onClick(view: View?) {
                             when (GameInformationVariable.snackBarAction) {
@@ -365,13 +366,50 @@ class GamePlay : AppCompatActivity() {
                                     GamePlay.countDownTimer.pause()
 
                                     val hintData: String = GameOperations(applicationContext).generateHint()
-
-                                    hintViewInclude.visibility = View.VISIBLE
                                     hintEquation.text = hintData
+
+                                    val hintAnimation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
+                                    hintViewInclude.startAnimation(hintAnimation)
+                                    hintAnimation.setAnimationListener(object : Animation.AnimationListener {
+                                        override fun onAnimationRepeat(animation: Animation?) {
+
+                                        }
+
+                                        override fun onAnimationEnd(animation: Animation?) {
+                                            hintViewInclude.visibility = View.VISIBLE
+
+                                            val hintBackgroundDim = ValueAnimator.ofArgb(Color.TRANSPARENT, getColor(R.color.dark_transparent))
+                                            hintBackgroundDim.duration = 321
+                                            hintBackgroundDim.addUpdateListener { animator ->
+                                                //(animator.animatedValue as Int)
+                                                hintViewInclude.setBackgroundColor((animator.animatedValue as Int))
+                                            }
+                                            hintBackgroundDim.start()
+                                        }
+
+                                        override fun onAnimationStart(animation: Animation?) {
+
+                                        }
+                                    })
 
                                     hintViewInclude.setOnClickListener {
                                         if (hintViewInclude.isShown) {
-                                            hintViewInclude.visibility = View.INVISIBLE
+                                            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+                                            hintViewInclude.startAnimation(hintAnimationHide)
+                                            hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
+                                                override fun onAnimationRepeat(animation: Animation?) {
+
+                                                }
+
+                                                override fun onAnimationEnd(animation: Animation?) {
+                                                    hintViewInclude.visibility = View.INVISIBLE
+                                                    hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                                                }
+
+                                                override fun onAnimationStart(animation: Animation?) {
+
+                                                }
+                                            })
 
                                             GamePlay.valueAnimatorProgressBar.resume()
                                             GamePlay.countDownTimer.resume()
@@ -380,7 +418,22 @@ class GamePlay : AppCompatActivity() {
 
                                     hintGotIt.setOnClickListener {
                                         if (hintViewInclude.isShown) {
-                                            hintViewInclude.visibility = View.INVISIBLE
+                                            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+                                            hintViewInclude.startAnimation(hintAnimationHide)
+                                            hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
+                                                override fun onAnimationRepeat(animation: Animation?) {
+
+                                                }
+
+                                                override fun onAnimationEnd(animation: Animation?) {
+                                                    hintViewInclude.visibility = View.INVISIBLE
+                                                    hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                                                }
+
+                                                override fun onAnimationStart(animation: Animation?) {
+
+                                                }
+                                            })
 
                                             GamePlay.valueAnimatorProgressBar.resume()
                                             GamePlay.countDownTimer.resume()
@@ -398,8 +451,9 @@ class GamePlay : AppCompatActivity() {
                             }
                         }
                     })
-                    snackbarHint.setText(Html.fromHtml(GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT, Html.FROM_HTML_MODE_LEGACY))
-                    snackbarHint.show()
+                    Handler().postDelayed({
+                        snackbarHint.show()
+                    }, 321)
                 } else {
                     snackbarHint.dismiss()
                 }
@@ -437,10 +491,28 @@ class GamePlay : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (hintViewInclude.isShown) {
-            hintViewInclude.visibility = View.INVISIBLE
+            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+            hintViewInclude.startAnimation(hintAnimationHide)
+            hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    hintViewInclude.visibility = View.INVISIBLE
+                    hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+
+                }
+            })
 
             GamePlay.valueAnimatorProgressBar.resume()
             GamePlay.countDownTimer.resume()
+        } else {
+            super.onBackPressed()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 
