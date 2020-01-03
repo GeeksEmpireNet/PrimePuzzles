@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By Geeks Empire.
  *
- * Created by Elias Fazel on 11/14/19 8:45 PM
- * Last modified 11/14/19 8:24 PM
+ * Created by Elias Fazel on 1/3/20 1:07 AM
+ * Last modified 1/3/20 12:53 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -86,9 +86,9 @@ dependencies {
     implementation 'com.google.android.play:core:1.6.4'
 
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'com.google.android.gms:play-services-games:18.0.1'
+    implementation 'com.google.android.gms:play-services-games:19.0.0'
 
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
 
 
     implementation 'androidx.core:core-ktx:1.1.0'
@@ -106,10 +106,10 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:17.2.1'
 
-    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
 
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'
-    implementation 'com.google.firebase:firebase-config:19.0.3'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-config:19.1.0'
 
     implementation 'com.google.firebase:firebase-storage:19.1.0'
 
@@ -123,7 +123,7 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.60'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61'
 
 
     /*3rd Party Library*/
