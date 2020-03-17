@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:24 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -13,15 +13,15 @@ package net.geeksempire.primepuzzles.GameView
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.Button
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.res.ResourcesCompat
-import net.geeksempire.primepuzzles.GameInformation.GameVariables
+import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameView.UI.SwipeGestureFilterRandomCenter
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 
-class GesturedRandomCenter : Button,
+class GesturedRandomCenter : AppCompatButton,
     SwipeGestureFilterRandomCenter.GestureListener {
 
     var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
@@ -68,7 +68,7 @@ class GesturedRandomCenter : Button,
 
         val randomCenterValue: Int = listTOfRandom.random()
         this@GesturedRandomCenter.text = "${randomCenterValue}"
-        GameVariables.CENTER_VALUE.value = randomCenterValue
+        GameVariablesViewModel.CENTER_VALUE.value = randomCenterValue
     }
 
     override fun onDetachedFromWindow() {

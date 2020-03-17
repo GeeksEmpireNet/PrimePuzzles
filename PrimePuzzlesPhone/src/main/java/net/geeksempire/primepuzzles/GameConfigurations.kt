@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 11/14/19 9:08 PM
- * Last modified 11/14/19 8:54 PM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:18 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -40,7 +40,7 @@ class GameConfigurations : Activity() {
 
     lateinit var firebaseAuth: FirebaseAuth
 
-    val SIGN_IN_REQUEST: Int = 666
+    private val SIGN_IN_REQUEST: Int = 666
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

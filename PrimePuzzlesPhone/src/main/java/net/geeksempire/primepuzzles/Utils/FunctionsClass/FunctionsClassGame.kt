@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:20 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -14,10 +14,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
 
-
-class FunctionsClassGame(initContext: Context) {
-
-    val context: Context = initContext
+class FunctionsClassGame(private val context: Context) {
 
     val functionsClassGameIO: FunctionsClassGameIO = FunctionsClassGameIO(context)
 

@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 11/11/19 6:49 PM
- * Last modified 11/11/19 6:48 PM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:17 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -13,8 +13,7 @@ package net.geeksempire.primepuzzles.GameInformation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-
-class GameVariables : ViewModel(){
+class GameVariablesViewModel : ViewModel() {
 
     companion object {
         val GAME_LEVEL_DIFFICULTY: MutableLiveData<Int> by lazy {
@@ -26,6 +25,7 @@ class GameVariables : ViewModel(){
         }
 
 
+        //
         val CENTER_VALUE: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
@@ -43,16 +43,19 @@ class GameVariables : ViewModel(){
         }
 
 
+        //
         val PRIME_NUMBER_DETECTED: MutableLiveData<Boolean> by lazy {
             MutableLiveData<Boolean>()
         }
 
 
+        //
         val TOGGLE_SNACKBAR: MutableLiveData<Boolean> by lazy {
             MutableLiveData<Boolean>()
         }
 
 
+        //
         val SHUFFLE_PROCESS_POSITION: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
@@ -62,6 +65,7 @@ class GameVariables : ViewModel(){
         }
 
 
+        //
         val POSITIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }
@@ -79,6 +83,7 @@ class GameVariables : ViewModel(){
         }
 
 
+        //
         val NEGATIVE_POINT: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }

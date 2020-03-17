@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 11/14/19 4:07 PM
- * Last modified 11/14/19 4:05 PM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:15 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@
 package net.geeksempire.primepuzzles.GameLogic
 
 import android.content.Context
-import net.geeksempire.primepuzzles.GameInformation.GameVariables
+import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassMath
 
@@ -31,8 +31,8 @@ class GameOperations(initContext: Context) {
     fun determinePrimeValue() : Boolean {
 
         var operationDone: Boolean = false
-        if (FunctionsClassMath(context).isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
-            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+        if (FunctionsClassMath(context).isNumberPrime(GameVariablesViewModel.CENTER_VALUE.value!!)) {
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
 
             operationDone = true
         }
@@ -42,8 +42,8 @@ class GameOperations(initContext: Context) {
     fun determineTopValue() : Boolean {
 
         var operationDone: Boolean = false
-        if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariables.CENTER_VALUE.value!!, bB = GameVariables.TOP_VALUE.value!!)) {
-            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+        if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.TOP_VALUE.value!!)) {
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
 
             operationDone = true
         }
@@ -53,8 +53,8 @@ class GameOperations(initContext: Context) {
     fun determineLeftValue() : Boolean {
 
         var operationDone: Boolean = false
-        if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariables.CENTER_VALUE.value!!, bB = GameVariables.LEFT_VALUE.value!!)) {
-            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+        if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.LEFT_VALUE.value!!)) {
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
 
             operationDone = true
         }
@@ -64,8 +64,8 @@ class GameOperations(initContext: Context) {
     fun determineRightValue() : Boolean {
 
         var operationDone: Boolean = false
-        if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariables.CENTER_VALUE.value!!, bB = GameVariables.RIGHT_VALUE.value!!)) {
-            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+        if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.RIGHT_VALUE.value!!)) {
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
 
             operationDone = true
         }
@@ -77,25 +77,25 @@ class GameOperations(initContext: Context) {
         val functionsClassMath: FunctionsClassMath = FunctionsClassMath(context)
         var hintInformation: String = context.getString(R.string.noHint)
 
-        if (functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)) {
+        if (functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.TOP_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_DIVISIBLE_TOP
 
-            hintInformation = " 🔳 ✖ 🔳 = ${GameVariables.TOP_VALUE.value!! * GameVariables.TOP_VALUE.value!!}\n\n" +
+            hintInformation = " 🔳 ✖ 🔳 = ${GameVariablesViewModel.TOP_VALUE.value!! * GameVariablesViewModel.TOP_VALUE.value!!}\n\n" +
                     " 🔳 is the Answer ✔ "
 
-        } else if (functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)) {
+        } else if (functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.LEFT_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_DIVISIBLE_LEFT
 
-            hintInformation = " 🔳 ✖ 🔳 = ${GameVariables.LEFT_VALUE.value!! * GameVariables.LEFT_VALUE.value!!}\n\n" +
+            hintInformation = " 🔳 ✖ 🔳 = ${GameVariablesViewModel.LEFT_VALUE.value!! * GameVariablesViewModel.LEFT_VALUE.value!!}\n\n" +
                     " 🔳 is the Answer ✔ "
 
-        } else if (functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)) {
+        } else if (functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.RIGHT_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_DIVISIBLE_RIGHT
 
-            hintInformation = " 🔳 ✖ 🔳 = ${GameVariables.RIGHT_VALUE.value!! * GameVariables.RIGHT_VALUE.value!!}\n\n" +
+            hintInformation = " 🔳 ✖ 🔳 = ${GameVariablesViewModel.RIGHT_VALUE.value!! * GameVariablesViewModel.RIGHT_VALUE.value!!}\n\n" +
                     " 🔳 is the Answer ✔ "
 
-        } else if (functionsClassMath.isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+        } else if (functionsClassMath.isNumberPrime(GameVariablesViewModel.CENTER_VALUE.value!!)) {
             hintType = GameOperations.GENERATE_HINT_PRIME
 
             hintInformation = context.getString(R.string.primeHint)

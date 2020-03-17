@@ -1,8 +1,8 @@
 /*
- * Copyright © 2019 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 11/12/19 6:21 PM
- * Last modified 11/12/19 6:20 PM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:15 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -21,7 +21,7 @@ import androidx.dynamicanimation.animation.FlingAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
-import net.geeksempire.primepuzzles.GameInformation.GameVariables
+import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.R
@@ -119,21 +119,21 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         divisibleTriggered = true
 
                         if (divisibleTriggered) {
-                            GameVariables.TOGGLE_SNACKBAR.value = false
+                            GameVariablesViewModel.TOGGLE_SNACKBAR.value = false
 
                             FunctionsClassDebug.PrintDebug("Dismissing Hint")
                         }
 
-                        GameVariables.POSITIVE_POINT.value = 3
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+                        GameVariablesViewModel.POSITIVE_POINT.value = 3
+                        GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.NEGATIVE_POINT.value = 3
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+                        GameVariablesViewModel.NEGATIVE_POINT.value = 3
+                        GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
                 SWIPE_RIGHT -> {
@@ -145,21 +145,21 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         divisibleTriggered = true
 
                         if (divisibleTriggered) {
-                            GameVariables.TOGGLE_SNACKBAR.value = false
+                            GameVariablesViewModel.TOGGLE_SNACKBAR.value = false
 
                             FunctionsClassDebug.PrintDebug("Dismissing Hint")
                         }
 
-                        GameVariables.POSITIVE_POINT.value = 3
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+                        GameVariablesViewModel.POSITIVE_POINT.value = 3
+                        GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.NEGATIVE_POINT.value = 3
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+                        GameVariablesViewModel.NEGATIVE_POINT.value = 3
+                        GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
             }
@@ -186,14 +186,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                     val randomCenterValue: Int = listTOfRandom.random()
                     view.text = "${randomCenterValue}"
-                    GameVariables.CENTER_VALUE.value = randomCenterValue
+                    GameVariablesViewModel.CENTER_VALUE.value = randomCenterValue
 
                     triggerCenterRandomChange = true
                     divisibleTriggered = false
                 }, 333)
 
-            GameVariables.SHUFFLE_PROCESS_POSITION.value = GameVariables.SHUFFLE_PROCESS_POSITION.value!! + 1
-            GameVariables.SHUFFLE_PROCESS_VALUE.value = GameVariables.SHUFFLE_PROCESS_VALUE.value!! + 1
+            GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value!! + 1
+            GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value!! + 1
         }
 
         flingAnimationY.addEndListener { animation, canceled, value, velocity ->
@@ -205,7 +205,7 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         divisibleTriggered = true
 
                         if (divisibleTriggered) {
-                            GameVariables.TOGGLE_SNACKBAR.value = false
+                            GameVariablesViewModel.TOGGLE_SNACKBAR.value = false
 
                             FunctionsClassDebug.PrintDebug("Dismissing Hint")
                         }
@@ -213,34 +213,34 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
                         //CORRECT ANSWER
                         FunctionsClassDebug.PrintDebug("Divisible Triggered ${divisibleTriggered}")
 
-                        GameVariables.POSITIVE_POINT.value = 3
-                        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 3
+                        GameVariablesViewModel.POSITIVE_POINT.value = 3
+                        GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 3
                     } else {
                         //WRONG ANSWER
                         FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.NEGATIVE_POINT.value = 3
-                        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 3
+                        GameVariablesViewModel.NEGATIVE_POINT.value = 3
+                        GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 3
                     }
                 }
                 SWIPE_DOWN -> {
 
                     if (gameOperations.determinePrimeValue()) {
                         //CORRECT ANSWER
-                        FunctionsClassDebug.PrintDebug("${GameVariables.CENTER_VALUE.value} IS A PRIME Number")
+                        FunctionsClassDebug.PrintDebug("${GameVariablesViewModel.CENTER_VALUE.value} IS A PRIME Number")
 
-                        GameVariables.POSITIVE_POINT.value = 13
-                        GameVariables.PRIME_POSITIVE_POINT.value = 13
+                        GameVariablesViewModel.POSITIVE_POINT.value = 13
+                        GameVariablesViewModel.PRIME_POSITIVE_POINT.value = 13
 
 
-                        GameVariables.PRIME_NUMBER_DETECTED.value = true
+                        GameVariablesViewModel.PRIME_NUMBER_DETECTED.value = true
 
                         GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.primeDetect)
                         GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.primeDetectAction)
 
-                        GameVariables.TOGGLE_SNACKBAR.value = true
+                        GameVariablesViewModel.TOGGLE_SNACKBAR.value = true
                         GameInformationVariable.snackBarAction = GameInformationVariable.PRIME_NUMBER_ACTION
                     } else {
                         //WRONG ANSWER
@@ -248,8 +248,8 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                         functionsClassGame.playWrongSound()
 
-                        GameVariables.NEGATIVE_POINT.value = 13
-                        GameVariables.PRIME_NEGATIVE_POINT.value = 13
+                        GameVariablesViewModel.NEGATIVE_POINT.value = 13
+                        GameVariablesViewModel.PRIME_NEGATIVE_POINT.value = 13
                     }
                 }
             }
@@ -277,14 +277,14 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
 
                     val randomCenterValue: Int = listTOfRandom.random()
                     view.text = "${randomCenterValue}"
-                    GameVariables.CENTER_VALUE.value = randomCenterValue
+                    GameVariablesViewModel.CENTER_VALUE.value = randomCenterValue
 
                     triggerCenterRandomChange = true
                     divisibleTriggered = false
                 }, 333)
 
-            GameVariables.SHUFFLE_PROCESS_POSITION.value = GameVariables.SHUFFLE_PROCESS_POSITION.value!! + 1
-            GameVariables.SHUFFLE_PROCESS_VALUE.value = GameVariables.SHUFFLE_PROCESS_VALUE.value!! + 1
+            GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value!! + 1
+            GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value!! + 1
         }
 
         var result = false
@@ -364,33 +364,33 @@ class SwipeGestureFilterRandomCenter(private val view: Button, initContext: Cont
             }
         }
 
-        if (!functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.TOP_VALUE.value!!)
-            && !functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.LEFT_VALUE.value!!)
-            && !functionsClassMath.isNumbersDivisible(GameVariables.CENTER_VALUE.value!!, GameVariables.RIGHT_VALUE.value!!)
-            && !functionsClassMath.isNumberPrime(GameVariables.CENTER_VALUE.value!!)) {
+        if (!functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.TOP_VALUE.value!!)
+            && !functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.LEFT_VALUE.value!!)
+            && !functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.RIGHT_VALUE.value!!)
+            && !functionsClassMath.isNumberPrime(GameVariablesViewModel.CENTER_VALUE.value!!)) {
 
             val randomCenterValue: Int = listTOfRandom.random()
             view.text = "${randomCenterValue}"
-            GameVariables.CENTER_VALUE.value = randomCenterValue
+            GameVariablesViewModel.CENTER_VALUE.value = randomCenterValue
 
             //CORRECT ANSWER
             triggerCenterRandomChange = true
 
             functionsClassGame.playChangedCenterRandomSound()
 
-            GameVariables.POSITIVE_POINT.value = 3
-            GameVariables.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 3
+            GameVariablesViewModel.POSITIVE_POINT.value = 3
+            GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 3
         } else {
             GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
             GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
 
-            GameVariables.TOGGLE_SNACKBAR.value = true
+            GameVariablesViewModel.TOGGLE_SNACKBAR.value = true
 
             //WRONG ANSWER
             functionsClassGame.playWrongSound()
 
-            GameVariables.NEGATIVE_POINT.value = 3
-            GameVariables.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 3
+            GameVariablesViewModel.NEGATIVE_POINT.value = 3
+            GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 3
         }
 
         functionsClassSystem.doVibrate()

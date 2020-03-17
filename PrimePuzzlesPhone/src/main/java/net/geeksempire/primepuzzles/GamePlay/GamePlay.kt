@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:06 AM
- * Last modified 3/17/20 11:06 AM
+ * Created by Elias Fazel on 3/17/20 11:24 AM
+ * Last modified 3/17/20 11:17 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -26,9 +26,8 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.addPauseListener
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -44,7 +43,7 @@ import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.BuildConfig
 import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
-import net.geeksempire.primepuzzles.GameInformation.GameVariables
+import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
@@ -58,12 +57,19 @@ import kotlin.math.hypot
 
 class GamePlay : AppCompatActivity() {
 
-    private lateinit var functionsClassUI: FunctionsClassUI
-    private lateinit var functionsClassGame: FunctionsClassGame
-    private lateinit var functionsClassGameIO: FunctionsClassGameIO
+    private val functionsClassUI: FunctionsClassUI by lazy {
+        FunctionsClassUI(applicationContext)
+    }
 
+    private val functionsClassGame: FunctionsClassGame by lazy {
+        FunctionsClassGame(applicationContext)
+    }
 
-    private lateinit var gameVariables: GameVariables
+    private val functionsClassGameIO: FunctionsClassGameIO by lazy {
+        FunctionsClassGameIO(applicationContext)
+    }
+
+    private lateinit var gameVariablesViewModel: GameVariablesViewModel
 
 
     companion object {
@@ -92,7 +98,7 @@ class GamePlay : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
 
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
@@ -116,9 +122,7 @@ class GamePlay : AppCompatActivity() {
         gesturedRandomCenter.bringToFront()
         primeNumberDetectedInclude.bringToFront()
 
-        functionsClassUI = FunctionsClassUI(applicationContext)
-        functionsClassGame = FunctionsClassGame(applicationContext)
-        functionsClassGameIO = FunctionsClassGameIO(applicationContext)
+
 
         val rootLayout = this.window.decorView
         rootLayout.visibility = View.INVISIBLE
@@ -198,24 +202,24 @@ class GamePlay : AppCompatActivity() {
         layoutParams.height = functionsClassUI.displayX()
         gameControlInclude.layoutParams = layoutParams
 
-        gameVariables = ViewModelProviders.of(this@GamePlay).get(GameVariables::class.java)
+        gameVariablesViewModel = ViewModelProvider(this@GamePlay).get(GameVariablesViewModel::class.java)
 
         val listOfDivisible = ArrayList<Int>()
         listOfDivisible.addAll(2..9)
 
         val topValueRandom = listOfDivisible.random()
         listOfDivisible.remove(topValueRandom)
-        GameVariables.TOP_VALUE.value = topValueRandom
+        GameVariablesViewModel.TOP_VALUE.value = topValueRandom
         randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisible.random()
         listOfDivisible.remove(leftValueRandom)
-        GameVariables.LEFT_VALUE.value = leftValueRandom
+        GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
         randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisible.random()
         listOfDivisible.remove(rightValueRandom)
-        GameVariables.RIGHT_VALUE.value = rightValueRandom
+        GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
         randomRight.setText("${rightValueRandom}")
 
         Handler().postDelayed({
@@ -228,7 +232,7 @@ class GamePlay : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this,
+        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this,
             Observer<Int> { newDifficultyLevel ->
                 when (GameLevel().getGameDifficultyLevel()) {
                     GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {//2..9
@@ -237,7 +241,7 @@ class GamePlay : AppCompatActivity() {
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
                             }
-                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
                     GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {//10..99
@@ -246,7 +250,7 @@ class GamePlay : AppCompatActivity() {
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
                             }
-                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
                     GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {//100..999
@@ -255,7 +259,7 @@ class GamePlay : AppCompatActivity() {
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
                             }
-                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
                     GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {//1000..9999
@@ -264,7 +268,7 @@ class GamePlay : AppCompatActivity() {
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
                                 //The End
                             }
-                            GameVariables.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+                            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
                 }
@@ -272,12 +276,12 @@ class GamePlay : AppCompatActivity() {
             })
 
 
-        GameVariables.PRIME_NUMBER_DETECTED.observe(this,
+        GameVariablesViewModel.PRIME_NUMBER_DETECTED.observe(this,
             Observer<Boolean> { primeDetected ->
                 if (primeDetected!!) {
                     functionsClassGame.playLongPrimeDetectionSound()
 
-                    detectedPrimeNumber.text = "${GameVariables.CENTER_VALUE.value!!}"
+                    detectedPrimeNumber.text = "${GameVariablesViewModel.CENTER_VALUE.value!!}"
 
                     Handler().postDelayed({
                         functionsClassUI.circularRevealAnimationPrimeNumber(
@@ -288,21 +292,21 @@ class GamePlay : AppCompatActivity() {
                         )
                     }, 99)
 
-                    GameVariables.PRIME_NUMBER_DETECTED.value = false
+                    GameVariablesViewModel.PRIME_NUMBER_DETECTED.value = false
                 }
             })
 
 
-        GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
-        GameVariables.SHUFFLE_PROCESS_POSITION.observe(this,
+        GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = 0
+        GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.observe(this,
             Observer<Int> { newShufflePosition ->
                 if (newShufflePosition!! >= 7) {
                     shuffleProcessPosition()
                 }
             })
 
-        GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
-        GameVariables.SHUFFLE_PROCESS_VALUE.observe(this,
+        GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = 0
+        GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.observe(this,
             Observer<Int> { newShuffleValue ->
                 if (newShuffleValue!! >= 21) {
                     shuffleProcessValue()
@@ -310,20 +314,20 @@ class GamePlay : AppCompatActivity() {
             })
 
 
-        GameVariables.CENTER_VALUE.observe(this,
+        GameVariablesViewModel.CENTER_VALUE.observe(this,
             Observer<Int> { newCenterValue ->
                 gesturedRandomCenter.setText("${newCenterValue}")
             })
 
-        GameVariables.TOP_VALUE.observe(this,
+        GameVariablesViewModel.TOP_VALUE.observe(this,
             Observer<Int> {
                     newTopValue -> randomTop.setText("${newTopValue}")
             })
-        GameVariables.LEFT_VALUE.observe(this,
+        GameVariablesViewModel.LEFT_VALUE.observe(this,
             Observer<Int> { newLeftValue ->
                 randomLeft.setText("${newLeftValue}")
             })
-        GameVariables.RIGHT_VALUE.observe(this,
+        GameVariablesViewModel.RIGHT_VALUE.observe(this,
             Observer<Int> { newRightValue ->
                 randomRight.setText("${newRightValue}")
             })
@@ -352,7 +356,7 @@ class GamePlay : AppCompatActivity() {
         val snackButton: Button = snackbarHint.getView().findViewById<Button>(R.id.snackbar_action)
         snackButton.setBackgroundColor(Color.TRANSPARENT)
 
-        GameVariables.TOGGLE_SNACKBAR.observe(this, object : Observer<Boolean> {
+        GameVariablesViewModel.TOGGLE_SNACKBAR.observe(this, object : Observer<Boolean> {
             override fun onChanged(newToggleSnackBar: Boolean?) {
                 if (newToggleSnackBar!!) {
                     snackbarHint.setText(Html.fromHtml(GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT, Html.FROM_HTML_MODE_LEGACY))
@@ -718,20 +722,20 @@ class GamePlay : AppCompatActivity() {
 
         val topValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(topValueRandom)
-        GameVariables.TOP_VALUE.value = topValueRandom
+        GameVariablesViewModel.TOP_VALUE.value = topValueRandom
         randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(leftValueRandom)
-        GameVariables.LEFT_VALUE.value = leftValueRandom
+        GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
         randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(rightValueRandom)
-        GameVariables.RIGHT_VALUE.value = rightValueRandom
+        GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
         randomRight.setText("${rightValueRandom}")
 
-        GameVariables.SHUFFLE_PROCESS_POSITION.value = 0
+        GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = 0
     }
 
     private fun shuffleProcessValue() {
@@ -742,20 +746,20 @@ class GamePlay : AppCompatActivity() {
 
         val topValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(topValueRandom)
-        GameVariables.TOP_VALUE.value = topValueRandom
+        GameVariablesViewModel.TOP_VALUE.value = topValueRandom
         randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(leftValueRandom)
-        GameVariables.LEFT_VALUE.value = leftValueRandom
+        GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
         randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(rightValueRandom)
-        GameVariables.RIGHT_VALUE.value = rightValueRandom
+        GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
         randomRight.setText("${rightValueRandom}")
 
-        GameVariables.SHUFFLE_PROCESS_VALUE.value = 0
+        GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = 0
     }
 
     /*
@@ -784,20 +788,20 @@ class GamePlay : AppCompatActivity() {
             functionsClassGameIO.saveCenterChangeNegativePoints(0)
         }
 
-        GameVariables.POSITIVE_POINT.value = 0
-        GameVariables.DIVISIBLE_POSITIVE_POINT.value = 0
-        GameVariables.PRIME_POSITIVE_POINT.value = 0
-        GameVariables.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
+        GameVariablesViewModel.POSITIVE_POINT.value = 0
+        GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 0
+        GameVariablesViewModel.PRIME_POSITIVE_POINT.value = 0
+        GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
 
-        GameVariables.NEGATIVE_POINT.value = 0
-        GameVariables.DIVISIBLE_NEGATIVE_POINT.value = 0
-        GameVariables.PRIME_NEGATIVE_POINT.value = 0
-        GameVariables.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
+        GameVariablesViewModel.NEGATIVE_POINT.value = 0
+        GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 0
+        GameVariablesViewModel.PRIME_NEGATIVE_POINT.value = 0
+        GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
 
         /*
          * Positive Points
          */
-        GameVariables.POSITIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.POSITIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newPositivePoint: Int?) {
 
                 if (newPositivePoint != 0) {
@@ -844,7 +848,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariables.DIVISIBLE_POSITIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newPositivePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_POSITIVE_POINT ::: ${newPositivePoint}")
 
@@ -854,7 +858,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariables.PRIME_POSITIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.PRIME_POSITIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newPositivePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("PRIME_POSITIVE_POINT ::: ${newPositivePoint}")
 
@@ -864,7 +868,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariables.CHANGE_CENTER_RANDOM_POSITIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newPositivePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_POSITIVE_POINT ::: ${newPositivePoint}")
 
@@ -877,7 +881,7 @@ class GamePlay : AppCompatActivity() {
         /*
          * Negative Points
          */
-        GameVariables.NEGATIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.NEGATIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newNegativePoint: Int?) {
 
                 if (newNegativePoint != 0) {
@@ -922,7 +926,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariables.DIVISIBLE_NEGATIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newNegativePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("DIVISIBLE_NEGATIVE_POINT ::: ${newNegativePoint}")
 
@@ -932,7 +936,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariables.PRIME_NEGATIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.PRIME_NEGATIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newNegativePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("PRIME_NEGATIVE_POINT ::: ${newNegativePoint}")
 
@@ -942,7 +946,7 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariables.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.observe(this, object : Observer<Int> {
+        GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.observe(this, object : Observer<Int> {
             override fun onChanged(newNegativePoint: Int?) {
                 FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_NEGATIVE_POINT ::: ${newNegativePoint}")
 
@@ -963,9 +967,6 @@ class GamePlay : AppCompatActivity() {
         GamePlay.valueAnimatorProgressBar.duration = 14000
         GamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->
             timerProgressBar.progress = (animator.animatedValue as Float)
-        }
-        GamePlay.valueAnimatorProgressBar.addPauseListener {
-
         }
 
         GamePlay.countDownTimer = object : CountDownTimer(GamePlay.lastThickTimer, 1) {
@@ -991,7 +992,7 @@ class GamePlay : AppCompatActivity() {
 
                 functionsClassGame.playWrongSound()
 
-                GameVariables.NEGATIVE_POINT.value = 3
+                GameVariablesViewModel.NEGATIVE_POINT.value = 3
 
                 timerProgressBar.setTrackEnabled(true)
                 timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
@@ -1000,9 +1001,6 @@ class GamePlay : AppCompatActivity() {
                 valueAnimatorProgressBarBack.duration = 531
                 valueAnimatorProgressBarBack.addUpdateListener { animator ->
                     timerProgressBar.progress = (animator.animatedValue as Float)
-                }
-                valueAnimatorProgressBarBack.addPauseListener {
-
                 }
                 valueAnimatorProgressBarBack.start()
             }
