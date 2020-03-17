@@ -1,15 +1,17 @@
 /*
- * Copyright © 2020 By Geeks Empire.
+ * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 1/3/20 1:07 AM
- * Last modified 1/3/20 12:53 AM
+ * Created by Elias Fazel on 3/17/20 11:06 AM
+ * Last modified 3/17/20 10:32 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.firebase.crashlytics'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -17,7 +19,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         //Application Id Number 797744393504
@@ -26,8 +28,9 @@ android {
         minSdkVersion 25
         targetSdkVersion 29
 
-        versionCode 702
-        versionName "${majorVersion} | " + getDateMonth() + "." + getDateDay() + "." + getDateYear() + "-{${versionCode}}" + "-"
+        versionCode 1000
+        versionName "${majorVersion}." + getDateMonth() + "." + getDateDay() + "." + getDateYear() + ".${versionCode}"
+
 
         wearAppUnbundled true
     }
@@ -36,6 +39,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            manifestPlaceholders = [enableCrashReporting:"true"]
+        }
+        debug {
+            manifestPlaceholders = [enableCrashReporting:"false"]
         }
     }
 
@@ -44,17 +52,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    flavorDimensions "FloatingShortcutsPro"
+    flavorDimensions "PrimePuzzle"
     productFlavors {
         releaseConfig {
-            dimension "FloatingShortcutsPro"
+            dimension "PrimePuzzle"
 
-            versionNameSuffix '[PRO][Android][Phone]'
+            versionNameSuffix '[Android][Phone]'
         }
         betaConfig {
-            dimension "FloatingShortcutsPro"
+            dimension "PrimePuzzle"
 
-            versionNameSuffix '[PRO][Android][Phone][BETA]'
+            versionNameSuffix '[Android][Phone][BETA]'
         }
     }
 }
@@ -83,50 +91,44 @@ dependencies {
     implementation project(path: ':PhysicsAnimation')
 
 
-    implementation 'com.google.android.play:core:1.6.4'
+    implementation 'com.google.android.play:core:1.7.1'
 
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.gms:play-services-games:19.0.0'
 
-    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
 
 
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'androidx.preference:preference-ktx:1.1.0'
 
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
 
-    implementation 'com.google.firebase:firebase-core:17.2.1'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
 
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
 
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
-    implementation 'com.google.firebase:firebase-config:19.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation 'com.google.firebase:firebase-config:19.1.2'
 
-    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 
-//    implementation 'com.google.firebase:firebase-appindexing:19.0.0'
-//    implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
-    implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.2.3'
 
-    implementation 'com.google.firebase:firebase-ads:18.3.0'
+    implementation 'com.google.firebase:firebase-ads:19.0.0'
 
-
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
 
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
-    /*3rd Party Library*/
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }
-apply plugin: 'com.google.gms.google-services'
