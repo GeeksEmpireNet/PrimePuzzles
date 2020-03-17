@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:15 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:47 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -11,13 +11,11 @@
 package net.geeksempire.primepuzzles.GameLogic
 
 import android.content.Context
-import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
+import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassMath
 
-class GameOperations(initContext: Context) {
-
-    val context: Context = initContext
+class GameOperations(private val context: Context) {
 
     var hintType: Int = 0
 
@@ -73,7 +71,7 @@ class GameOperations(initContext: Context) {
     }
 
 
-    fun generateHint() : String{
+    fun generateHint() : String {
         val functionsClassMath: FunctionsClassMath = FunctionsClassMath(context)
         var hintInformation: String = context.getString(R.string.noHint)
 

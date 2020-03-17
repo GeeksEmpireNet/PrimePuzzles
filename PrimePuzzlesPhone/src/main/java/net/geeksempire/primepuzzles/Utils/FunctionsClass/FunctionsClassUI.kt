@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:15 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:47 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -20,7 +20,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
-import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
+import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
 import kotlin.math.hypot
 

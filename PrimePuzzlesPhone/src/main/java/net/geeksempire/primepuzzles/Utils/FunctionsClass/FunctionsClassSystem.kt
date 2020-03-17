@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:23 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:19 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -19,9 +19,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 
-class FunctionsClassSystem(initContext: Context) {
-
-    var context: Context = initContext
+class FunctionsClassSystem(private val context: Context) {
 
     fun doVibrate() {
         val vibrator = context.getSystemService(VIBRATOR_SERVICE) as Vibrator
@@ -53,21 +51,25 @@ class FunctionsClassSystem(initContext: Context) {
     }
 
     @Throws(Exception::class)
-    fun networkConnection(): Boolean {
-        var networkAvailable = false
+    fun networkConnection() : Boolean {
 
         val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network: Network = connectivityManager.activeNetwork!!
         val networkCapabilities: NetworkCapabilities = connectivityManager.getNetworkCapabilities(network)!!
 
-        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-            networkAvailable = true
-        } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-            networkAvailable = true
-        } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-            networkAvailable = true
+        return when {
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                true
+            }
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                true
+            }
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> {
+                true
+            }
+            else -> {
+                false
+            }
         }
-
-        return networkAvailable
     }
 }

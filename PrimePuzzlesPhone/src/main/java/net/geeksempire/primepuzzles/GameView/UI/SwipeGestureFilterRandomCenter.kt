@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:15 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:47 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -20,8 +20,8 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
-import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
-import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
+import net.geeksempire.primepuzzles.GameData.GameInformationVariable
+import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.R

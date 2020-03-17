@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:22 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 2:02 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -11,7 +11,10 @@
 package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
 import android.content.Context
-import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
+import net.geeksempire.primepuzzles.GameData.GameInformationVariable
+import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
+import org.json.JSONObject
+import java.io.FileReader
 
 class FunctionsClassGameIO(private val context: Context) {
 
@@ -21,6 +24,21 @@ class FunctionsClassGameIO(private val context: Context) {
 
         return context.getFileStreamPath("PrimeNumbers.json").exists()
     }
+
+    fun primeNumbersJsonFile() : JSONObject? {
+
+        return if (GameVariablesViewModel.GAME_PRIME_NUMBER_DATA != null) {
+            GameVariablesViewModel.GAME_PRIME_NUMBER_DATA
+        } else if (context.getFileStreamPath("PrimeNumbers.json").exists()) {
+            val fileReader = FileReader(context.getFileStreamPath("PrimeNumbers.json"))
+            GameVariablesViewModel.GAME_PRIME_NUMBER_DATA = JSONObject(fileReader.readText()) as JSONObject
+
+            GameVariablesViewModel.GAME_PRIME_NUMBER_DATA
+        } else {
+            null
+        }
+    }
+
 
     fun saveTotalPoints(PointValue: Int) {
         val editorSharedPreferences = sharedPreferences.edit()

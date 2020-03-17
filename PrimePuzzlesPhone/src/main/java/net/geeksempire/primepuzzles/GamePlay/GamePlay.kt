@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:17 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:47 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -42,8 +42,8 @@ import net.geeksempire.physics.animation.Core.Spring
 import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
 import net.geeksempire.primepuzzles.BuildConfig
-import net.geeksempire.primepuzzles.GameInformation.GameInformationVariable
-import net.geeksempire.primepuzzles.GameInformation.GameVariablesViewModel
+import net.geeksempire.primepuzzles.GameData.GameInformationVariable
+import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
@@ -100,15 +100,17 @@ class GamePlay : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
         window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         setContentView(R.layout.game_play_view)
         MobileAds.initialize(this) { initializationStatus ->
@@ -123,7 +125,6 @@ class GamePlay : AppCompatActivity() {
         primeNumberDetectedInclude.bringToFront()
 
 
-
         val rootLayout = this.window.decorView
         rootLayout.visibility = View.INVISIBLE
         val viewTreeObserver = rootLayout.viewTreeObserver
@@ -131,7 +132,10 @@ class GamePlay : AppCompatActivity() {
             viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    val finalRadius = hypot(functionsClassUI.displayX().toDouble(), functionsClassUI.displayY().toDouble()).toInt()
+                    val finalRadius = hypot(
+                        functionsClassUI.displayX().toDouble(),
+                        functionsClassUI.displayY().toDouble()
+                    ).toInt()
                     val circularReveal = ViewAnimationUtils.createCircularReveal(
                         rootLayout,
                         functionsClassUI.displayX() / 2,
@@ -189,7 +193,11 @@ class GamePlay : AppCompatActivity() {
         scanPointsChange()
 
         val adViewLayoutParams = adViews.layoutParams as RelativeLayout.LayoutParams
-        val statusBarHeight = if (intent.getIntExtra("StatusBarHeight", functionsClassUI.DpToInteger(24f).toInt()) == 0) {
+        val statusBarHeight = if (intent.getIntExtra(
+                "StatusBarHeight",
+                functionsClassUI.DpToInteger(24f).toInt()
+            ) == 0
+        ) {
             intent.getIntExtra("StatusBarHeight", functionsClassUI.DpToInteger(24f).toInt())
         } else {
             functionsClassUI.DpToInteger(24f).toInt()
@@ -223,7 +231,6 @@ class GamePlay : AppCompatActivity() {
         randomRight.setText("${rightValueRandom}")
 
         Handler().postDelayed({
-
             GamePlay.valueAnimatorProgressBar.start()
             GamePlay.countDownTimer.start()
         }, 1999)
@@ -253,7 +260,7 @@ class GamePlay : AppCompatActivity() {
                             GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
-                    GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {//100..999
+                    GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT -> {//100..999
                         if (newDifficultyLevel!! >= 777) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
@@ -262,7 +269,7 @@ class GamePlay : AppCompatActivity() {
                             GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
                         }
                     }
-                    GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {//1000..9999
+                    GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT -> {//1000..9999
                         if (newDifficultyLevel!! >= 7777) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
                             if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
@@ -286,8 +293,8 @@ class GamePlay : AppCompatActivity() {
                     Handler().postDelayed({
                         functionsClassUI.circularRevealAnimationPrimeNumber(
                             primeNumberDetectedInclude,
-                            primeNumbers.y + (primeNumbers.height/2),
-                            primeNumbers.x + (primeNumbers.width/2),
+                            primeNumbers.y + (primeNumbers.height / 2),
+                            primeNumbers.x + (primeNumbers.width / 2),
                             1f
                         )
                     }, 99)
@@ -320,8 +327,8 @@ class GamePlay : AppCompatActivity() {
             })
 
         GameVariablesViewModel.TOP_VALUE.observe(this,
-            Observer<Int> {
-                    newTopValue -> randomTop.setText("${newTopValue}")
+            Observer<Int> { newTopValue ->
+                randomTop.setText("${newTopValue}")
             })
         GameVariablesViewModel.LEFT_VALUE.observe(this,
             Observer<Int> { newLeftValue ->
@@ -335,8 +342,12 @@ class GamePlay : AppCompatActivity() {
 
         val snackbarHint = Snackbar.make(
             fullGamePlay,
-            Html.fromHtml(GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT, Html.FROM_HTML_MODE_LEGACY),
-            Snackbar.LENGTH_INDEFINITE)
+            Html.fromHtml(
+                GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT,
+                Html.FROM_HTML_MODE_LEGACY
+            ),
+            Snackbar.LENGTH_INDEFINITE
+        )
         snackbarHint.animationMode = Snackbar.ANIMATION_MODE_SLIDE
         snackbarHint.setTextColor(ColorStateList.valueOf(getColor(R.color.light)))
         snackbarHint.setActionTextColor(getColor(R.color.yellow))
@@ -359,100 +370,125 @@ class GamePlay : AppCompatActivity() {
         GameVariablesViewModel.TOGGLE_SNACKBAR.observe(this, object : Observer<Boolean> {
             override fun onChanged(newToggleSnackBar: Boolean?) {
                 if (newToggleSnackBar!!) {
-                    snackbarHint.setText(Html.fromHtml(GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT, Html.FROM_HTML_MODE_LEGACY))
-                    snackbarHint.setAction(GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT, object : View.OnClickListener {
-                        override fun onClick(view: View?) {
-                            when (GameInformationVariable.snackBarAction) {
-                                GameInformationVariable.HINT_ACTION -> {
-                                    GamePlay.valueAnimatorProgressBar.pause()
-                                    GamePlay.countDownTimer.pause()
+                    snackbarHint.setText(
+                        Html.fromHtml(
+                            GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT,
+                            Html.FROM_HTML_MODE_LEGACY
+                        )
+                    )
+                    snackbarHint.setAction(
+                        GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT,
+                        object : View.OnClickListener {
+                            override fun onClick(view: View?) {
+                                when (GameInformationVariable.snackBarAction) {
+                                    GameInformationVariable.HINT_ACTION -> {
+                                        GamePlay.valueAnimatorProgressBar.pause()
+                                        GamePlay.countDownTimer.pause()
 
-                                    val hintData: String = GameOperations(applicationContext).generateHint()
-                                    hintEquation.text = hintData
+                                        val hintData: String =
+                                            GameOperations(applicationContext).generateHint()
+                                        hintEquation.text = hintData
 
-                                    val hintAnimation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
-                                    hintViewInclude.startAnimation(hintAnimation)
-                                    hintAnimation.setAnimationListener(object : Animation.AnimationListener {
-                                        override fun onAnimationRepeat(animation: Animation?) {
+                                        val hintAnimation = AnimationUtils.loadAnimation(
+                                            applicationContext,
+                                            android.R.anim.fade_in
+                                        )
+                                        hintViewInclude.startAnimation(hintAnimation)
+                                        hintAnimation.setAnimationListener(object :
+                                            Animation.AnimationListener {
+                                            override fun onAnimationRepeat(animation: Animation?) {
 
-                                        }
-
-                                        override fun onAnimationEnd(animation: Animation?) {
-                                            hintViewInclude.visibility = View.VISIBLE
-
-                                            val hintBackgroundDim = ValueAnimator.ofArgb(Color.TRANSPARENT, getColor(R.color.dark_transparent))
-                                            hintBackgroundDim.duration = 321
-                                            hintBackgroundDim.addUpdateListener { animator ->
-                                                //(animator.animatedValue as Int)
-                                                hintViewInclude.setBackgroundColor((animator.animatedValue as Int))
                                             }
-                                            hintBackgroundDim.start()
+
+                                            override fun onAnimationEnd(animation: Animation?) {
+                                                hintViewInclude.visibility = View.VISIBLE
+
+                                                val hintBackgroundDim = ValueAnimator.ofArgb(
+                                                    Color.TRANSPARENT,
+                                                    getColor(R.color.dark_transparent)
+                                                )
+                                                hintBackgroundDim.duration = 321
+                                                hintBackgroundDim.addUpdateListener { animator ->
+                                                    //(animator.animatedValue as Int)
+                                                    hintViewInclude.setBackgroundColor((animator.animatedValue as Int))
+                                                }
+                                                hintBackgroundDim.start()
+                                            }
+
+                                            override fun onAnimationStart(animation: Animation?) {
+
+                                            }
+                                        })
+
+                                        hintViewInclude.setOnClickListener {
+                                            if (hintViewInclude.isShown) {
+                                                val hintAnimationHide =
+                                                    AnimationUtils.loadAnimation(
+                                                        applicationContext,
+                                                        android.R.anim.fade_out
+                                                    )
+                                                hintViewInclude.startAnimation(hintAnimationHide)
+                                                hintAnimationHide.setAnimationListener(object :
+                                                    Animation.AnimationListener {
+                                                    override fun onAnimationRepeat(animation: Animation?) {
+
+                                                    }
+
+                                                    override fun onAnimationEnd(animation: Animation?) {
+                                                        hintViewInclude.visibility = View.INVISIBLE
+                                                        hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                                                    }
+
+                                                    override fun onAnimationStart(animation: Animation?) {
+
+                                                    }
+                                                })
+
+                                                GamePlay.valueAnimatorProgressBar.resume()
+                                                GamePlay.countDownTimer.resume()
+                                            }
                                         }
 
-                                        override fun onAnimationStart(animation: Animation?) {
+                                        hintGotIt.setOnClickListener {
+                                            if (hintViewInclude.isShown) {
+                                                val hintAnimationHide =
+                                                    AnimationUtils.loadAnimation(
+                                                        applicationContext,
+                                                        android.R.anim.fade_out
+                                                    )
+                                                hintViewInclude.startAnimation(hintAnimationHide)
+                                                hintAnimationHide.setAnimationListener(object :
+                                                    Animation.AnimationListener {
+                                                    override fun onAnimationRepeat(animation: Animation?) {
 
-                                        }
-                                    })
+                                                    }
 
-                                    hintViewInclude.setOnClickListener {
-                                        if (hintViewInclude.isShown) {
-                                            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-                                            hintViewInclude.startAnimation(hintAnimationHide)
-                                            hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
-                                                override fun onAnimationRepeat(animation: Animation?) {
+                                                    override fun onAnimationEnd(animation: Animation?) {
+                                                        hintViewInclude.visibility = View.INVISIBLE
+                                                        hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                                                    }
 
-                                                }
+                                                    override fun onAnimationStart(animation: Animation?) {
 
-                                                override fun onAnimationEnd(animation: Animation?) {
-                                                    hintViewInclude.visibility = View.INVISIBLE
-                                                    hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
-                                                }
+                                                    }
+                                                })
 
-                                                override fun onAnimationStart(animation: Animation?) {
-
-                                                }
-                                            })
-
-                                            GamePlay.valueAnimatorProgressBar.resume()
-                                            GamePlay.countDownTimer.resume()
+                                                GamePlay.valueAnimatorProgressBar.resume()
+                                                GamePlay.countDownTimer.resume()
+                                            }
                                         }
                                     }
-
-                                    hintGotIt.setOnClickListener {
-                                        if (hintViewInclude.isShown) {
-                                            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-                                            hintViewInclude.startAnimation(hintAnimationHide)
-                                            hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
-                                                override fun onAnimationRepeat(animation: Animation?) {
-
-                                                }
-
-                                                override fun onAnimationEnd(animation: Animation?) {
-                                                    hintViewInclude.visibility = View.INVISIBLE
-                                                    hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
-                                                }
-
-                                                override fun onAnimationStart(animation: Animation?) {
-
-                                                }
-                                            })
-
-                                            GamePlay.valueAnimatorProgressBar.resume()
-                                            GamePlay.countDownTimer.resume()
-                                        }
+                                    GameInformationVariable.PRIME_NUMBER_ACTION -> {
+                                        functionsClassUI.circularHideAnimationPrimeNumber(
+                                            primeNumberDetectedInclude,
+                                            primeNumbers.y + (primeNumbers.height / 2),
+                                            primeNumbers.x + (primeNumbers.width / 2),
+                                            1f
+                                        )
                                     }
-                                }
-                                GameInformationVariable.PRIME_NUMBER_ACTION -> {
-                                    functionsClassUI.circularHideAnimationPrimeNumber(
-                                        primeNumberDetectedInclude,
-                                        primeNumbers.y + (primeNumbers.height/2),
-                                        primeNumbers.x + (primeNumbers.width/2),
-                                        1f
-                                    )
                                 }
                             }
-                        }
-                    })
+                        })
                     Handler().postDelayed({
                         snackbarHint.show()
                     }, 321)
@@ -493,7 +529,8 @@ class GamePlay : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (hintViewInclude.isShown) {
-            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+            val hintAnimationHide =
+                AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
             hintViewInclude.startAnimation(hintAnimationHide)
             hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationRepeat(animation: Animation?) {
@@ -532,13 +569,13 @@ class GamePlay : AppCompatActivity() {
 
         /*Banner Ads*/
         adViewBannerGamePlay.loadAd(adRequest)
-        adViewBannerGamePlay.adListener = object: AdListener() {
+        adViewBannerGamePlay.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 FunctionsClassDebug.PrintDebug("Banner Ads Loaded")
 
             }
 
-            override fun onAdFailedToLoad(errorCode : Int) {
+            override fun onAdFailedToLoad(errorCode: Int) {
                 FunctionsClassDebug.PrintDebug("Banner Ads Failed")
 
             }
@@ -574,10 +611,12 @@ class GamePlay : AppCompatActivity() {
      */
     private fun setupViews() {
 
-        functionsClassUI.shadowValueAnimatorLoop(primeNumbers,
+        functionsClassUI.shadowValueAnimatorLoop(
+            primeNumbers,
             19, 3,
             1333, 777,
-            getColor(R.color.lighter), 0f, 0f)
+            getColor(R.color.lighter), 0f, 0f
+        )
 
         val springSystem = SpringSystem.create()
 
@@ -676,7 +715,7 @@ class GamePlay : AppCompatActivity() {
         }
         randomTop.setOnClickListener {}
 
-        randomLeft.setOnClickListener {  }
+        randomLeft.setOnClickListener { }
         randomLeft.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -691,7 +730,7 @@ class GamePlay : AppCompatActivity() {
             return@setOnTouchListener false
         }
 
-        randomRight.setOnClickListener {  }
+        randomRight.setOnClickListener { }
         randomRight.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -805,8 +844,12 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newPositivePoint: Int?) {
 
                 if (newPositivePoint != 0) {
-                    val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_animation_earning_points)
-                    fadeAnimationEarningPoints.setAnimationListener(object : Animation.AnimationListener {
+                    val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(
+                        applicationContext,
+                        R.anim.fade_animation_earning_points
+                    )
+                    fadeAnimationEarningPoints.setAnimationListener(object :
+                        Animation.AnimationListener {
                         override fun onAnimationRepeat(animation: Animation?) {
 
                         }
@@ -833,13 +876,20 @@ class GamePlay : AppCompatActivity() {
 
                     pointsEarning.setTextColor(getColor(R.color.green))
                     pointsEarning.text = "+${newPositivePoint}"
-                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){ "" } else { " x ${GameLevel().getGameDifficultyLevel()}" })
+                    pointsEarning.append(
+                        if (GameLevel().getGameDifficultyLevel() == 1) {
+                            ""
+                        } else {
+                            " x ${GameLevel().getGameDifficultyLevel()}"
+                        }
+                    )
 
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)
                 }
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * GameLevel().getPointMultiplier())
+                val totalNewPoint: Int =
+                    totalSavePoint + (newPositivePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -868,15 +918,17 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.observe(this, object : Observer<Int> {
-            override fun onChanged(newPositivePoint: Int?) {
-                FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_POSITIVE_POINT ::: ${newPositivePoint}")
+        GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.observe(
+            this,
+            object : Observer<Int> {
+                override fun onChanged(newPositivePoint: Int?) {
+                    FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_POSITIVE_POINT ::: ${newPositivePoint}")
 
-                val point = functionsClassGameIO.readCenterChangePositivePoints()
-                val newPoint = point + newPositivePoint!!
-                functionsClassGameIO.saveCenterChangePositivePoints(newPoint)
-            }
-        })
+                    val point = functionsClassGameIO.readCenterChangePositivePoints()
+                    val newPoint = point + newPositivePoint!!
+                    functionsClassGameIO.saveCenterChangePositivePoints(newPoint)
+                }
+            })
 
         /*
          * Negative Points
@@ -885,8 +937,12 @@ class GamePlay : AppCompatActivity() {
             override fun onChanged(newNegativePoint: Int?) {
 
                 if (newNegativePoint != 0) {
-                    val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_animation_earning_points)
-                    fadeAnimationEarningPoints.setAnimationListener(object : Animation.AnimationListener {
+                    val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(
+                        applicationContext,
+                        R.anim.fade_animation_earning_points
+                    )
+                    fadeAnimationEarningPoints.setAnimationListener(object :
+                        Animation.AnimationListener {
                         override fun onAnimationRepeat(animation: Animation?) {
 
                         }
@@ -911,13 +967,20 @@ class GamePlay : AppCompatActivity() {
 
                     pointsEarning.setTextColor(getColor(R.color.red))
                     pointsEarning.text = "-${newNegativePoint}"
-                    pointsEarning.append(if(GameLevel().getGameDifficultyLevel() == 1){ "" } else { " x ${GameLevel().getGameDifficultyLevel()}" })
+                    pointsEarning.append(
+                        if (GameLevel().getGameDifficultyLevel() == 1) {
+                            ""
+                        } else {
+                            " x ${GameLevel().getGameDifficultyLevel()}"
+                        }
+                    )
 
                     pointsEarning.startAnimation(fadeAnimationEarningPoints)
                 }
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * GameLevel().getPointMultiplier())
+                val totalNewPoint: Int =
+                    totalSavePoint - (newNegativePoint!! * GameLevel().getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 pointsTotalView.setText("${totalNewPoint}")
@@ -946,15 +1009,17 @@ class GamePlay : AppCompatActivity() {
             }
         })
 
-        GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.observe(this, object : Observer<Int> {
-            override fun onChanged(newNegativePoint: Int?) {
-                FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_NEGATIVE_POINT ::: ${newNegativePoint}")
+        GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.observe(
+            this,
+            object : Observer<Int> {
+                override fun onChanged(newNegativePoint: Int?) {
+                    FunctionsClassDebug.PrintDebug("CHANGE_CENTER_RANDOM_NEGATIVE_POINT ::: ${newNegativePoint}")
 
-                val point = functionsClassGameIO.readCenterChangeNegativePoints()
-                val newPoint = point - newNegativePoint!!
-                functionsClassGameIO.saveCenterChangeNegativePoints(newPoint)
-            }
-        })
+                    val point = functionsClassGameIO.readCenterChangeNegativePoints()
+                    val newPoint = point - newNegativePoint!!
+                    functionsClassGameIO.saveCenterChangeNegativePoints(newPoint)
+                }
+            })
     }
 
     /*
@@ -962,7 +1027,7 @@ class GamePlay : AppCompatActivity() {
      * Timer Functions
      *
      */
-    private fun countDownTimer() : CountDownTimer {
+    private fun countDownTimer(): CountDownTimer {
         GamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
         GamePlay.valueAnimatorProgressBar.duration = 14000
         GamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->

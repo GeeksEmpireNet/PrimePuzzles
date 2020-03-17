@@ -1,21 +1,26 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:24 AM
- * Last modified 3/17/20 11:17 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:52 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-package net.geeksempire.primepuzzles.GameInformation
+package net.geeksempire.primepuzzles.GameData
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.json.JSONObject
 
 class GameVariablesViewModel : ViewModel() {
 
     companion object {
+        //
+        var GAME_PRIME_NUMBER_DATA: JSONObject? = null
+
+        //
         val GAME_LEVEL_DIFFICULTY: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>()
         }

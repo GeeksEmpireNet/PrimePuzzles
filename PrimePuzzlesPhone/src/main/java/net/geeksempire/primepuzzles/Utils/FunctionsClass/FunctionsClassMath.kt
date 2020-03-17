@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 11:06 AM
- * Last modified 3/17/20 11:01 AM
+ * Created by Elias Fazel on 3/17/20 2:03 PM
+ * Last modified 3/17/20 1:54 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -12,23 +12,20 @@ package net.geeksempire.primepuzzles.Utils.FunctionsClass
 
 import android.content.Context
 import org.json.JSONObject
-import java.io.FileReader
 import kotlin.math.sqrt
 
-class FunctionsClassMath(initContext: Context)  {
+class FunctionsClassMath(private val context: Context)  {
 
-    val context: Context = initContext
+    private val functionsClassGameIO: FunctionsClassGameIO = FunctionsClassGameIO(context)
+    private val primeJsonObject = functionsClassGameIO.primeNumbersJsonFile()
 
     fun isNumberPrime(numberToCheck: Int) : Boolean {
         var isPrime = true
 
-        if (context.getFileStreamPath("PrimeNumbers.json").exists()) {
-            val fileReader = FileReader("/data/data/" + context.packageName + "/files/" + "PrimeNumbers.json")
-            val jsonObject: JSONObject = JSONObject(fileReader.readText()) as JSONObject
-            val jsonObjectPrimeNumbers: JSONObject = jsonObject["PrimeNumbers"] as JSONObject
-            val jsonObjectPrimeNumber: String? = jsonObjectPrimeNumbers.getString("${numberToCheck}")
+        if (primeJsonObject != null) {
+            val jsonObjectPrimeNumbers: JSONObject = primeJsonObject.get("PrimeNumbers") as JSONObject
 
-            if (jsonObjectPrimeNumber.isNullOrBlank()) {
+            if (jsonObjectPrimeNumbers.isNull("${numberToCheck}")) {
                 isPrime = false
             }
         } else {
