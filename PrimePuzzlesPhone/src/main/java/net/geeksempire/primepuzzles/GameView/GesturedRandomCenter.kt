@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:47 PM
+ * Created by Elias Fazel on 3/18/20 1:00 PM
+ * Last modified 3/18/20 12:18 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -21,16 +21,15 @@ import net.geeksempire.primepuzzles.GameView.UI.SwipeGestureFilterRandomCenter
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 
-class GesturedRandomCenter : AppCompatButton,
-    SwipeGestureFilterRandomCenter.GestureListener {
+class GesturedRandomCenter : AppCompatButton, GestureListenerInterface {
 
-    var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
+    private var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         swipeGestureFilterRandomCenter =
             SwipeGestureFilterRandomCenter(
-                this@GesturedRandomCenter,
                 context,
+                this@GesturedRandomCenter,
                 this@GesturedRandomCenter
             )
 
@@ -39,8 +38,8 @@ class GesturedRandomCenter : AppCompatButton,
     constructor(context: Context) : super(context) {
         swipeGestureFilterRandomCenter =
             SwipeGestureFilterRandomCenter(
-                this@GesturedRandomCenter,
                 context,
+                this@GesturedRandomCenter,
                 this@GesturedRandomCenter
             )
 
@@ -75,41 +74,46 @@ class GesturedRandomCenter : AppCompatButton,
         super.onDetachedFromWindow()
     }
 
-    override fun dispatchTouchEvent(motionEvent: MotionEvent): Boolean {
+    override fun dispatchTouchEvent(motionEvent: MotionEvent) : Boolean {
         this.swipeGestureFilterRandomCenter.onTouchEvent(motionEvent)
 
         return super.dispatchTouchEvent(motionEvent)
     }
 
-    override fun onSwipe(direction: Int) {
+    override fun onSwipe (
+        direction: Int,
+        downMotionEvent: MotionEvent,
+        moveMotionEvent: MotionEvent,
+        initVelocityX: Float,
+        initVelocityY: Float) {
+
         when (direction) {
-            SwipeGestureFilterRandomCenter.SWIPE_DOWN -> {
+            GestureListenerConstants.SWIPE_DOWN -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_DOWN")
 
             }
-            SwipeGestureFilterRandomCenter.SWIPE_LEFT -> {
+            GestureListenerConstants.SWIPE_LEFT -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_LEFT")
 
 
             }
-            SwipeGestureFilterRandomCenter.SWIPE_RIGHT -> {
+            GestureListenerConstants.SWIPE_RIGHT -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_RIGHT")
 
 
             }
-            SwipeGestureFilterRandomCenter.SWIPE_UP -> {
+            GestureListenerConstants.SWIPE_UP -> {
                 FunctionsClassDebug.PrintDebug("SWIPE_UP")
 
             }
         }
     }
 
-    override fun onSingleTapUp() {
+    override fun onSingleTapUp(motionEvent: MotionEvent) {
         FunctionsClassDebug.PrintDebug("SINGLE_TAP")
-
     }
 
-    override fun onLongPress() {
+    override fun onLongPress(motionEvent: MotionEvent) {
         FunctionsClassDebug.PrintDebug("LONG_PRESS")
     }
 }
