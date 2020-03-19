@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 2:03 PM
+ * Created by Elias Fazel on 3/19/20 2:01 PM
+ * Last modified 3/19/20 1:26 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -104,6 +104,8 @@ class GameConfigurations : Activity() {
                         android.R.anim.fade_out
                     ).toBundle()
                 )
+
+                this@GameConfigurations.finish()
             }
         } else {
             configurationViewBinding.signInWaiting.visibility = View.GONE
@@ -122,19 +124,9 @@ class GameConfigurations : Activity() {
                     android.R.anim.fade_out
                 ).toBundle()
             )
+
+            this@GameConfigurations.finish()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
     }
 
     override fun onBackPressed() {
@@ -182,6 +174,7 @@ class GameConfigurations : Activity() {
                                         }.addOnCompleteListener {
 
                                         }.addOnSuccessListener {
+
                                             startActivity(
                                                 Intent(
                                                     applicationContext,
@@ -204,6 +197,9 @@ class GameConfigurations : Activity() {
                                                     android.R.anim.fade_out
                                                 ).toBundle()
                                             )
+
+                                            this@GameConfigurations.finish()
+
                                         }.addOnProgressListener { fileDownloadTaskTaskSnapshot ->
                                             FunctionsClassDebug.PrintDebug("Total Bytes ::: ${fileDownloadTaskTaskSnapshot.totalByteCount} | Transferred Bytes ::: ${fileDownloadTaskTaskSnapshot.bytesTransferred}")
                                         }

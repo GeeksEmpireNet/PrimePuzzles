@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/18/20 5:23 PM
- * Last modified 3/18/20 5:23 PM
+ * Created by Elias Fazel on 3/19/20 2:01 PM
+ * Last modified 3/19/20 2:01 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -73,7 +73,7 @@ class GamePlay : AppCompatActivity() {
         var RestoreGameState: Boolean = false
 
         lateinit var countDownTimer: CountDownTimer
-        var lastThickTimer: Long = 14000
+        var lastThickTimer: Long = 13000
         var countDownTimePaused: Boolean = false
 
         lateinit var valueAnimatorProgressBar: ValueAnimator
@@ -110,7 +110,7 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         setContentView(R.layout.game_play_view)
-        countDownTimer()
+        functionsClassGame.countDownTimer(timerProgressBar)
 
         gesturedRandomCenterView.bringToFront()
         primeNumberDetectedInclude.bringToFront()
@@ -964,57 +964,5 @@ class GamePlay : AppCompatActivity() {
                     functionsClassGameIO.saveCenterChangeNegativePoints(newPoint)
                 }
             })
-    }
-
-    /*
-     *
-     * Timer Functions
-     *
-     */
-    private fun countDownTimer(): CountDownTimer {
-        GamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
-        GamePlay.valueAnimatorProgressBar.duration = 14000
-        GamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->
-            timerProgressBar.progress = (animator.animatedValue as Float)
-        }
-
-        GamePlay.countDownTimer = object : CountDownTimer(GamePlay.lastThickTimer, 1) {
-
-            override fun onTick(millisUntilFinished: Long) {
-                GamePlay.lastThickTimer = millisUntilFinished
-
-                val newSecond: Long = (millisUntilFinished / 1000)
-                if (newSecond <= 5) {
-                    timerProgressBar.setTrackEnabled(true)
-                    timerProgressBar.setTrackColor(getColor(R.color.red))
-                    if ((newSecond.toInt() % 2) == 0) {
-                        timerProgressBar.setTrackColor(getColor(R.color.yellow))
-                    } else {
-                        timerProgressBar.setTrackColor(getColor(R.color.red))
-                    }
-                }
-            }
-
-            override fun onFinish() {
-                //WRONG ANSWER
-                FunctionsClassDebug.PrintDebug("WRONG ANSWER")
-
-                functionsClassGame.playWrongSound()
-
-                GameVariablesViewModel.NEGATIVE_POINT.value = 3
-
-                timerProgressBar.setTrackEnabled(true)
-                timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
-
-                val valueAnimatorProgressBarBack = ValueAnimator.ofFloat(100F, 0F)
-                valueAnimatorProgressBarBack.duration = 531
-                valueAnimatorProgressBarBack.addUpdateListener { animator ->
-                    timerProgressBar.progress = (animator.animatedValue as Float)
-                }
-                valueAnimatorProgressBarBack.start()
-            }
-        }
-
-        return GamePlay.countDownTimer
     }
 }

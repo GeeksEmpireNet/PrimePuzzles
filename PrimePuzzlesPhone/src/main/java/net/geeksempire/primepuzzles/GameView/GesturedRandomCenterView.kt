@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/18/20 5:23 PM
- * Last modified 3/18/20 5:23 PM
+ * Created by Elias Fazel on 3/19/20 2:01 PM
+ * Last modified 3/19/20 1:48 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -62,23 +62,23 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
         val typeface = ResourcesCompat.getFont(context, R.font.play)
         this@GesturedRandomCenterView.typeface = typeface
 
-        val listTOfRandom = ArrayList<Int>()
+        val listOfNumbers = ArrayList<Int>()
         when (GameLevel().getGameDifficultyLevel()) {
             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                listTOfRandom.addAll(2..9)
+                listOfNumbers.addAll(2..9)
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                listTOfRandom.addAll(10..99)
+                listOfNumbers.addAll(10..99)
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
-                listTOfRandom.addAll(100..999)
+                listOfNumbers.addAll(100..999)
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
-                listTOfRandom.addAll(1000..9999)
+                listOfNumbers.addAll(1000..9999)
             }
         }
 
-        val randomCenterValue: Int = listTOfRandom.random()
+        val randomCenterValue: Int = listOfNumbers.random()
         this@GesturedRandomCenterView.text = "${randomCenterValue}"
         GameVariablesViewModel.CENTER_VALUE.value = randomCenterValue
     }
@@ -187,23 +187,23 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                     Handler().postDelayed({
                         springAnimationTranslationX.start()
 
-                        val listTOfRandom = ArrayList<Int>()
+                        val listOfNumbers = ArrayList<Int>()
                         when (GameLevel().getGameDifficultyLevel()) {
                             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                                listTOfRandom.addAll(2..9)
+                                listOfNumbers.addAll(2..9)
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                                listTOfRandom.addAll(10..99)
+                                listOfNumbers.addAll(10..99)
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
-                                listTOfRandom.addAll(100..999)
+                                listOfNumbers.addAll(100..999)
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
-                                listTOfRandom.addAll(1000..9999)
+                                listOfNumbers.addAll(1000..9999)
                             }
                         }
 
-                        val randomCenterValue: Int = listTOfRandom.random()
+                        val randomCenterValue: Int = listOfNumbers.random()
                         this@GesturedRandomCenterView.text = "${randomCenterValue}"
                         GameVariablesViewModel.CENTER_VALUE.postValue(randomCenterValue)
 
@@ -271,23 +271,23 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                     Handler().postDelayed({
                         springAnimationTranslationY.start()
 
-                        val listTOfRandom = ArrayList<Int>()
+                        val listOfNumbers = ArrayList<Int>()
                         when (GameLevel().getGameDifficultyLevel()) {
                             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                                listTOfRandom.addAll(2..9)
+                                listOfNumbers.addAll(2..9)
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                                listTOfRandom.addAll(10..99)
+                                listOfNumbers.addAll(10..99)
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
-                                listTOfRandom.addAll(100..999)
+                                listOfNumbers.addAll(100..999)
                             }
                             GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
-                                listTOfRandom.addAll(1000..9999)
+                                listOfNumbers.addAll(1000..9999)
                             }
                         }
 
-                        val randomCenterValue: Int = listTOfRandom.random()
+                        val randomCenterValue: Int = listOfNumbers.random()
                         this@GesturedRandomCenterView.text = "${randomCenterValue}"
                         GameVariablesViewModel.CENTER_VALUE.postValue(randomCenterValue)
 
@@ -303,19 +303,19 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
     }
 
     override fun onLongPress(motionEvent: MotionEvent) {
-        val listTOfRandom = ArrayList<Int>()
+        val listOfNumbers = ArrayList<Int>()
         when (GameLevel().getGameDifficultyLevel()) {
             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                listTOfRandom.addAll(2..9)
+                listOfNumbers.addAll(2..9)
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                listTOfRandom.addAll(10..99)
+                listOfNumbers.addAll(10..99)
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
-                listTOfRandom.addAll(100..999)
+                listOfNumbers.addAll(100..999)
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
-                listTOfRandom.addAll(1000..9999)
+                listOfNumbers.addAll(1000..9999)
             }
         }
 
@@ -324,7 +324,7 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
             && !functionsClassMath.isNumbersDivisible(GameVariablesViewModel.CENTER_VALUE.value!!, GameVariablesViewModel.RIGHT_VALUE.value!!)
             && !functionsClassMath.isNumberPrime(GameVariablesViewModel.CENTER_VALUE.value!!)) {
 
-            val randomCenterValue: Int = listTOfRandom.random()
+            val randomCenterValue: Int = listOfNumbers.random()
             this@GesturedRandomCenterView.text = "${randomCenterValue}"
             GameVariablesViewModel.CENTER_VALUE.postValue(randomCenterValue)
 
