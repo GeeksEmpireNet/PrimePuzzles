@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/19/20 2:01 PM
- * Last modified 3/19/20 2:00 PM
+ * Created by Elias Fazel on 3/19/20 3:14 PM
+ * Last modified 3/19/20 3:06 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -15,42 +15,46 @@ import net.geeksempire.primepuzzles.GameLogic.GameLevel
 class NumbersListProvider {
 
     companion object {
-        val listOfNumbers: ArrayList<Int> = ArrayList<Int>()
+        private val listOfNumbers: ArrayList<Int> = ArrayList<Int>()
     }
 
     fun generateListOfNumbers() : ArrayList<Int> {
 
         return when (GameLevel().getGameDifficultyLevel()) {
             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
-                listOfNumbers.clear()
-                listOfNumbers.addAll(2..9)
+                NumbersListProvider.listOfNumbers.clear()
+                NumbersListProvider.listOfNumbers.addAll(2..9)
 
-                listOfNumbers
+                NumbersListProvider.listOfNumbers
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {
-                listOfNumbers.clear()
-                listOfNumbers.addAll(10..99)
+                NumbersListProvider.listOfNumbers.clear()
+                NumbersListProvider.listOfNumbers.addAll(10..99)
 
-                listOfNumbers
+                NumbersListProvider.listOfNumbers
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT-> {
-                listOfNumbers.clear()
-                listOfNumbers.addAll(100..999)
+                NumbersListProvider.listOfNumbers.clear()
+                NumbersListProvider.listOfNumbers.addAll(100..999)
 
-                listOfNumbers
+                NumbersListProvider.listOfNumbers
             }
             GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT-> {
-                listOfNumbers.clear()
-                listOfNumbers.addAll(1000..9999)
+                NumbersListProvider.listOfNumbers.clear()
+                NumbersListProvider.listOfNumbers.addAll(1000..9999)
 
-                listOfNumbers
+                NumbersListProvider.listOfNumbers
             }
             else -> {
-                listOfNumbers.clear()
-                listOfNumbers.addAll(2..9)
+                NumbersListProvider.listOfNumbers.clear()
+                NumbersListProvider.listOfNumbers.addAll(2..9)
 
-                listOfNumbers
+                NumbersListProvider.listOfNumbers
             }
         }
+    }
+
+    fun removeNumberFromList(numberToRemove: Int) {
+        NumbersListProvider.listOfNumbers.remove(numberToRemove)
     }
 }
