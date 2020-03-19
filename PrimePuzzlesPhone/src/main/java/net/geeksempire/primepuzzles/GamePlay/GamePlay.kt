@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:47 PM
+ * Created by Elias Fazel on 3/18/20 5:23 PM
+ * Last modified 3/18/20 5:23 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -28,9 +28,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.game_play_control_view.*
 import kotlinx.android.synthetic.main.game_play_hint_view.*
@@ -41,12 +38,12 @@ import net.geeksempire.physics.animation.Core.SimpleSpringListener
 import net.geeksempire.physics.animation.Core.Spring
 import net.geeksempire.physics.animation.Core.SpringConfig
 import net.geeksempire.physics.animation.SpringSystem
-import net.geeksempire.primepuzzles.BuildConfig
 import net.geeksempire.primepuzzles.GameData.GameInformationVariable
 import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
+import net.geeksempire.primepuzzles.GamePlay.Ads.AdsLoading
 import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
@@ -113,17 +110,10 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         setContentView(R.layout.game_play_view)
-        MobileAds.initialize(this) { initializationStatus ->
-
-            if (!BuildConfig.DEBUG) {
-                setUpAds()
-            }
-        }
         countDownTimer()
 
-        gesturedRandomCenter.bringToFront()
+        gesturedRandomCenterView.bringToFront()
         primeNumberDetectedInclude.bringToFront()
-
 
         val rootLayout = this.window.decorView
         rootLayout.visibility = View.INVISIBLE
@@ -234,6 +224,9 @@ class GamePlay : AppCompatActivity() {
             GamePlay.valueAnimatorProgressBar.start()
             GamePlay.countDownTimer.start()
         }, 1999)
+
+        AdsLoading(applicationContext)
+            .initializeAds(adViewBannerGamePlay)
     }
 
     override fun onStart() {
@@ -323,7 +316,7 @@ class GamePlay : AppCompatActivity() {
 
         GameVariablesViewModel.CENTER_VALUE.observe(this,
             Observer<Int> { newCenterValue ->
-                gesturedRandomCenter.setText("${newCenterValue}")
+                gesturedRandomCenterView.text = "${newCenterValue}"
             })
 
         GameVariablesViewModel.TOP_VALUE.observe(this,
@@ -553,55 +546,6 @@ class GamePlay : AppCompatActivity() {
             super.onBackPressed()
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
-    }
-
-    /*
-     *
-     * Ads Functions
-     *
-     */
-    private fun setUpAds() {
-        val adRequest = AdRequest.Builder()
-            .addTestDevice("F54D998BCE077711A17272B899B44798")
-            .addTestDevice("DD428143B4772EC7AA87D1E2F9DA787C")
-            .addKeyword("Game")
-            .build()
-
-        /*Banner Ads*/
-        adViewBannerGamePlay.loadAd(adRequest)
-        adViewBannerGamePlay.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                FunctionsClassDebug.PrintDebug("Banner Ads Loaded")
-
-            }
-
-            override fun onAdFailedToLoad(errorCode: Int) {
-                FunctionsClassDebug.PrintDebug("Banner Ads Failed")
-
-            }
-
-            override fun onAdOpened() {
-                FunctionsClassDebug.PrintDebug("Banner Ads Opened")
-
-            }
-
-            override fun onAdClicked() {
-                FunctionsClassDebug.PrintDebug("Banner Ads Clicked")
-
-            }
-
-            override fun onAdLeftApplication() {
-
-            }
-
-            override fun onAdClosed() {
-
-            }
-        }
-        /*Interstitial Ads*/
-
-
-        /*Rewarded Ads*/
     }
 
     /*
@@ -1044,7 +988,7 @@ class GamePlay : AppCompatActivity() {
                     timerProgressBar.setTrackEnabled(true)
                     timerProgressBar.setTrackColor(getColor(R.color.red))
                     if ((newSecond.toInt() % 2) == 0) {
-                        timerProgressBar.setTrackColor(getColor(R.color.default_color_game_dark))
+                        timerProgressBar.setTrackColor(getColor(R.color.yellow))
                     } else {
                         timerProgressBar.setTrackColor(getColor(R.color.red))
                     }

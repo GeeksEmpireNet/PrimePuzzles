@@ -1,14 +1,19 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/18/20 1:00 PM
- * Last modified 3/18/20 12:05 PM
+ * Created by Elias Fazel on 3/18/20 5:23 PM
+ * Last modified 3/18/20 4:38 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 package net.geeksempire.primepuzzles.GameView
+
+sealed class GestureConstants {
+    class SwipeHorizontal(var horizontalDirection: Int) : GestureConstants()
+    class SwipeVertical(var verticallDirection: Int) : GestureConstants()
+}
 
 class GestureListenerConstants {
 
