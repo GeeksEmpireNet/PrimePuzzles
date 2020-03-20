@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/19/20 2:01 PM
- * Last modified 3/19/20 2:01 PM
+ * Created by Elias Fazel on 3/20/20 12:18 PM
+ * Last modified 3/20/20 12:11 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -29,11 +29,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.game_play_control_view.*
-import kotlinx.android.synthetic.main.game_play_hint_view.*
-import kotlinx.android.synthetic.main.game_play_information_view.*
-import kotlinx.android.synthetic.main.game_play_prime_number_detected_view.*
-import kotlinx.android.synthetic.main.game_play_view.*
 import net.geeksempire.physics.animation.Core.SimpleSpringListener
 import net.geeksempire.physics.animation.Core.Spring
 import net.geeksempire.physics.animation.Core.SpringConfig
@@ -50,6 +45,7 @@ import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGameIO
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassUI
+import net.geeksempire.primepuzzles.databinding.GamePlayViewBinding
 import kotlin.math.hypot
 
 class GamePlay : AppCompatActivity() {
@@ -66,7 +62,14 @@ class GamePlay : AppCompatActivity() {
         FunctionsClassGameIO(applicationContext)
     }
 
+
+    val gameLevel: GameLevel = GameLevel()
+
+
     private lateinit var gameVariablesViewModel: GameVariablesViewModel
+
+
+    private lateinit var gamePlayViewBinding: GamePlayViewBinding
 
 
     companion object {
@@ -109,18 +112,20 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
-        setContentView(R.layout.game_play_view)
-        functionsClassGame.countDownTimer(timerProgressBar)
+        gamePlayViewBinding = GamePlayViewBinding.inflate(layoutInflater)
+        setContentView(gamePlayViewBinding.root)
 
-        gesturedRandomCenterView.bringToFront()
-        primeNumberDetectedInclude.bringToFront()
+        functionsClassGame.countDownTimer(gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar)
+
+        gamePlayViewBinding.gamePlayControlViewInclude.gesturedRandomCenterView.bringToFront()
+        gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root.bringToFront()
 
         val rootLayout = this.window.decorView
         rootLayout.visibility = View.INVISIBLE
         val viewTreeObserver = rootLayout.viewTreeObserver
         if (viewTreeObserver.isAlive) {
-            viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
+            viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+
                 override fun onGlobalLayout() {
                     val finalRadius = hypot(
                         functionsClassUI.displayX().toDouble(),
@@ -182,7 +187,7 @@ class GamePlay : AppCompatActivity() {
          */
         scanPointsChange()
 
-        val adViewLayoutParams = adViews.layoutParams as RelativeLayout.LayoutParams
+        val adViewLayoutParams = gamePlayViewBinding.adViews.layoutParams as RelativeLayout.LayoutParams
         val statusBarHeight = if (intent.getIntExtra(
                 "StatusBarHeight",
                 functionsClassUI.DpToInteger(24f).toInt()
@@ -193,12 +198,12 @@ class GamePlay : AppCompatActivity() {
             functionsClassUI.DpToInteger(24f).toInt()
         }
         adViewLayoutParams.height = adViewLayoutParams.height + statusBarHeight
-        adViews.setPadding(0, statusBarHeight, 0, 0)
-        adViews.layoutParams = adViewLayoutParams
+        gamePlayViewBinding.adViews.setPadding(0, statusBarHeight, 0, 0)
+        gamePlayViewBinding.adViews.layoutParams = adViewLayoutParams
 
-        val layoutParams = gameControlInclude.layoutParams
+        val layoutParams = gamePlayViewBinding.gamePlayControlViewInclude.root.layoutParams
         layoutParams.height = functionsClassUI.displayX()
-        gameControlInclude.layoutParams = layoutParams
+        gamePlayViewBinding.gamePlayControlViewInclude.root.layoutParams = layoutParams
 
         gameVariablesViewModel = ViewModelProvider(this@GamePlay).get(GameVariablesViewModel::class.java)
 
@@ -208,17 +213,17 @@ class GamePlay : AppCompatActivity() {
         val topValueRandom = listOfDivisible.random()
         listOfDivisible.remove(topValueRandom)
         GameVariablesViewModel.TOP_VALUE.value = topValueRandom
-        randomTop.setText("${topValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisible.random()
         listOfDivisible.remove(leftValueRandom)
         GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
-        randomLeft.setText("${leftValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisible.random()
         listOfDivisible.remove(rightValueRandom)
         GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
-        randomRight.setText("${rightValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
 
         Handler().postDelayed({
             GamePlay.valueAnimatorProgressBar.start()
@@ -226,7 +231,7 @@ class GamePlay : AppCompatActivity() {
         }, 1999)
 
         AdsLoading(applicationContext)
-            .initializeAds(adViewBannerGamePlay)
+            .initializeAds(gamePlayViewBinding.adViewBannerGamePlay)
     }
 
     override fun onStart() {
@@ -234,7 +239,7 @@ class GamePlay : AppCompatActivity() {
 
         GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this,
             Observer<Int> { newDifficultyLevel ->
-                when (GameLevel().getGameDifficultyLevel()) {
+                when (gameLevel.getGameDifficultyLevel()) {
                     GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {//2..9
                         if (newDifficultyLevel!! >= 7) {
                             GameLevel.GAME_DIFFICULTY_LEVEL++
@@ -272,7 +277,7 @@ class GamePlay : AppCompatActivity() {
                         }
                     }
                 }
-                functionsClassGameIO.saveLevelProcess(GameLevel().getGameDifficultyLevel())
+                functionsClassGameIO.saveLevelProcess(gameLevel.getGameDifficultyLevel())
             })
 
 
@@ -281,13 +286,13 @@ class GamePlay : AppCompatActivity() {
                 if (primeDetected!!) {
                     functionsClassGame.playLongPrimeDetectionSound()
 
-                    detectedPrimeNumber.text = "${GameVariablesViewModel.CENTER_VALUE.value!!}"
+                    gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.detectedPrimeNumber.text = "${GameVariablesViewModel.CENTER_VALUE.value!!}"
 
                     Handler().postDelayed({
                         functionsClassUI.circularRevealAnimationPrimeNumber(
-                            primeNumberDetectedInclude,
-                            primeNumbers.y + (primeNumbers.height / 2),
-                            primeNumbers.x + (primeNumbers.width / 2),
+                            gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root,
+                            gamePlayViewBinding.primeNumbers.y + (gamePlayViewBinding.primeNumbers.height / 2),
+                            gamePlayViewBinding.primeNumbers.x + (gamePlayViewBinding.primeNumbers.width / 2),
                             1f
                         )
                     }, 99)
@@ -316,25 +321,25 @@ class GamePlay : AppCompatActivity() {
 
         GameVariablesViewModel.CENTER_VALUE.observe(this,
             Observer<Int> { newCenterValue ->
-                gesturedRandomCenterView.text = "${newCenterValue}"
+                gamePlayViewBinding.gamePlayControlViewInclude.gesturedRandomCenterView.text = "${newCenterValue}"
             })
 
         GameVariablesViewModel.TOP_VALUE.observe(this,
             Observer<Int> { newTopValue ->
-                randomTop.setText("${newTopValue}")
+                gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setText("${newTopValue}")
             })
         GameVariablesViewModel.LEFT_VALUE.observe(this,
             Observer<Int> { newLeftValue ->
-                randomLeft.setText("${newLeftValue}")
+                gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setText("${newLeftValue}")
             })
         GameVariablesViewModel.RIGHT_VALUE.observe(this,
             Observer<Int> { newRightValue ->
-                randomRight.setText("${newRightValue}")
+                gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${newRightValue}")
             })
 
 
         val snackbarHint = Snackbar.make(
-            fullGamePlay,
+            gamePlayViewBinding.fullGamePlay,
             Html.fromHtml(
                 GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT,
                 Html.FROM_HTML_MODE_LEGACY
@@ -380,13 +385,13 @@ class GamePlay : AppCompatActivity() {
 
                                         val hintData: String =
                                             GameOperations(applicationContext).generateHint()
-                                        hintEquation.text = hintData
+                                        gamePlayViewBinding.gamePlayHintViewInclude.hintEquation.text = hintData
 
                                         val hintAnimation = AnimationUtils.loadAnimation(
                                             applicationContext,
                                             android.R.anim.fade_in
                                         )
-                                        hintViewInclude.startAnimation(hintAnimation)
+                                        gamePlayViewBinding.gamePlayHintViewInclude.root.startAnimation(hintAnimation)
                                         hintAnimation.setAnimationListener(object :
                                             Animation.AnimationListener {
                                             override fun onAnimationRepeat(animation: Animation?) {
@@ -394,7 +399,7 @@ class GamePlay : AppCompatActivity() {
                                             }
 
                                             override fun onAnimationEnd(animation: Animation?) {
-                                                hintViewInclude.visibility = View.VISIBLE
+                                                gamePlayViewBinding.gamePlayHintViewInclude.root.visibility = View.VISIBLE
 
                                                 val hintBackgroundDim = ValueAnimator.ofArgb(
                                                     Color.TRANSPARENT,
@@ -403,7 +408,7 @@ class GamePlay : AppCompatActivity() {
                                                 hintBackgroundDim.duration = 321
                                                 hintBackgroundDim.addUpdateListener { animator ->
                                                     //(animator.animatedValue as Int)
-                                                    hintViewInclude.setBackgroundColor((animator.animatedValue as Int))
+                                                    gamePlayViewBinding.gamePlayHintViewInclude.root.setBackgroundColor((animator.animatedValue as Int))
                                                 }
                                                 hintBackgroundDim.start()
                                             }
@@ -413,14 +418,14 @@ class GamePlay : AppCompatActivity() {
                                             }
                                         })
 
-                                        hintViewInclude.setOnClickListener {
-                                            if (hintViewInclude.isShown) {
+                                        gamePlayViewBinding.gamePlayHintViewInclude.root.setOnClickListener {
+                                            if (gamePlayViewBinding.gamePlayHintViewInclude.root.isShown) {
                                                 val hintAnimationHide =
                                                     AnimationUtils.loadAnimation(
                                                         applicationContext,
                                                         android.R.anim.fade_out
                                                     )
-                                                hintViewInclude.startAnimation(hintAnimationHide)
+                                                gamePlayViewBinding.gamePlayHintViewInclude.root.startAnimation(hintAnimationHide)
                                                 hintAnimationHide.setAnimationListener(object :
                                                     Animation.AnimationListener {
                                                     override fun onAnimationRepeat(animation: Animation?) {
@@ -428,8 +433,8 @@ class GamePlay : AppCompatActivity() {
                                                     }
 
                                                     override fun onAnimationEnd(animation: Animation?) {
-                                                        hintViewInclude.visibility = View.INVISIBLE
-                                                        hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                                                        gamePlayViewBinding.gamePlayHintViewInclude.root.visibility = View.INVISIBLE
+                                                        gamePlayViewBinding.gamePlayHintViewInclude.root.setBackgroundColor(Color.TRANSPARENT)
                                                     }
 
                                                     override fun onAnimationStart(animation: Animation?) {
@@ -442,14 +447,14 @@ class GamePlay : AppCompatActivity() {
                                             }
                                         }
 
-                                        hintGotIt.setOnClickListener {
-                                            if (hintViewInclude.isShown) {
+                                        gamePlayViewBinding.gamePlayHintViewInclude.hintGotIt.setOnClickListener {
+                                            if (gamePlayViewBinding.gamePlayHintViewInclude.root.isShown) {
                                                 val hintAnimationHide =
                                                     AnimationUtils.loadAnimation(
                                                         applicationContext,
                                                         android.R.anim.fade_out
                                                     )
-                                                hintViewInclude.startAnimation(hintAnimationHide)
+                                                gamePlayViewBinding.gamePlayHintViewInclude.root.startAnimation(hintAnimationHide)
                                                 hintAnimationHide.setAnimationListener(object :
                                                     Animation.AnimationListener {
                                                     override fun onAnimationRepeat(animation: Animation?) {
@@ -457,8 +462,8 @@ class GamePlay : AppCompatActivity() {
                                                     }
 
                                                     override fun onAnimationEnd(animation: Animation?) {
-                                                        hintViewInclude.visibility = View.INVISIBLE
-                                                        hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                                                        gamePlayViewBinding.gamePlayHintViewInclude.root.visibility = View.INVISIBLE
+                                                        gamePlayViewBinding.gamePlayHintViewInclude.root.setBackgroundColor(Color.TRANSPARENT)
                                                     }
 
                                                     override fun onAnimationStart(animation: Animation?) {
@@ -473,9 +478,9 @@ class GamePlay : AppCompatActivity() {
                                     }
                                     GameInformationVariable.PRIME_NUMBER_ACTION -> {
                                         functionsClassUI.circularHideAnimationPrimeNumber(
-                                            primeNumberDetectedInclude,
-                                            primeNumbers.y + (primeNumbers.height / 2),
-                                            primeNumbers.x + (primeNumbers.width / 2),
+                                            gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root,
+                                            gamePlayViewBinding.primeNumbers.y + (gamePlayViewBinding.primeNumbers.height / 2),
+                                            gamePlayViewBinding.primeNumbers.x + (gamePlayViewBinding.primeNumbers.width / 2),
                                             1f
                                         )
                                     }
@@ -521,18 +526,18 @@ class GamePlay : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (hintViewInclude.isShown) {
+        if (gamePlayViewBinding.gamePlayHintViewInclude.root.isShown) {
             val hintAnimationHide =
                 AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-            hintViewInclude.startAnimation(hintAnimationHide)
+            gamePlayViewBinding.gamePlayHintViewInclude.root.startAnimation(hintAnimationHide)
             hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationRepeat(animation: Animation?) {
 
                 }
 
                 override fun onAnimationEnd(animation: Animation?) {
-                    hintViewInclude.visibility = View.INVISIBLE
-                    hintViewInclude.setBackgroundColor(Color.TRANSPARENT)
+                    gamePlayViewBinding.gamePlayHintViewInclude.root.visibility = View.INVISIBLE
+                    gamePlayViewBinding.gamePlayHintViewInclude.root.setBackgroundColor(Color.TRANSPARENT)
                 }
 
                 override fun onAnimationStart(animation: Animation?) {
@@ -556,7 +561,7 @@ class GamePlay : AppCompatActivity() {
     private fun setupViews() {
 
         functionsClassUI.shadowValueAnimatorLoop(
-            primeNumbers,
+            gamePlayViewBinding.primeNumbers,
             19, 3,
             1333, 777,
             getColor(R.color.lighter), 0f, 0f
@@ -573,8 +578,8 @@ class GamePlay : AppCompatActivity() {
                 val value = spring!!.currentValue.toFloat()
                 val scale = 1f - (value * 0.5f)
 
-                randomTop.scaleX = scale
-                randomTop.scaleY = scale
+                gamePlayViewBinding.gamePlayControlViewInclude.randomTop.scaleX = scale
+                gamePlayViewBinding.gamePlayControlViewInclude.randomTop.scaleY = scale
             }
 
             override fun onSpringEndStateChange(spring: Spring?) {
@@ -596,8 +601,8 @@ class GamePlay : AppCompatActivity() {
                 val value = spring!!.currentValue.toFloat()
                 val scale = 1f - (value * 0.5f)
 
-                randomLeft.scaleX = scale
-                randomLeft.scaleY = scale
+                gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.scaleX = scale
+                gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.scaleY = scale
             }
 
             override fun onSpringEndStateChange(spring: Spring?) {
@@ -619,8 +624,8 @@ class GamePlay : AppCompatActivity() {
                 val value = spring!!.currentValue.toFloat()
                 val scale = 1f - (value * 0.5f)
 
-                randomRight.scaleX = scale
-                randomRight.scaleY = scale
+                gamePlayViewBinding.gamePlayControlViewInclude.randomRight.scaleX = scale
+                gamePlayViewBinding.gamePlayControlViewInclude.randomRight.scaleY = scale
             }
 
             override fun onSpringEndStateChange(spring: Spring?) {
@@ -644,7 +649,7 @@ class GamePlay : AppCompatActivity() {
         springRandomRight.springConfig = springConfig
 
 
-        randomTop.setOnTouchListener { view, motionEvent ->
+        gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     springRandomTop.endValue = (0.7)
@@ -657,10 +662,10 @@ class GamePlay : AppCompatActivity() {
             }
             return@setOnTouchListener false
         }
-        randomTop.setOnClickListener {}
+        gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setOnClickListener {}
 
-        randomLeft.setOnClickListener { }
-        randomLeft.setOnTouchListener { view, motionEvent ->
+        gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setOnClickListener { }
+        gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     springRandomLeft.endValue = (0.7)
@@ -674,8 +679,8 @@ class GamePlay : AppCompatActivity() {
             return@setOnTouchListener false
         }
 
-        randomRight.setOnClickListener { }
-        randomRight.setOnTouchListener { view, motionEvent ->
+        gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setOnClickListener { }
+        gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     springRandomRight.endValue = (0.7)
@@ -699,24 +704,24 @@ class GamePlay : AppCompatActivity() {
         functionsClassGame.playShuffleMagicalNumbersPosition()
 
         val listOfDivisibleShuffle = ArrayList<Int>()
-        listOfDivisibleShuffle.add((randomTop.currentView as TextView).text.toString().toInt())
-        listOfDivisibleShuffle.add((randomLeft.currentView as TextView).text.toString().toInt())
-        listOfDivisibleShuffle.add((randomRight.currentView as TextView).text.toString().toInt())
+        listOfDivisibleShuffle.add((gamePlayViewBinding.gamePlayControlViewInclude.randomTop.currentView as TextView).text.toString().toInt())
+        listOfDivisibleShuffle.add((gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.currentView as TextView).text.toString().toInt())
+        listOfDivisibleShuffle.add((gamePlayViewBinding.gamePlayControlViewInclude.randomRight.currentView as TextView).text.toString().toInt())
 
         val topValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(topValueRandom)
         GameVariablesViewModel.TOP_VALUE.value = topValueRandom
-        randomTop.setText("${topValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(leftValueRandom)
         GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
-        randomLeft.setText("${leftValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(rightValueRandom)
         GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
-        randomRight.setText("${rightValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
 
         GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = 0
     }
@@ -730,17 +735,17 @@ class GamePlay : AppCompatActivity() {
         val topValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(topValueRandom)
         GameVariablesViewModel.TOP_VALUE.value = topValueRandom
-        randomTop.setText("${topValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setText("${topValueRandom}")
 
         val leftValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(leftValueRandom)
         GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
-        randomLeft.setText("${leftValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setText("${leftValueRandom}")
 
         val rightValueRandom = listOfDivisibleShuffle.random()
         listOfDivisibleShuffle.remove(rightValueRandom)
         GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
-        randomRight.setText("${rightValueRandom}")
+        gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
 
         GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = 0
     }
@@ -753,8 +758,9 @@ class GamePlay : AppCompatActivity() {
     private fun scanPointsChange() {
         if (GamePlay.RestoreGameState) {
 
-            pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
+            gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${functionsClassGameIO.readTotalPoints()}")
             GameLevel.GAME_DIFFICULTY_LEVEL = functionsClassGameIO.readLevelProcess()
+
         } else {
 
             functionsClassGameIO.saveLevelProcess(1)
@@ -802,8 +808,8 @@ class GamePlay : AppCompatActivity() {
                             Handler().postDelayed({
                                 GamePlay.countDownTimer.cancel()
 
-                                timerProgressBar.setTrackEnabled(true)
-                                timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
+                                gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackEnabled(true)
+                                gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
 
                                 GamePlay.valueAnimatorProgressBar.start()
                                 GamePlay.countDownTimer.start()
@@ -815,28 +821,28 @@ class GamePlay : AppCompatActivity() {
                         }
                     })
 
-                    pointsTotalViewOne.setTextColor(getColor(R.color.green))
-                    pointsTotalViewTwo.setTextColor(getColor(R.color.green))
+                    gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalViewOne.setTextColor(getColor(R.color.green))
+                    gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalViewTwo.setTextColor(getColor(R.color.green))
 
-                    pointsEarning.setTextColor(getColor(R.color.green))
-                    pointsEarning.text = "+${newPositivePoint}"
-                    pointsEarning.append(
-                        if (GameLevel().getGameDifficultyLevel() == 1) {
+                    gamePlayViewBinding.pointsEarning.setTextColor(getColor(R.color.green))
+                    gamePlayViewBinding.pointsEarning.text = "+${newPositivePoint}"
+                    gamePlayViewBinding.pointsEarning.append(
+                        if (gameLevel.getGameDifficultyLevel() == 1) {
                             ""
                         } else {
-                            " x ${GameLevel().getGameDifficultyLevel()}"
+                            " x ${gameLevel.getGameDifficultyLevel()}"
                         }
                     )
 
-                    pointsEarning.startAnimation(fadeAnimationEarningPoints)
+                    gamePlayViewBinding.pointsEarning.startAnimation(fadeAnimationEarningPoints)
                 }
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
                 val totalNewPoint: Int =
-                    totalSavePoint + (newPositivePoint!! * GameLevel().getPointMultiplier())
+                    totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.setText("${totalNewPoint}")
+                gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
 
                 FunctionsClassDebug.PrintDebug("POSITIVE_POINT | ${totalNewPoint} ::: ${newPositivePoint}")
             }
@@ -894,8 +900,8 @@ class GamePlay : AppCompatActivity() {
                         override fun onAnimationEnd(animation: Animation?) {
                             GamePlay.countDownTimer.cancel()
 
-                            timerProgressBar.setTrackEnabled(true)
-                            timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
+                            gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackEnabled(true)
+                            gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
 
                             GamePlay.valueAnimatorProgressBar.start()
                             GamePlay.countDownTimer.start()
@@ -906,28 +912,28 @@ class GamePlay : AppCompatActivity() {
                         }
                     })
 
-                    pointsTotalViewOne.setTextColor(getColor(R.color.red))
-                    pointsTotalViewTwo.setTextColor(getColor(R.color.red))
+                    gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalViewOne.setTextColor(getColor(R.color.red))
+                    gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalViewTwo.setTextColor(getColor(R.color.red))
 
-                    pointsEarning.setTextColor(getColor(R.color.red))
-                    pointsEarning.text = "-${newNegativePoint}"
-                    pointsEarning.append(
-                        if (GameLevel().getGameDifficultyLevel() == 1) {
+                    gamePlayViewBinding.pointsEarning.setTextColor(getColor(R.color.red))
+                    gamePlayViewBinding.pointsEarning.text = "-${newNegativePoint}"
+                    gamePlayViewBinding.pointsEarning.append(
+                        if (gameLevel.getGameDifficultyLevel() == 1) {
                             ""
                         } else {
-                            " x ${GameLevel().getGameDifficultyLevel()}"
+                            " x ${gameLevel.getGameDifficultyLevel()}"
                         }
                     )
 
-                    pointsEarning.startAnimation(fadeAnimationEarningPoints)
+                    gamePlayViewBinding.pointsEarning.startAnimation(fadeAnimationEarningPoints)
                 }
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
                 val totalNewPoint: Int =
-                    totalSavePoint - (newNegativePoint!! * GameLevel().getPointMultiplier())
+                    totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier())
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
-                pointsTotalView.setText("${totalNewPoint}")
+                gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
 
                 FunctionsClassDebug.PrintDebug("NEGATIVE_POINT | ${totalNewPoint} ::: ${newNegativePoint}")
             }

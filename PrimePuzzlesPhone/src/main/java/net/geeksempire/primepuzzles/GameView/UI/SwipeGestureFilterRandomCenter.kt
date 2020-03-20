@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/18/20 5:23 PM
- * Last modified 3/18/20 5:23 PM
+ * Created by Elias Fazel on 3/20/20 12:18 PM
+ * Last modified 3/20/20 11:13 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -15,14 +15,15 @@ import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatButton
-import net.geeksempire.primepuzzles.GameView.GestureConstants
-import net.geeksempire.primepuzzles.GameView.GestureListenerConstants
-import net.geeksempire.primepuzzles.GameView.GestureListenerInterface
+import net.geeksempire.primepuzzles.GameView.Utils.GestureConstants
+import net.geeksempire.primepuzzles.GameView.Utils.GestureListenerConstants
+import net.geeksempire.primepuzzles.GameView.Utils.GestureListenerInterface
 import kotlin.math.abs
 
 class SwipeGestureFilterRandomCenter(private val context: Context,
                                      private val gesturedRandomCenterView: AppCompatButton,
-                                     private val gestureListenerInterface: GestureListenerInterface) : SimpleOnGestureListener() {
+                                     private val gestureListenerInterface: GestureListenerInterface
+) : SimpleOnGestureListener() {
 
 
     private val gestureDetector: GestureDetector = GestureDetector(context, this@SwipeGestureFilterRandomCenter)
@@ -49,11 +50,15 @@ class SwipeGestureFilterRandomCenter(private val context: Context,
         if (abs(initVelocityY) >= this.swipeMinVelocity && yDistance > this.swipeMinDistance && xDistance < yDistance) {//Vertical
 
             swipeMode = if (downMotionEvent.y > moveMotionEvent.y) {//Bottom -> Up
-                gestureListenerInterface.onSwipeGesture(GestureConstants.SwipeVertical(GestureListenerConstants.SWIPE_UP), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
+                gestureListenerInterface.onSwipeGesture(
+                    GestureConstants.SwipeVertical(
+                        GestureListenerConstants.SWIPE_UP), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
                 GestureListenerConstants.SWIPE_UP
 
             } else {//Up -> Bottom
-                gestureListenerInterface.onSwipeGesture(GestureConstants.SwipeVertical(GestureListenerConstants.SWIPE_DOWN), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
+                gestureListenerInterface.onSwipeGesture(
+                    GestureConstants.SwipeVertical(
+                        GestureListenerConstants.SWIPE_DOWN), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
                 GestureListenerConstants.SWIPE_DOWN
 
             }
@@ -64,11 +69,15 @@ class SwipeGestureFilterRandomCenter(private val context: Context,
         if (abs(initVelocityX) >= this.swipeMinVelocity && xDistance > this.swipeMinDistance && yDistance < xDistance) {//Horizontal
 
             swipeMode = if (downMotionEvent.x > moveMotionEvent.x) {//Right -> Left
-                gestureListenerInterface.onSwipeGesture(GestureConstants.SwipeHorizontal(GestureListenerConstants.SWIPE_LEFT), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
+                gestureListenerInterface.onSwipeGesture(
+                    GestureConstants.SwipeHorizontal(
+                        GestureListenerConstants.SWIPE_LEFT), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
                 GestureListenerConstants.SWIPE_LEFT
 
             } else {//Left -> Right
-                gestureListenerInterface.onSwipeGesture(GestureConstants.SwipeHorizontal(GestureListenerConstants.SWIPE_RIGHT), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
+                gestureListenerInterface.onSwipeGesture(
+                    GestureConstants.SwipeHorizontal(
+                        GestureListenerConstants.SWIPE_RIGHT), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
                 GestureListenerConstants.SWIPE_RIGHT
 
             }

@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2020 By ...
   ~
-  ~ Created by Elias Fazel on 3/18/20 5:23 PM
-  ~ Last modified 3/18/20 5:15 PM
+  ~ Created by Elias Fazel on 3/20/20 12:18 PM
+  ~ Last modified 3/20/20 11:58 AM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -34,7 +34,7 @@
     </RelativeLayout>
 
     <include
-        android:id="@+id/gameInformationView"
+        android:id="@+id/gamePlayInformationViewInclude"
         android:layout_width="match_parent"
         android:layout_height="79dp"
         android:layout_below="@id/adViews"
@@ -42,7 +42,7 @@
         layout="@layout/game_play_information_view" />
 
     <include
-        android:id="@+id/gameControlInclude"
+        android:id="@+id/gamePlayControlViewInclude"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
@@ -68,11 +68,11 @@
         android:background="@color/transparent" />
 
     <include
-        android:id="@+id/primeNumberDetectedInclude"
+        android:id="@+id/gamePlayPrimeNumberDetectedViewInclude"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
+        android:visibility="gone"
 
         layout="@layout/game_play_prime_number_detected_view"/>
 
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/gameControlInclude"
+        android:layout_above="@id/gamePlayControlViewInclude"
         android:padding="23dp"
         android:layout_marginBottom="3dp"
         android:fontFamily="@font/play"
@@ -94,11 +94,11 @@
         android:shadowDy="0"/>
 
     <include
-        android:id="@+id/hintViewInclude"
+        android:id="@+id/gamePlayHintViewInclude"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
+        android:visibility="gone"
 
         layout="@layout/game_play_hint_view"/>
 </RelativeLayout>

@@ -1,14 +1,14 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/19/20 3:14 PM
- * Last modified 3/19/20 3:14 PM
+ * Created by Elias Fazel on 3/20/20 12:18 PM
+ * Last modified 3/20/20 11:13 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-package net.geeksempire.primepuzzles.GameView
+package net.geeksempire.primepuzzles.GameView.UI
 
 import android.content.Context
 import android.os.Handler
@@ -24,13 +24,16 @@ import net.geeksempire.primepuzzles.GameData.GameInformationVariable
 import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameData.NumbersListProvider
 import net.geeksempire.primepuzzles.GameLogic.GameOperations
-import net.geeksempire.primepuzzles.GameView.UI.SwipeGestureFilterRandomCenter
+import net.geeksempire.primepuzzles.GameView.Utils.GestureConstants
+import net.geeksempire.primepuzzles.GameView.Utils.GestureListenerConstants
+import net.geeksempire.primepuzzles.GameView.Utils.GestureListenerInterface
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassMath
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassSystem
 
-class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
+class GesturedRandomCenterView : AppCompatButton,
+    GestureListenerInterface {
 
     private var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
 

@@ -1,14 +1,14 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/18/20 5:23 PM
- * Last modified 3/18/20 5:13 PM
+ * Created by Elias Fazel on 3/20/20 12:18 PM
+ * Last modified 3/20/20 12:18 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-package net.geeksempire.primepuzzles.GameView
+package net.geeksempire.primepuzzles.GameView.Utils
 
 import android.view.MotionEvent
 
