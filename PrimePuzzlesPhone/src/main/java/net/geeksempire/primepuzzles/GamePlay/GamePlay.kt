@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 1:24 PM
- * Last modified 3/20/20 1:23 PM
+ * Created by Elias Fazel on 3/20/20 2:01 PM
+ * Last modified 3/20/20 1:52 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -115,12 +115,12 @@ class GamePlay : AppCompatActivity() {
         gamePlayViewBinding = GamePlayViewBinding.inflate(layoutInflater)
         setContentView(gamePlayViewBinding.root)
 
-        functionsClassGame.countDownTimer(this@GamePlay, gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar)
+        countDownTimer = functionsClassGame.countDownTimer(this@GamePlay, gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar)
 
         gamePlayViewBinding.gamePlayControlViewInclude.gesturedRandomCenterView.bringToFront()
         gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root.bringToFront()
 
-        val rootLayout = this.window.decorView
+        val rootLayout = gamePlayViewBinding.root
         rootLayout.visibility = View.INVISIBLE
         val viewTreeObserver = rootLayout.viewTreeObserver
         if (viewTreeObserver.isAlive) {
@@ -810,9 +810,6 @@ class GamePlay : AppCompatActivity() {
                             Handler().postDelayed({
                                 countDownTimer.cancel()
 
-                                gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackEnabled(true)
-                                gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
-
                                 valueAnimatorProgressBar.start()
                                 countDownTimer.start()
                             }, 777)
@@ -901,9 +898,6 @@ class GamePlay : AppCompatActivity() {
 
                         override fun onAnimationEnd(animation: Animation?) {
                             countDownTimer.cancel()
-
-                            gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackEnabled(true)
-                            gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
 
                             valueAnimatorProgressBar.start()
                             countDownTimer.start()

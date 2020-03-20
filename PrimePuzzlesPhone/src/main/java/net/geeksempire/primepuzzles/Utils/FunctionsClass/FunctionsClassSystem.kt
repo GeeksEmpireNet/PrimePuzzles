@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:19 PM
+ * Created by Elias Fazel on 3/20/20 2:01 PM
+ * Last modified 3/20/20 1:35 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -53,23 +53,33 @@ class FunctionsClassSystem(private val context: Context) {
     @Throws(Exception::class)
     fun networkConnection() : Boolean {
 
-        val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network: Network = connectivityManager.activeNetwork!!
-        val networkCapabilities: NetworkCapabilities = connectivityManager.getNetworkCapabilities(network)!!
+        val connectivityManager: ConnectivityManager? = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
 
-        return when {
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                true
-            }
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                true
-            }
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> {
-                true
-            }
-            else -> {
+        return if (connectivityManager != null) {
+            val network: Network? = connectivityManager.activeNetwork
+            val networkCapabilities: NetworkCapabilities? = connectivityManager.getNetworkCapabilities(network)
+
+            if (networkCapabilities != null) {
+
+                when {
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        true
+                    }
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        true
+                    }
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> {
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            } else {
                 false
             }
+        } else {
+            false
         }
     }
 }

@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 1:24 PM
- * Last modified 3/20/20 1:22 PM
+ * Created by Elias Fazel on 3/20/20 2:01 PM
+ * Last modified 3/20/20 2:01 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -18,7 +18,6 @@ import net.geeksempire.ProgressBar.HorizontalProgressView
 import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
 import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
-import net.geeksempire.primepuzzles.R
 
 class FunctionsClassGame(private val context: Context) {
 
@@ -27,8 +26,7 @@ class FunctionsClassGame(private val context: Context) {
     /**
      * Timer Functions
      */
-    fun countDownTimer(gamePlay: GamePlay,
-        timerProgressBar: HorizontalProgressView) : CountDownTimer {
+    fun countDownTimer(gamePlay: GamePlay, timerProgressBar: HorizontalProgressView) : CountDownTimer {
 
         gamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
         gamePlay.valueAnimatorProgressBar.duration = GamePlay.lastThickTimer
@@ -41,16 +39,6 @@ class FunctionsClassGame(private val context: Context) {
             override fun onTick(millisUntilFinished: Long) {
                 GamePlay.lastThickTimer = millisUntilFinished
 
-                val newSecond: Long = (millisUntilFinished / 1000)
-                if (newSecond <= 5) {
-                    timerProgressBar.setTrackEnabled(true)
-                    timerProgressBar.setTrackColor(context.getColor(R.color.red))
-                    if ((newSecond.toInt() % 2) == 0) {
-                        timerProgressBar.setTrackColor(context.getColor(R.color.yellow))
-                    } else {
-                        timerProgressBar.setTrackColor(context.getColor(R.color.red))
-                    }
-                }
             }
 
             override fun onFinish() {
@@ -60,9 +48,6 @@ class FunctionsClassGame(private val context: Context) {
                 playWrongSound()
 
                 GameVariablesViewModel.NEGATIVE_POINT.postValue(3)
-
-                timerProgressBar.setTrackEnabled(true)
-                timerProgressBar.setTrackColor(context.getColor(R.color.default_color_darker))
 
                 val valueAnimatorProgressBarBack = ValueAnimator.ofFloat(100F, 0F)
                 valueAnimatorProgressBarBack.duration = 531
