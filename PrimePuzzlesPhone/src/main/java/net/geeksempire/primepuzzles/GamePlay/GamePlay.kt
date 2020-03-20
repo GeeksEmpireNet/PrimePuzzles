@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 12:18 PM
- * Last modified 3/20/20 12:11 PM
+ * Created by Elias Fazel on 3/20/20 1:24 PM
+ * Last modified 3/20/20 1:23 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -65,6 +65,9 @@ class GamePlay : AppCompatActivity() {
 
     val gameLevel: GameLevel = GameLevel()
 
+    lateinit var countDownTimer: CountDownTimer
+    lateinit var valueAnimatorProgressBar: ValueAnimator
+
 
     private lateinit var gameVariablesViewModel: GameVariablesViewModel
 
@@ -75,11 +78,8 @@ class GamePlay : AppCompatActivity() {
     companion object {
         var RestoreGameState: Boolean = false
 
-        lateinit var countDownTimer: CountDownTimer
         var lastThickTimer: Long = 13000
         var countDownTimePaused: Boolean = false
-
-        lateinit var valueAnimatorProgressBar: ValueAnimator
     }
 
 
@@ -115,7 +115,7 @@ class GamePlay : AppCompatActivity() {
         gamePlayViewBinding = GamePlayViewBinding.inflate(layoutInflater)
         setContentView(gamePlayViewBinding.root)
 
-        functionsClassGame.countDownTimer(gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar)
+        functionsClassGame.countDownTimer(this@GamePlay, gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar)
 
         gamePlayViewBinding.gamePlayControlViewInclude.gesturedRandomCenterView.bringToFront()
         gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root.bringToFront()
@@ -226,8 +226,8 @@ class GamePlay : AppCompatActivity() {
         gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
 
         Handler().postDelayed({
-            GamePlay.valueAnimatorProgressBar.start()
-            GamePlay.countDownTimer.start()
+            valueAnimatorProgressBar.start()
+            countDownTimer.start()
         }, 1999)
 
         AdsLoading(applicationContext)
@@ -290,6 +290,7 @@ class GamePlay : AppCompatActivity() {
 
                     Handler().postDelayed({
                         functionsClassUI.circularRevealAnimationPrimeNumber(
+                            countDownTimer,
                             gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root,
                             gamePlayViewBinding.primeNumbers.y + (gamePlayViewBinding.primeNumbers.height / 2),
                             gamePlayViewBinding.primeNumbers.x + (gamePlayViewBinding.primeNumbers.width / 2),
@@ -380,8 +381,8 @@ class GamePlay : AppCompatActivity() {
                             override fun onClick(view: View?) {
                                 when (GameInformationVariable.snackBarAction) {
                                     GameInformationVariable.HINT_ACTION -> {
-                                        GamePlay.valueAnimatorProgressBar.pause()
-                                        GamePlay.countDownTimer.pause()
+                                        valueAnimatorProgressBar.pause()
+                                        countDownTimer.pause()
 
                                         val hintData: String =
                                             GameOperations(applicationContext).generateHint()
@@ -442,8 +443,8 @@ class GamePlay : AppCompatActivity() {
                                                     }
                                                 })
 
-                                                GamePlay.valueAnimatorProgressBar.resume()
-                                                GamePlay.countDownTimer.resume()
+                                                valueAnimatorProgressBar.resume()
+                                                countDownTimer.resume()
                                             }
                                         }
 
@@ -471,13 +472,14 @@ class GamePlay : AppCompatActivity() {
                                                     }
                                                 })
 
-                                                GamePlay.valueAnimatorProgressBar.resume()
-                                                GamePlay.countDownTimer.resume()
+                                                valueAnimatorProgressBar.resume()
+                                                countDownTimer.resume()
                                             }
                                         }
                                     }
                                     GameInformationVariable.PRIME_NUMBER_ACTION -> {
                                         functionsClassUI.circularHideAnimationPrimeNumber(
+                                            countDownTimer,
                                             gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root,
                                             gamePlayViewBinding.primeNumbers.y + (gamePlayViewBinding.primeNumbers.height / 2),
                                             gamePlayViewBinding.primeNumbers.x + (gamePlayViewBinding.primeNumbers.width / 2),
@@ -509,8 +511,8 @@ class GamePlay : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         if (GamePlay.countDownTimePaused) {
-            GamePlay.valueAnimatorProgressBar.resume()
-            GamePlay.countDownTimer.resume()
+            valueAnimatorProgressBar.resume()
+            countDownTimer.resume()
 
             GamePlay.countDownTimePaused = false
         }
@@ -519,8 +521,8 @@ class GamePlay : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        GamePlay.valueAnimatorProgressBar.pause()
-        GamePlay.countDownTimer.pause()
+        valueAnimatorProgressBar.pause()
+        countDownTimer.pause()
 
         GamePlay.countDownTimePaused = true
     }
@@ -545,8 +547,8 @@ class GamePlay : AppCompatActivity() {
                 }
             })
 
-            GamePlay.valueAnimatorProgressBar.resume()
-            GamePlay.countDownTimer.resume()
+            valueAnimatorProgressBar.resume()
+            countDownTimer.resume()
         } else {
             super.onBackPressed()
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -806,13 +808,13 @@ class GamePlay : AppCompatActivity() {
 
                         override fun onAnimationEnd(animation: Animation?) {
                             Handler().postDelayed({
-                                GamePlay.countDownTimer.cancel()
+                                countDownTimer.cancel()
 
                                 gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackEnabled(true)
                                 gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
 
-                                GamePlay.valueAnimatorProgressBar.start()
-                                GamePlay.countDownTimer.start()
+                                valueAnimatorProgressBar.start()
+                                countDownTimer.start()
                             }, 777)
                         }
 
@@ -898,13 +900,13 @@ class GamePlay : AppCompatActivity() {
                         }
 
                         override fun onAnimationEnd(animation: Animation?) {
-                            GamePlay.countDownTimer.cancel()
+                            countDownTimer.cancel()
 
                             gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackEnabled(true)
                             gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar.setTrackColor(getColor(R.color.default_color_darker))
 
-                            GamePlay.valueAnimatorProgressBar.start()
-                            GamePlay.countDownTimer.start()
+                            valueAnimatorProgressBar.start()
+                            countDownTimer.start()
                         }
 
                         override fun onAnimationStart(animation: Animation?) {

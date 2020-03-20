@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 12:18 PM
- * Last modified 3/20/20 11:13 AM
+ * Created by Elias Fazel on 3/20/20 1:24 PM
+ * Last modified 3/20/20 1:03 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -32,8 +32,7 @@ import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGame
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassMath
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassSystem
 
-class GesturedRandomCenterView : AppCompatButton,
-    GestureListenerInterface {
+class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
 
     private var swipeGestureFilterRandomCenter: SwipeGestureFilterRandomCenter
 

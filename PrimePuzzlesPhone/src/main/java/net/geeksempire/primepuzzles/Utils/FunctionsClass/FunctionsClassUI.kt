@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:47 PM
+ * Created by Elias Fazel on 3/20/20 1:24 PM
+ * Last modified 3/20/20 1:16 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -22,6 +22,7 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
+import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
 import kotlin.math.hypot
 
 class FunctionsClassUI(private val context: Context) {
@@ -49,12 +50,13 @@ class FunctionsClassUI(private val context: Context) {
     }
 
     fun circularRevealAnimationPrimeNumber(
+        countDownTimer: CountDownTimer,
         viewToReveal: View,
         yPosition: Float,
         xPosition: Float,
         startRadius: Float
     ) {
-        GamePlay.countDownTimer.pause()
+        countDownTimer.pause()
         GamePlay.countDownTimePaused = true
 
         val finalRadius = hypot(displayX().toDouble(), displayY().toDouble()).toInt()
@@ -80,6 +82,7 @@ class FunctionsClassUI(private val context: Context) {
                     GameVariablesViewModel.TOGGLE_SNACKBAR.value = false
 
                     circularHideAnimationPrimeNumber(
+                        countDownTimer,
                         viewToReveal,
                         yPosition,
                         xPosition,
@@ -99,6 +102,7 @@ class FunctionsClassUI(private val context: Context) {
     }
 
     fun circularHideAnimationPrimeNumber(
+        countDownTimer: CountDownTimer,
         viewToReveal: View,
         yPosition: Float,
         xPosition: Float,
@@ -125,7 +129,7 @@ class FunctionsClassUI(private val context: Context) {
             override fun onAnimationEnd(animation: Animator?) {
                 viewToReveal.visibility = View.INVISIBLE
 
-                GamePlay.countDownTimer.resume()
+                countDownTimer.resume()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

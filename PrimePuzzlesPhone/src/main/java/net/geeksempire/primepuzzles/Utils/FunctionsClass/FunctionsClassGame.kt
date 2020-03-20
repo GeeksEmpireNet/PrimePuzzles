@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/19/20 2:01 PM
- * Last modified 3/19/20 1:45 PM
+ * Created by Elias Fazel on 3/20/20 1:24 PM
+ * Last modified 3/20/20 1:22 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -27,14 +27,16 @@ class FunctionsClassGame(private val context: Context) {
     /**
      * Timer Functions
      */
-    fun countDownTimer(timerProgressBar: HorizontalProgressView) : CountDownTimer {
-        GamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
-        GamePlay.valueAnimatorProgressBar.duration = GamePlay.lastThickTimer
-        GamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->
+    fun countDownTimer(gamePlay: GamePlay,
+        timerProgressBar: HorizontalProgressView) : CountDownTimer {
+
+        gamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
+        gamePlay.valueAnimatorProgressBar.duration = GamePlay.lastThickTimer
+        gamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->
             timerProgressBar.progress = (animator.animatedValue as Float)
         }
 
-        GamePlay.countDownTimer = object : CountDownTimer(GamePlay.lastThickTimer, 1) {
+        return object : CountDownTimer(GamePlay.lastThickTimer, 1) {
 
             override fun onTick(millisUntilFinished: Long) {
                 GamePlay.lastThickTimer = millisUntilFinished
@@ -55,7 +57,7 @@ class FunctionsClassGame(private val context: Context) {
                 //WRONG ANSWER
                 FunctionsClassDebug.PrintDebug("WRONG ANSWER")
 
-                this@FunctionsClassGame.playWrongSound()
+                playWrongSound()
 
                 GameVariablesViewModel.NEGATIVE_POINT.postValue(3)
 
@@ -70,8 +72,6 @@ class FunctionsClassGame(private val context: Context) {
                 valueAnimatorProgressBarBack.start()
             }
         }
-
-        return GamePlay.countDownTimer
     }
 
     fun playLongPrimeDetectionSound() {

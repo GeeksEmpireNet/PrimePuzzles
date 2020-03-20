@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 12:18 PM
- * Last modified 3/20/20 11:13 AM
+ * Created by Elias Fazel on 3/20/20 1:24 PM
+ * Last modified 3/20/20 1:05 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -22,8 +22,7 @@ import kotlin.math.abs
 
 class SwipeGestureFilterRandomCenter(private val context: Context,
                                      private val gesturedRandomCenterView: AppCompatButton,
-                                     private val gestureListenerInterface: GestureListenerInterface
-) : SimpleOnGestureListener() {
+                                     private val gestureListenerInterface: GestureListenerInterface) : SimpleOnGestureListener() {
 
 
     private val gestureDetector: GestureDetector = GestureDetector(context, this@SwipeGestureFilterRandomCenter)
