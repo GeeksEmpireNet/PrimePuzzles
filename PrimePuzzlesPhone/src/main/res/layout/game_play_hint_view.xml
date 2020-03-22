@@ -2,8 +2,8 @@
 <!--
   ~ Copyright © 2020 By ...
   ~
-  ~ Created by Elias Fazel on 3/18/20 5:23 PM
-  ~ Last modified 3/18/20 5:15 PM
+  ~ Created by Elias Fazel on 3/22/20 2:45 PM
+  ~ Last modified 3/22/20 2:29 PM
   ~
   ~ Licensed Under MIT License.
   ~ https://opensource.org/licenses/MIT
@@ -58,7 +58,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:gravity="center_vertical|end"
-            android:fontFamily="@font/upcil_bold"
+            android:fontFamily="@font/playbold"
             android:text="@string/hintGotIt"
             android:textColor="@color/light"
             android:textSize="21sp"

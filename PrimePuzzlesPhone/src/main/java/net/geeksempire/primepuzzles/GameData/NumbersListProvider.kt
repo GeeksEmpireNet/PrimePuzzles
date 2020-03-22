@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 12:56 PM
- * Last modified 3/20/20 12:53 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:09 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -10,9 +10,11 @@
 
 package net.geeksempire.primepuzzles.GameData
 
-import net.geeksempire.primepuzzles.GameLogic.GameLevel
+import net.geeksempire.primepuzzles.GameLogic.LevelsConfiguration.GameLevel
 
 class NumbersListProvider {
+
+    private  val gameLevel = GameLevel()
 
     companion object {
         private val ListOfNumbers: ArrayList<Int> = ArrayList<Int>()
@@ -20,7 +22,7 @@ class NumbersListProvider {
 
     fun generateListOfNumbers() : ArrayList<Int> {
 
-        return  when (GameLevel().getGameDifficultyLevel()) {
+        return when (gameLevel.getGameDifficultyLevel()) {
             GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {
 
                 if (NumbersListProvider.ListOfNumbers.isEmpty()) {

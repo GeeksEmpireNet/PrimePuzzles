@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 2:02 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:13 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -37,6 +37,17 @@ class FunctionsClassGameIO(private val context: Context) {
         } else {
             null
         }
+    }
+
+
+    fun saveEndLevel(EndValue: Int) {
+        val editorSharedPreferences = sharedPreferences.edit()
+        editorSharedPreferences.putInt(GameInformationVariable.END_LEVEL_PREFERENCE, EndValue)
+        editorSharedPreferences.apply()
+    }
+    fun readEndLevel() : Int {
+        return sharedPreferences
+            .getInt(GameInformationVariable.END_LEVEL_PREFERENCE, 5)
     }
 
 

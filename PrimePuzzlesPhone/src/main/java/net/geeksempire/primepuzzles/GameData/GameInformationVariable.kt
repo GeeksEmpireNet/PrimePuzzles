@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:47 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:12 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -22,6 +22,8 @@ class GameInformationVariable {
         const val LEVELS_PREFERENCE: String = "Levels"
         const val SOUNDS_PREFERENCE: String = "Sounds"
         const val POINTS_PREFERENCE: String = "Points"
+
+        const val END_LEVEL_PREFERENCE: String = "EndLevel"
 
         const val POINTS_TOTAL_PREFERENCE: String = "TotalPoints"
         const val POINTS_TOTAL_POSITIVE_PREFERENCE: String = "TotalPositivePoints"

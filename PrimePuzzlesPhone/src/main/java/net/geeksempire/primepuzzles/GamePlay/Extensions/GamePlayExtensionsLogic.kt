@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 3:17 PM
- * Last modified 3/20/20 3:17 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:33 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -16,7 +16,7 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
 import net.geeksempire.primepuzzles.GameData.ShuffleProcess
-import net.geeksempire.primepuzzles.GameLogic.GameLevel
+import net.geeksempire.primepuzzles.GameLogic.LevelsConfiguration.GameLevel
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
 import net.geeksempire.primepuzzles.R
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
@@ -27,44 +27,58 @@ fun GamePlay.observeGameLogicVariable() {
 
     GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.observe(this@observeGameLogicVariable,
         Observer<Int> { newDifficultyLevel ->
+
             when (gameLevel.getGameDifficultyLevel()) {
                 GameLevel.GAME_DIFFICULTY_LEVEL_ONE_DIGIT -> {//2..9
+
                     if (newDifficultyLevel!! >= 7) {
                         GameLevel.GAME_DIFFICULTY_LEVEL++
-                        if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                        if (GameLevel.GAME_DIFFICULTY_LEVEL == functionsClassGameIO.readEndLevel()) {
                             //The End
                         }
-                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+
+                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(0)
                     }
                 }
                 GameLevel.GAME_DIFFICULTY_LEVEL_TWO_DIGIT -> {//10..99
+
                     if (newDifficultyLevel!! >= 77) {
                         GameLevel.GAME_DIFFICULTY_LEVEL++
-                        if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                        if (GameLevel.GAME_DIFFICULTY_LEVEL == functionsClassGameIO.readEndLevel()) {
                             //The End
                         }
-                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+
+                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(0)
                     }
                 }
                 GameLevel.GAME_DIFFICULTY_LEVEL_THREE_DIGIT -> {//100..999
+
                     if (newDifficultyLevel!! >= 777) {
                         GameLevel.GAME_DIFFICULTY_LEVEL++
-                        if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                        if (GameLevel.GAME_DIFFICULTY_LEVEL == functionsClassGameIO.readEndLevel()) {
                             //The End
                         }
-                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+
+                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(0)
                     }
                 }
                 GameLevel.GAME_DIFFICULTY_LEVEL_FOUR_DIGIT -> {//1000..9999
+
                     if (newDifficultyLevel!! >= 7777) {
                         GameLevel.GAME_DIFFICULTY_LEVEL++
-                        if (GameLevel.GAME_DIFFICULTY_LEVEL == 5) {
+
+                        if (GameLevel.GAME_DIFFICULTY_LEVEL == functionsClassGameIO.readEndLevel()) {
                             //The End
                         }
-                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+
+                        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(0)
                     }
                 }
             }
+
             functionsClassGameIO.saveLevelProcess(gameLevel.getGameDifficultyLevel())
         })
 
@@ -212,7 +226,7 @@ fun GamePlay.scanPointsChange() {
 
             val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
             val totalNewPoint: Int =
-                totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier())
+                totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier().levelNumber)
 
             functionsClassGameIO.saveTotalPoints(totalNewPoint)
             gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
@@ -293,7 +307,7 @@ fun GamePlay.scanPointsChange() {
 
             val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
             val totalNewPoint: Int =
-                totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier())
+                totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier().levelNumber)
 
             functionsClassGameIO.saveTotalPoints(totalNewPoint)
             gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")

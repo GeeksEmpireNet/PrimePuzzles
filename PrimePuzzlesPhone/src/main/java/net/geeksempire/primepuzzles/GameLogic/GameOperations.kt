@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:47 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:28 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -17,7 +17,7 @@ import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassMath
 
 class GameOperations(private val context: Context) {
 
-    var hintType: Int = 0
+    private var hintType: Int = 0
 
     companion object {
         const val GENERATE_HINT_PRIME: Int = 1
@@ -30,7 +30,7 @@ class GameOperations(private val context: Context) {
 
         var operationDone: Boolean = false
         if (FunctionsClassMath(context).isNumberPrime(GameVariablesViewModel.CENTER_VALUE.value!!)) {
-            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1)
 
             operationDone = true
         }
@@ -41,7 +41,7 @@ class GameOperations(private val context: Context) {
 
         var operationDone: Boolean = false
         if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.TOP_VALUE.value!!)) {
-            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1)
 
             operationDone = true
         }
@@ -52,7 +52,7 @@ class GameOperations(private val context: Context) {
 
         var operationDone: Boolean = false
         if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.LEFT_VALUE.value!!)) {
-            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1)
 
             operationDone = true
         }
@@ -63,13 +63,12 @@ class GameOperations(private val context: Context) {
 
         var operationDone: Boolean = false
         if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.RIGHT_VALUE.value!!)) {
-            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1
+            GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1)
 
             operationDone = true
         }
         return operationDone
     }
-
 
     fun generateHint() : String {
         val functionsClassMath: FunctionsClassMath = FunctionsClassMath(context)

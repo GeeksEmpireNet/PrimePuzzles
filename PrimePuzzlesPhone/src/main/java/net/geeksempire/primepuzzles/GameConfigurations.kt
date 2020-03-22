@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/19/20 2:01 PM
- * Last modified 3/19/20 1:26 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:45 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -23,8 +23,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PlayGamesAuthProvider
 import com.google.firebase.storage.FirebaseStorage
-import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
+import net.geeksempire.primepuzzles.GameLogic.LevelsConfiguration.GameLevel
 import net.geeksempire.primepuzzles.GamePlay.GamePlay
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassGameIO

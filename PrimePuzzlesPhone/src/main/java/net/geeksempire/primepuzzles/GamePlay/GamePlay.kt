@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 3:17 PM
- * Last modified 3/20/20 3:17 PM
+ * Created by Elias Fazel on 3/22/20 2:45 PM
+ * Last modified 3/22/20 2:45 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -25,8 +25,8 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import net.geeksempire.primepuzzles.GameData.GameVariablesViewModel
-import net.geeksempire.primepuzzles.GameLogic.GameLevel
 import net.geeksempire.primepuzzles.GameLogic.GameSettings
+import net.geeksempire.primepuzzles.GameLogic.LevelsConfiguration.GameLevel
 import net.geeksempire.primepuzzles.GamePlay.Extensions.*
 import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
 import net.geeksempire.primepuzzles.Utils.FunctionsClass.FunctionsClassDebug
@@ -86,7 +86,7 @@ class GamePlay : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value = 0
+        GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(0)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window.decorView.systemUiVisibility = (
