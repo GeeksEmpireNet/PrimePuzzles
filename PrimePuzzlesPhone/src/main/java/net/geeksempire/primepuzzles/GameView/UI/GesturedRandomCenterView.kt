@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 1:24 PM
- * Last modified 3/20/20 1:03 PM
+ * Created by Elias Fazel on 3/22/20 3:41 PM
+ * Last modified 3/22/20 3:33 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -280,7 +280,9 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
 
             GameVariablesViewModel.POSITIVE_POINT.postValue(3)
             GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.postValue(3)
+
         } else {
+
             GameInformationVariable.SNACKBAR_HINT_INFORMATION_TEXT = context.getString(R.string.thinkMore)
             GameInformationVariable.SNACKBAR_HINT_BUTTON_TEXT= context.getString(R.string.showHint)
 
@@ -291,6 +293,7 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
 
             GameVariablesViewModel.NEGATIVE_POINT.postValue(3)
             GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.postValue(3)
+
         }
 
         functionsClassSystem.doVibrate()

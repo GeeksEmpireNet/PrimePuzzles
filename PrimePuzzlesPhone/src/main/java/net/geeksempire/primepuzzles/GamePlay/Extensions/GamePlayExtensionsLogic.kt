@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 2:45 PM
- * Last modified 3/22/20 2:33 PM
+ * Created by Elias Fazel on 3/22/20 3:41 PM
+ * Last modified 3/22/20 3:09 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -168,22 +168,23 @@ fun GamePlay.scanPointsChange() {
         functionsClassGameIO.saveCenterChangeNegativePoints(0)
     }
 
-    GameVariablesViewModel.POSITIVE_POINT.value = 0
-    GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 0
-    GameVariablesViewModel.PRIME_POSITIVE_POINT.value = 0
-    GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
-
-    GameVariablesViewModel.NEGATIVE_POINT.value = 0
-    GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 0
-    GameVariablesViewModel.PRIME_NEGATIVE_POINT.value = 0
-    GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
+//    GameVariablesViewModel.POSITIVE_POINT.value = 0
+//    GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 0
+//    GameVariablesViewModel.PRIME_POSITIVE_POINT.value = 0
+//    GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
+//
+//    GameVariablesViewModel.NEGATIVE_POINT.value = 0
+//    GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 0
+//    GameVariablesViewModel.PRIME_NEGATIVE_POINT.value = 0
+//    GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
 
     /*
      * Positive Points
      */
     GameVariablesViewModel.POSITIVE_POINT.observe(this@scanPointsChange,
         Observer<Int> { newPositivePoint ->
-            if (newPositivePoint != 0) {
+            if (newPositivePoint > 0) {
+
                 val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(
                     applicationContext,
                     R.anim.fade_animation_earning_points
@@ -222,16 +223,16 @@ fun GamePlay.scanPointsChange() {
                 )
 
                 gamePlayViewBinding.pointsEarning.startAnimation(fadeAnimationEarningPoints)
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int =
+                    totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier().levelNumber)
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
+
+                FunctionsClassDebug.PrintDebug("POSITIVE_POINT | ${totalNewPoint} ::: ${newPositivePoint}")
             }
-
-            val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-            val totalNewPoint: Int =
-                totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier().levelNumber)
-
-            functionsClassGameIO.saveTotalPoints(totalNewPoint)
-            gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
-
-            FunctionsClassDebug.PrintDebug("POSITIVE_POINT | ${totalNewPoint} ::: ${newPositivePoint}")
         })
 
     GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.observe(this@scanPointsChange,
@@ -266,7 +267,8 @@ fun GamePlay.scanPointsChange() {
      */
     GameVariablesViewModel.NEGATIVE_POINT.observe(this@scanPointsChange,
         Observer<Int> { newNegativePoint ->
-            if (newNegativePoint != 0) {
+            if (newNegativePoint > 0) {
+
                 val fadeAnimationEarningPoints = AnimationUtils.loadAnimation(
                     applicationContext,
                     R.anim.fade_animation_earning_points
@@ -303,16 +305,16 @@ fun GamePlay.scanPointsChange() {
                 )
 
                 gamePlayViewBinding.pointsEarning.startAnimation(fadeAnimationEarningPoints)
+
+                val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
+                val totalNewPoint: Int =
+                    totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier().levelNumber)
+
+                functionsClassGameIO.saveTotalPoints(totalNewPoint)
+                gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
+
+                FunctionsClassDebug.PrintDebug("NEGATIVE_POINT | ${totalNewPoint} ::: ${newNegativePoint}")
             }
-
-            val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-            val totalNewPoint: Int =
-                totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier().levelNumber)
-
-            functionsClassGameIO.saveTotalPoints(totalNewPoint)
-            gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
-
-            FunctionsClassDebug.PrintDebug("NEGATIVE_POINT | ${totalNewPoint} ::: ${newNegativePoint}")
         })
 
     GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.observe(this@scanPointsChange,
