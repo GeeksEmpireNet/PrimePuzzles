@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 1:24 PM
- * Last modified 3/20/20 1:05 PM
+ * Created by Elias Fazel on 3/22/20 4:29 PM
+ * Last modified 3/22/20 3:53 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -48,13 +48,13 @@ class SwipeGestureFilterRandomCenter(private val context: Context,
 
         if (abs(initVelocityY) >= this.swipeMinVelocity && yDistance > this.swipeMinDistance && xDistance < yDistance) {//Vertical
 
-            swipeMode = if (downMotionEvent.y > moveMotionEvent.y) {//Bottom -> Up
+            swipeMode = if (downMotionEvent.y > moveMotionEvent.y) {//Down -> Up
                 gestureListenerInterface.onSwipeGesture(
                     GestureConstants.SwipeVertical(
                         GestureListenerConstants.SWIPE_UP), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)
                 GestureListenerConstants.SWIPE_UP
 
-            } else {//Up -> Bottom
+            } else {//Up -> Down
                 gestureListenerInterface.onSwipeGesture(
                     GestureConstants.SwipeVertical(
                         GestureListenerConstants.SWIPE_DOWN), downMotionEvent, moveMotionEvent, initVelocityX, initVelocityY)

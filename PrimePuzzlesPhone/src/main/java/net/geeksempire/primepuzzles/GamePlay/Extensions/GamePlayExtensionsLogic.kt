@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 3:41 PM
- * Last modified 3/22/20 3:09 PM
+ * Created by Elias Fazel on 3/22/20 4:29 PM
+ * Last modified 3/22/20 4:29 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -168,16 +168,6 @@ fun GamePlay.scanPointsChange() {
         functionsClassGameIO.saveCenterChangeNegativePoints(0)
     }
 
-//    GameVariablesViewModel.POSITIVE_POINT.value = 0
-//    GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.value = 0
-//    GameVariablesViewModel.PRIME_POSITIVE_POINT.value = 0
-//    GameVariablesViewModel.CHANGE_CENTER_RANDOM_POSITIVE_POINT.value = 0
-//
-//    GameVariablesViewModel.NEGATIVE_POINT.value = 0
-//    GameVariablesViewModel.DIVISIBLE_NEGATIVE_POINT.value = 0
-//    GameVariablesViewModel.PRIME_NEGATIVE_POINT.value = 0
-//    GameVariablesViewModel.CHANGE_CENTER_RANDOM_NEGATIVE_POINT.value = 0
-
     /*
      * Positive Points
      */
@@ -280,10 +270,12 @@ fun GamePlay.scanPointsChange() {
                     }
 
                     override fun onAnimationEnd(animation: Animation?) {
-                        countDownTimer.cancel()
+                        Handler().postDelayed({
+                            countDownTimer.cancel()
 
-                        valueAnimatorProgressBar.start()
-                        countDownTimer.start()
+                            valueAnimatorProgressBar.start()
+                            countDownTimer.start()
+                        }, 777)
                     }
 
                     override fun onAnimationStart(animation: Animation?) {

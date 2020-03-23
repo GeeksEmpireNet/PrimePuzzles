@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 3:41 PM
- * Last modified 3/22/20 3:33 PM
+ * Created by Elias Fazel on 3/22/20 4:29 PM
+ * Last modified 3/22/20 4:09 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -222,6 +222,8 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                         }
                         GestureListenerConstants.SWIPE_UP -> {
                             if (gameOperations.determineTopValue()) {
+                                //CORRECT ANSWER
+
                                 divisibleTriggered = true
 
                                 if (divisibleTriggered) {
@@ -229,9 +231,9 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
 
                                 }
 
-                                //CORRECT ANSWER
                                 GameVariablesViewModel.POSITIVE_POINT.postValue(3)
                                 GameVariablesViewModel.DIVISIBLE_POSITIVE_POINT.postValue(3)
+
                             } else {
                                 //WRONG ANSWER
                                 functionsClassGame.playWrongSound()

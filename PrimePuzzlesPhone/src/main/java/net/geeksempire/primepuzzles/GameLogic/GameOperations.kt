@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 2:45 PM
- * Last modified 3/22/20 2:28 PM
+ * Created by Elias Fazel on 3/22/20 4:29 PM
+ * Last modified 3/22/20 3:55 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -49,13 +49,14 @@ class GameOperations(private val context: Context) {
     }
 
     fun determineLeftValue() : Boolean {
-
         var operationDone: Boolean = false
+
         if (FunctionsClassMath(context).isNumbersDivisible(aA = GameVariablesViewModel.CENTER_VALUE.value!!, bB = GameVariablesViewModel.LEFT_VALUE.value!!)) {
             GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.postValue(GameVariablesViewModel.GAME_LEVEL_DIFFICULTY_COUNTER.value!! + 1)
 
             operationDone = true
         }
+
         return operationDone
     }
 

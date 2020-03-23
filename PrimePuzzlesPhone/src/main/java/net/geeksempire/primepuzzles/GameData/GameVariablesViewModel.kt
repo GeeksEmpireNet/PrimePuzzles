@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 1:52 PM
+ * Created by Elias Fazel on 3/22/20 4:29 PM
+ * Last modified 3/22/20 4:29 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -72,37 +72,53 @@ class GameVariablesViewModel : ViewModel() {
 
         //
         val POSITIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val DIVISIBLE_POSITIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val PRIME_POSITIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val CHANGE_CENTER_RANDOM_POSITIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
 
         //
         val NEGATIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val DIVISIBLE_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val PRIME_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val CHANGE_CENTER_RANDOM_NEGATIVE_POINT: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
     }
 }
