@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 4:29 PM
- * Last modified 3/22/20 4:09 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:34 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -68,7 +68,7 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
 
         val randomCenterValue: Int = numbersListProvider.generateListOfNumbers().random()
         this@GesturedRandomCenterView.text = "${randomCenterValue}"
-        GameVariablesViewModel.CENTER_VALUE.value = randomCenterValue
+        GameVariablesViewModel.CENTER_VALUE.postValue(randomCenterValue)
         numbersListProvider.removeNumberFromList(randomCenterValue)
     }
 
@@ -137,7 +137,6 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
 
                                 if (divisibleTriggered) {
                                     GameVariablesViewModel.TOGGLE_SNACKBAR.postValue(false)
-
                                 }
 
                                 GameVariablesViewModel.POSITIVE_POINT.postValue(3)
@@ -153,12 +152,10 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                         GestureListenerConstants.SWIPE_RIGHT -> {
                             if (gameOperations.determineRightValue()) {
                                 //CORRECT ANSWER
-
                                 divisibleTriggered = true
 
                                 if (divisibleTriggered) {
                                     GameVariablesViewModel.TOGGLE_SNACKBAR.postValue(false)
-
                                 }
 
                                 GameVariablesViewModel.POSITIVE_POINT.postValue(3)
@@ -181,9 +178,9 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                         GameVariablesViewModel.CENTER_VALUE.postValue(randomCenterValue)
                         numbersListProvider.removeNumberFromList(randomCenterValue)
 
-                        triggerCenterRandomChange = true
+                        triggerCenterRandomChange = false
                         divisibleTriggered = false
-                    }, 333)
+                    }, 579)
 
                     GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.postValue(GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value!! + 1)
                     GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.postValue(GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value!! + 1)
@@ -223,12 +220,10 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                         GestureListenerConstants.SWIPE_UP -> {
                             if (gameOperations.determineTopValue()) {
                                 //CORRECT ANSWER
-
                                 divisibleTriggered = true
 
                                 if (divisibleTriggered) {
                                     GameVariablesViewModel.TOGGLE_SNACKBAR.postValue(false)
-
                                 }
 
                                 GameVariablesViewModel.POSITIVE_POINT.postValue(3)
@@ -252,9 +247,9 @@ class GesturedRandomCenterView : AppCompatButton, GestureListenerInterface {
                         GameVariablesViewModel.CENTER_VALUE.postValue(randomCenterValue)
                         numbersListProvider.removeNumberFromList(randomCenterValue)
 
-                        triggerCenterRandomChange = true
+                        triggerCenterRandomChange = false
                         divisibleTriggered = false
-                    }, 333)
+                    }, 579)
 
                     GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.postValue(GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value!! + 1)
                     GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.postValue(GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value!! + 1)

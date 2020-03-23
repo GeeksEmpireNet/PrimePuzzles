@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 2:01 PM
- * Last modified 3/20/20 2:01 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:26 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -29,16 +29,17 @@ class FunctionsClassGame(private val context: Context) {
     fun countDownTimer(gamePlay: GamePlay, timerProgressBar: HorizontalProgressView) : CountDownTimer {
 
         gamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
-        gamePlay.valueAnimatorProgressBar.duration = GamePlay.lastThickTimer
+        gamePlay.valueAnimatorProgressBar.duration = GamePlay.countDownTimerDuration
         gamePlay.valueAnimatorProgressBar.addUpdateListener { animator ->
+
             timerProgressBar.progress = (animator.animatedValue as Float)
         }
 
         return object : CountDownTimer(GamePlay.lastThickTimer, 1) {
 
             override fun onTick(millisUntilFinished: Long) {
-                GamePlay.lastThickTimer = millisUntilFinished
 
+                GamePlay.lastThickTimer = millisUntilFinished
             }
 
             override fun onFinish() {

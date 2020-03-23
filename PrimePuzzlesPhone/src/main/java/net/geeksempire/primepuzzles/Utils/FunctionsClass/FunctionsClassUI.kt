@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 1:24 PM
- * Last modified 3/20/20 1:16 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:34 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -79,7 +79,7 @@ class FunctionsClassUI(private val context: Context) {
 
             override fun onAnimationEnd(animation: Animator?) {
                 Handler().postDelayed({
-                    GameVariablesViewModel.TOGGLE_SNACKBAR.value = false
+                    GameVariablesViewModel.TOGGLE_SNACKBAR.postValue(false)
 
                     circularHideAnimationPrimeNumber(
                         countDownTimer,

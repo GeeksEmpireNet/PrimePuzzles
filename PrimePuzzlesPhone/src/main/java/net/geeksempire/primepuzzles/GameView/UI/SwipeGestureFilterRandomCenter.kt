@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 4:29 PM
- * Last modified 3/22/20 3:53 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:04 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -30,7 +30,7 @@ class SwipeGestureFilterRandomCenter(private val context: Context,
     private var tapIndicator = false
 
 
-    private var swipeMinDistance: Int  = 30
+    private var swipeMinDistance: Int  = 100
     private var swipeMaxDistance: Int  = 1000
 
     private var swipeMinVelocity: Int  = 10
@@ -88,22 +88,20 @@ class SwipeGestureFilterRandomCenter(private val context: Context,
     }
 
     override fun onSingleTapConfirmed(motionEvent: MotionEvent): Boolean {
-        gestureListenerInterface.onSingleTapUp(motionEvent)
 
         return false
     }
 
     override fun onSingleTapUp(motionEvent: MotionEvent): Boolean {
+        gestureListenerInterface.onSingleTapUp(motionEvent)
 
         return false
     }
 
     override fun onLongPress(motionEvent: MotionEvent) {
+
         gestureListenerInterface.onLongPress(motionEvent)
-
-
     }
-
 
     fun onTouchEvent(motionEvent: MotionEvent) {
         val motionEventConsumed = this@SwipeGestureFilterRandomCenter.gestureDetector.onTouchEvent(motionEvent)

@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 4:29 PM
- * Last modified 3/22/20 4:29 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:28 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -62,11 +62,15 @@ class GameVariablesViewModel : ViewModel() {
 
         //
         val SHUFFLE_PROCESS_POSITION: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
         val SHUFFLE_PROCESS_VALUE: MutableLiveData<Int> by lazy {
-            MutableLiveData<Int>()
+            MutableLiveData<Int>().also {
+                it.postValue(0)
+            }
         }
 
 

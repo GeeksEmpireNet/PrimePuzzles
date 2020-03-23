@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/17/20 2:03 PM
- * Last modified 3/17/20 12:52 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 1:26 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -14,31 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 
-/**
- * Schedule a countdown until a time in the future, with
- * regular notifications on intervals along the way.
- *
- * Example of showing a 30 second countdown in a text field:
- *
- * <pre class="prettyprint">
- * new CountdownTimer(30000, 1000) {
- *
- *     public void onTick(long millisUntilFinished) {
- *         mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
- *     }
- *
- *     public void onFinish() {
- *         mTextField.setText("done!");
- *     }
- *  }.start();
- * </pre>
- *
- * The calls to {@link #onTick(long)} are synchronized to this object so that
- * one call to {@link #onTick(long)} won't ever occur before the previous
- * callback is complete.  This is only relevant when the implementation of
- * {@link #onTick(long)} takes an amount of time to execute that is significant
- * compared to the countdown interval.
- */
 public abstract class CountDownTimer {
 
     /**

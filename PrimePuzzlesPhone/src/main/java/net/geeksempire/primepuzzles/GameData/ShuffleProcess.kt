@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/20/20 3:17 PM
- * Last modified 3/20/20 2:57 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:34 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -28,21 +28,21 @@ class ShuffleProcess(context: Context) {
         listOfDivisibleShuffle.add((gamePlayViewBinding.gamePlayControlViewInclude.randomRight.currentView as TextView).text.toString().toInt())
 
         val topValueRandom = listOfDivisibleShuffle.random()
-        listOfDivisibleShuffle.remove(topValueRandom)
-        GameVariablesViewModel.TOP_VALUE.value = topValueRandom
+        GameVariablesViewModel.TOP_VALUE.postValue(topValueRandom)
         gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setText("${topValueRandom}")
+        listOfDivisibleShuffle.remove(topValueRandom)
 
         val leftValueRandom = listOfDivisibleShuffle.random()
-        listOfDivisibleShuffle.remove(leftValueRandom)
-        GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
+        GameVariablesViewModel.LEFT_VALUE.postValue(leftValueRandom)
         gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setText("${leftValueRandom}")
+        listOfDivisibleShuffle.remove(leftValueRandom)
 
         val rightValueRandom = listOfDivisibleShuffle.random()
-        listOfDivisibleShuffle.remove(rightValueRandom)
-        GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
+        GameVariablesViewModel.RIGHT_VALUE.postValue(rightValueRandom)
         gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
+        listOfDivisibleShuffle.remove(rightValueRandom)
 
-        GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = 0
+        GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.postValue(0)
     }
 
     fun shuffleProcessValue(gamePlayViewBinding: GamePlayViewBinding) {
@@ -66,6 +66,6 @@ class ShuffleProcess(context: Context) {
         GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
         gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
 
-        GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = 0
+        GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.postValue(0)
     }
 }

@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 2:45 PM
- * Last modified 3/22/20 2:45 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 1:19 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -66,7 +66,8 @@ class GamePlay : AppCompatActivity() {
     companion object {
         var RestoreGameState: Boolean = false
 
-        var lastThickTimer: Long = 13000
+        var countDownTimerDuration: Long = 14000
+        var lastThickTimer: Long = 14000
         var countDownTimePaused: Boolean = false
     }
 
@@ -245,10 +246,10 @@ class GamePlay : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (gamePlayViewBinding.gamePlayHintViewInclude.root.isShown) {
-            val hintAnimationHide =
-                AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+            val hintAnimationHide = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
             gamePlayViewBinding.gamePlayHintViewInclude.root.startAnimation(hintAnimationHide)
             hintAnimationHide.setAnimationListener(object : Animation.AnimationListener {
+
                 override fun onAnimationRepeat(animation: Animation?) {
 
                 }
@@ -267,6 +268,7 @@ class GamePlay : AppCompatActivity() {
             countDownTimer.resume()
         } else {
             super.onBackPressed()
+
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }

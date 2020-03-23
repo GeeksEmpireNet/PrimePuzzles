@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 4:29 PM
- * Last modified 3/22/20 4:29 PM
+ * Created by Elias Fazel on 3/23/20 2:35 PM
+ * Last modified 3/23/20 2:34 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -100,20 +100,17 @@ fun GamePlay.observeGameLogicVariable() {
                     )
                 }, 99)
 
-                GameVariablesViewModel.PRIME_NUMBER_DETECTED.value = false
+                GameVariablesViewModel.PRIME_NUMBER_DETECTED.postValue(false)
             }
         })
 
 
-    GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.value = 0
     GameVariablesViewModel.SHUFFLE_PROCESS_POSITION.observe(this@observeGameLogicVariable,
         Observer<Int> { newShufflePosition ->
             if (newShufflePosition!! >= 7) {
                 shuffleProcess.shuffleProcessPosition(gamePlayViewBinding)
             }
         })
-
-    GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.value = 0
     GameVariablesViewModel.SHUFFLE_PROCESS_VALUE.observe(this@observeGameLogicVariable,
         Observer<Int> { newShuffleValue ->
             if (newShuffleValue!! >= 21) {
@@ -179,8 +176,8 @@ fun GamePlay.scanPointsChange() {
                     applicationContext,
                     R.anim.fade_animation_earning_points
                 )
-                fadeAnimationEarningPoints.setAnimationListener(object :
-                    Animation.AnimationListener {
+                fadeAnimationEarningPoints.setAnimationListener(object : Animation.AnimationListener {
+
                     override fun onAnimationRepeat(animation: Animation?) {
 
                     }
@@ -342,17 +339,17 @@ fun GamePlay.setupInitialNumber() {
     listOfDivisible.addAll(2..9)
 
     val topValueRandom = listOfDivisible.random()
-    GameVariablesViewModel.TOP_VALUE.value = topValueRandom
+    GameVariablesViewModel.TOP_VALUE.postValue(topValueRandom)
     gamePlayViewBinding.gamePlayControlViewInclude.randomTop.setText("${topValueRandom}")
     listOfDivisible.remove(topValueRandom)
 
     val leftValueRandom = listOfDivisible.random()
-    GameVariablesViewModel.LEFT_VALUE.value = leftValueRandom
+    GameVariablesViewModel.LEFT_VALUE.postValue(leftValueRandom)
     gamePlayViewBinding.gamePlayControlViewInclude.randomLeft.setText("${leftValueRandom}")
     listOfDivisible.remove(leftValueRandom)
 
     val rightValueRandom = listOfDivisible.random()
-    GameVariablesViewModel.RIGHT_VALUE.value = rightValueRandom
+    GameVariablesViewModel.RIGHT_VALUE.postValue(rightValueRandom)
     gamePlayViewBinding.gamePlayControlViewInclude.randomRight.setText("${rightValueRandom}")
     listOfDivisible.remove(rightValueRandom)
 }
