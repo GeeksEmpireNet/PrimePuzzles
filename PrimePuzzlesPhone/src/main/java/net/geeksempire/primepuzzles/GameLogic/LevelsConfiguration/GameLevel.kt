@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/22/20 2:45 PM
- * Last modified 3/22/20 2:07 PM
+ * Created by Elias Fazel on 3/23/20 3:11 PM
+ * Last modified 3/23/20 2:38 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -27,7 +27,7 @@ class GameLevel {
 
     fun getGameDifficultyLevel() : Int {
 
-        return GAME_DIFFICULTY_LEVEL
+        return 1/*GAME_DIFFICULTY_LEVEL*/
     }
 
     fun getPointMultiplier() : Levels.Sections {

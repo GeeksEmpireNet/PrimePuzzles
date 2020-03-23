@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/23/20 2:35 PM
- * Last modified 3/23/20 2:34 PM
+ * Created by Elias Fazel on 3/23/20 3:11 PM
+ * Last modified 3/23/20 3:07 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -184,6 +184,7 @@ fun GamePlay.scanPointsChange() {
 
                     override fun onAnimationEnd(animation: Animation?) {
                         Handler().postDelayed({
+                            valueAnimatorProgressBar.cancel()
                             countDownTimer.cancel()
 
                             valueAnimatorProgressBar.start()
@@ -212,8 +213,7 @@ fun GamePlay.scanPointsChange() {
                 gamePlayViewBinding.pointsEarning.startAnimation(fadeAnimationEarningPoints)
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int =
-                    totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier().levelNumber)
+                val totalNewPoint: Int = totalSavePoint + (newPositivePoint!! * gameLevel.getPointMultiplier().levelNumber)
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")
@@ -268,6 +268,7 @@ fun GamePlay.scanPointsChange() {
 
                     override fun onAnimationEnd(animation: Animation?) {
                         Handler().postDelayed({
+                            valueAnimatorProgressBar.cancel()
                             countDownTimer.cancel()
 
                             valueAnimatorProgressBar.start()
@@ -296,8 +297,7 @@ fun GamePlay.scanPointsChange() {
                 gamePlayViewBinding.pointsEarning.startAnimation(fadeAnimationEarningPoints)
 
                 val totalSavePoint: Int = functionsClassGameIO.readTotalPoints()
-                val totalNewPoint: Int =
-                    totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier().levelNumber)
+                val totalNewPoint: Int = totalSavePoint - (newNegativePoint!! * gameLevel.getPointMultiplier().levelNumber)
 
                 functionsClassGameIO.saveTotalPoints(totalNewPoint)
                 gamePlayViewBinding.gamePlayInformationViewInclude.pointsTotalView.setText("${totalNewPoint}")

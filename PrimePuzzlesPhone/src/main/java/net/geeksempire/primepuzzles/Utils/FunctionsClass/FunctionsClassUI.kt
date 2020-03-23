@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/23/20 2:35 PM
- * Last modified 3/23/20 2:34 PM
+ * Created by Elias Fazel on 3/23/20 3:11 PM
+ * Last modified 3/23/20 2:46 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -54,8 +54,8 @@ class FunctionsClassUI(private val context: Context) {
         viewToReveal: View,
         yPosition: Float,
         xPosition: Float,
-        startRadius: Float
-    ) {
+        startRadius: Float) {
+
         countDownTimer.pause()
         GamePlay.countDownTimePaused = true
 
@@ -106,8 +106,7 @@ class FunctionsClassUI(private val context: Context) {
         viewToReveal: View,
         yPosition: Float,
         xPosition: Float,
-        startRadius: Float
-    ) {
+        startRadius: Float) {
 
         val finalRadius = hypot(displayX().toDouble(), displayY().toDouble()).toInt()
         val circularReveal = ViewAnimationUtils.createCircularReveal(

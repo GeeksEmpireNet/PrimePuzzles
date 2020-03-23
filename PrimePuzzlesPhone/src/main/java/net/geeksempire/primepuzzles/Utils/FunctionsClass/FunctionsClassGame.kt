@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/23/20 2:35 PM
- * Last modified 3/23/20 2:26 PM
+ * Created by Elias Fazel on 3/23/20 3:11 PM
+ * Last modified 3/23/20 2:50 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -21,12 +21,13 @@ import net.geeksempire.primepuzzles.GamePlay.Utils.CountDownTimer
 
 class FunctionsClassGame(private val context: Context) {
 
-    val functionsClassGameIO: FunctionsClassGameIO = FunctionsClassGameIO(context)
+    private val functionsClassGameIO: FunctionsClassGameIO = FunctionsClassGameIO(context)
 
     /**
      * Timer Functions
      */
-    fun countDownTimer(gamePlay: GamePlay, timerProgressBar: HorizontalProgressView) : CountDownTimer {
+    fun countDownTimer(gamePlay: GamePlay, timerProgressBar: HorizontalProgressView)
+            : CountDownTimer {
 
         gamePlay.valueAnimatorProgressBar = ValueAnimator.ofFloat(0F, 100F)
         gamePlay.valueAnimatorProgressBar.duration = GamePlay.countDownTimerDuration
@@ -51,7 +52,7 @@ class FunctionsClassGame(private val context: Context) {
                 GameVariablesViewModel.NEGATIVE_POINT.postValue(3)
 
                 val valueAnimatorProgressBarBack = ValueAnimator.ofFloat(100F, 0F)
-                valueAnimatorProgressBarBack.duration = 531
+                valueAnimatorProgressBarBack.duration = 333
                 valueAnimatorProgressBarBack.addUpdateListener { animator ->
                     timerProgressBar.progress = (animator.animatedValue as Float)
                 }

@@ -1,8 +1,8 @@
 /*
  * Copyright © 2020 By ...
  *
- * Created by Elias Fazel on 3/23/20 2:35 PM
- * Last modified 3/23/20 1:19 PM
+ * Created by Elias Fazel on 3/23/20 3:11 PM
+ * Last modified 3/23/20 3:08 PM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -101,12 +101,12 @@ class GamePlay : AppCompatActivity() {
         gamePlayViewBinding = GamePlayViewBinding.inflate(layoutInflater)
         setContentView(gamePlayViewBinding.root)
 
+        gameVariablesViewModel = ViewModelProvider(this@GamePlay).get(GameVariablesViewModel::class.java)
+
         countDownTimer = functionsClassGame.countDownTimer(this@GamePlay, gamePlayViewBinding.gamePlayInformationViewInclude.timerProgressBar)
 
         gamePlayViewBinding.gamePlayControlViewInclude.gesturedRandomCenterView.bringToFront()
         gamePlayViewBinding.gamePlayPrimeNumberDetectedViewInclude.root.bringToFront()
-
-        gameVariablesViewModel = ViewModelProvider(this@GamePlay).get(GameVariablesViewModel::class.java)
 
         val rootLayout = gamePlayViewBinding.root
         rootLayout.visibility = View.INVISIBLE
@@ -211,9 +211,12 @@ class GamePlay : AppCompatActivity() {
         observeSnackbarToggle()
 
         Handler().postDelayed({
+            valueAnimatorProgressBar.cancel()
+            countDownTimer.cancel()
+
             valueAnimatorProgressBar.start()
             countDownTimer.start()
-        }, 1999)
+        }, 1000)
     }
 
     override fun onResume() {
